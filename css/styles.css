@@ -316,6 +316,75 @@ body {
 .feature-list li:last-child { border-bottom: none; }
 .feature-list li::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.6; }
 
+/* Steps */
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+}
+.step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+.step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #38bdf8);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+.step-content {
+    flex: 1;
+    padding-top: 3px;
+}
+.step-content p {
+    color: var(--text);
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+.step-content p:last-child {
+    margin-bottom: 0;
+}
+.step-content code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    background: rgba(37, 99, 235, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent);
+}
+.step-content .code-block code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+}
+.step-content .feature-list {
+    margin-top: 6px;
+}
+
+/* Tip Card */
+.tip-card {
+    border-left: 3px solid var(--accent);
+    background: rgba(37, 99, 235, 0.04);
+}
+.tip-card::before {
+    background: linear-gradient(
+        135deg,
+        rgba(37, 99, 235, 0.06) 0%,
+        transparent 30%,
+        transparent 100%
+    );
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */

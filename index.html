@@ -11,7 +11,6 @@
 </head>
 <body>
     <div class="layout">
-        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo-box">
@@ -34,10 +33,9 @@
                             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                         </a>
                         <ul class="nav-sublist">
-                            <li><a href="#frame-animator" class="nav-link" data-section="frame-animator">帧动画控制器</a></li>
-                            <li><a href="#simple-animator" class="nav-link" data-section="simple-animator">简易动画器 (位移旋转缩放)</a></li>
-                            <li><a href="#image-fill-animator" class="nav-link" data-section="image-fill-animator">简易动画器 (图片填充)</a></li>
+                            <li><a href="#simple-animator" class="nav-link" data-section="simple-animator">简易动画器</a></li>
                             <li><a href="#path-animator" class="nav-link" data-section="path-animator">路径动画器</a></li>
+                            <li><a href="#legacy-animation" class="nav-link" data-section="legacy-animation">帧动画控制器</a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-children">
@@ -48,7 +46,7 @@
                         </a>
                         <ul class="nav-sublist">
                             <li><a href="#camera-controller" class="nav-link" data-section="camera-controller">相机控制器</a></li>
-                            <li><a href="#camera-target-switcher" class="nav-link" data-section="camera-target-switcher">相机目标切换器</a></li>
+                            <li><a href="#camera-zoom" class="nav-link" data-section="camera-zoom">目标切换器</a></li>
                             <li><a href="#viewport-offset" class="nav-link" data-section="viewport-offset">视口偏移控制器</a></li>
                         </ul>
                     </li>
@@ -60,7 +58,7 @@
                         </a>
                         <ul class="nav-sublist">
                             <li><a href="#http-datasource" class="nav-link" data-section="http-datasource">HTTP 数据源</a></li>
-                            <li><a href="#http-manager" class="nav-link" data-section="http-manager">HTTP 数据源管理器</a></li>
+                            <li><a href="#http-manager" class="nav-link" data-section="http-manager">数据源管理器</a></li>
                             <li><a href="#websocket" class="nav-link" data-section="websocket">WebSocket 客户端</a></li>
                         </ul>
                     </li>
@@ -71,8 +69,8 @@
                             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                         </a>
                         <ul class="nav-sublist">
-                            <li><a href="#prompt-popup" class="nav-link" data-section="prompt-popup">提示弹窗管理器</a></li>
-                            <li><a href="#top-toast" class="nav-link" data-section="top-toast">顶部通知管理器</a></li>
+                            <li><a href="#prompt-popup" class="nav-link" data-section="prompt-popup">提示弹窗</a></li>
+                            <li><a href="#top-toast" class="nav-link" data-section="top-toast">顶部通知</a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-children">
@@ -83,36 +81,25 @@
                         </a>
                         <ul class="nav-sublist">
                             <li><a href="#button-group" class="nav-link" data-section="button-group">按钮组</a></li>
-                            <li><a href="#toggle-button" class="nav-link" data-section="toggle-button">开关按钮</a></li>
-                            <li><a href="#draggable-panel" class="nav-link" data-section="draggable-panel">可拖拽面板</a></li>
+                            <li><a href="#switch-button" class="nav-link" data-section="switch-button">开关按钮</a></li>
+                            <li><a href="#drag-panel" class="nav-link" data-section="drag-panel">可拖拽面板</a></li>
                             <li><a href="#ui-follower" class="nav-link" data-section="ui-follower">UI 跟随器</a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-children">
-                        <a href="#ui-tools" class="nav-link" data-section="ui-tools">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-                            <span>UI 工具</span>
-                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                        </a>
-                        <ul class="nav-sublist">
-                            <li><a href="#anchor-aligner" class="nav-link" data-section="anchor-aligner">对齐锚点到角落</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item has-children">
                         <a href="#visual" class="nav-link" data-section="visual">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-                            <span>视觉运行时</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>
+                            <span>视觉效果</span>
                             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                         </a>
                         <ul class="nav-sublist">
-                            <li><a href="#dot-spinner" class="nav-link" data-section="dot-spinner">圆点旋转加载</a></li>
+                            <li><a href="#metaball-spinner" class="nav-link" data-section="metaball-spinner">圆点旋转加载</a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
         </aside>
 
-        <!-- Main Content -->
         <main class="main">
             <header class="topbar">
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
@@ -122,362 +109,938 @@
             </header>
 
             <div class="content" id="content">
+
                 <!-- ==================== 概览 ==================== -->
                 <section class="doc-section active" id="section-overview">
                     <div class="section-hero">
                         <h2>TemplateKit</h2>
                         <p class="subtitle">Unity 编辑器模板工具包</p>
-                        <p class="desc">通过右键菜单快速创建预配置组件，提升开发效率。</p>
+                        <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>如何使用</h3>
+                        <p>在场景的 Hierarchy 面板空白处或选中某个 GameObject 后右键：</p>
+                        <div class="code-block"><code>右键 &gt; GameObject &gt; 模板 &gt; [分类] &gt; [组件名]</code></div>
+                        <p>选择后会自动创建一个预配置好的 GameObject，挂载对应组件并设置好默认参数。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <!-- 替换: <img src="assets/images/overview-menu.gif" alt="右键菜单演示"> -->
+                        <div class="placeholder-inner"><span>GIF: 右键菜单创建组件的完整流程演示</span><small>建议录制从右键到组件出现在场景中的全过程</small></div>
                     </div>
 
                     <div class="card-grid">
                         <a class="glass-card clickable" data-goto="animation">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                             <h3>动画</h3>
-                            <p>帧动画、简易动画器、路径动画</p>
+                            <p>位移旋转缩放动画、路径动画、帧动画</p>
                         </a>
                         <a class="glass-card clickable" data-goto="camera">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
                             <h3>相机</h3>
-                            <p>相机控制、目标切换、视口偏移</p>
+                            <p>鸟瞰、旋转缩放、第一人称三种模式</p>
                         </a>
                         <a class="glass-card clickable" data-goto="networking">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
                             <h3>网络通信</h3>
-                            <p>HTTP 数据源、WebSocket 客户端</p>
+                            <p>HTTP 请求、WebSocket 长连接</p>
                         </a>
                         <a class="glass-card clickable" data-goto="ui-feedback">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
                             <h3>UI 反馈</h3>
-                            <p>提示弹窗、顶部通知管理器</p>
+                            <p>弹窗确认、顶部 Toast 通知</p>
                         </a>
                         <a class="glass-card clickable" data-goto="ui-controls">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
                             <h3>UI 控件</h3>
-                            <p>按钮组、开关、可拖拽面板、UI 跟随器</p>
+                            <p>按钮组、开关、拖拽面板、UI 跟随</p>
                         </a>
                         <a class="glass-card clickable" data-goto="visual">
-                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
-                            <h3>视觉运行时</h3>
-                            <p>圆点旋转加载等视觉效果</p>
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></div>
+                            <h3>视觉效果</h3>
+                            <p>Metaball 加载动画等 GPU 特效</p>
                         </a>
                     </div>
 
                     <div class="glass-card">
-                        <h3>快速开始</h3>
-                        <p>在 Unity 编辑器 Hierarchy 面板中右键：</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; [分类] &gt; [组件]</code></div>
-                        <p>或通过 Tools 菜单生成预制体资源：</p>
-                        <div class="code-block"><code>Tools &gt; 模板 &gt; 生成[分类]预制体资源</code></div>
+                        <h3>生成预制体资源</h3>
+                        <p>部分模块还支持通过 Tools 菜单批量生成预制体到项目中：</p>
+                        <div class="code-block"><code>菜单栏 &gt; Tools &gt; 模板 &gt; 生成[模块名]预制体资源</code></div>
                     </div>
                 </section>
 
-                <!-- ==================== 动画 ==================== -->
+<!-- CONTENT_SECTIONS -->
+
+                <!-- ==================== 动画模块 ==================== -->
                 <section class="doc-section" id="section-animation">
-                    <div class="section-hero"><h2>动画模块</h2><p class="subtitle">Animation Kit</p></div>
+                    <div class="section-hero"><h2>动画模块</h2><p class="subtitle">无需 Animator Controller，用更简单的方式驱动动画</p></div>
                     <div class="glass-card">
-                        <p>动画模块提供多种预配置的动画模板组件，涵盖帧动画、属性动画和路径动画。</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; [选择组件]</code></div>
+                        <h3>模块包含</h3>
+                        <ul class="feature-list">
+                            <li><strong>简易动画器</strong> — 在两个状态之间做 Transform 或 Image 填充动画</li>
+                            <li><strong>路径动画器</strong> — 让物体沿路径点序列移动</li>
+                            <li><strong>帧动画控制器</strong> — 控制 Legacy Animation 组件的播放帧段</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card">
+                        <h3>创建方式</h3>
+                        <div class="code-block"><code>右键 Hierarchy &gt; GameObject &gt; 模板 &gt; 动画 &gt; [选择组件]</code></div>
                     </div>
                 </section>
 
-                <section class="doc-section" id="section-frame-animator">
-                    <div class="section-hero"><h2>帧动画控制器</h2><p class="subtitle">动画 / FrameAnimator</p></div>
+                <!-- 简易动画器 -->
+                <section class="doc-section" id="section-simple-animator">
+                    <div class="section-hero"><h2>简易动画器</h2><p class="subtitle">SimpleAnimator — 两点之间的补间动画</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>在「起点状态」和「终点状态」之间做平滑过渡动画。支持两种模式：</p>
+                        <ul class="feature-list">
+                            <li><strong>Transform 模式</strong> — 位移、旋转、缩放（包括 RectTransform 的 anchoredPosition、sizeDelta 等）</li>
+                            <li><strong>ImageFill 模式</strong> — 控制 Image 的 fillAmount（进度条、冷却环等）</li>
+                        </ul>
+                    </div>
+
                     <div class="media-placeholder">
-                        <!-- 替换为实际截图或GIF: <img src="assets/images/frame-animator.gif" alt="帧动画控制器演示"> -->
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450 或 GIF 演示</small></div>
+                        <div class="placeholder-inner"><span>GIF: Transform 模式下物体在两点之间往返的效果</span><small>展示一个面板从屏幕外滑入的动画</small></div>
                     </div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>播放序列帧动画，支持配置帧率、循环模式和播放控制。适用于 UI 图标动画、角色 2D 动画等场景。</p>
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-num">1</div>
+                                <div class="step-content">
+                                    <p>右键创建：<code>GameObject &gt; 模板 &gt; 动画 &gt; 简易动画器 (位移旋转缩放)</code></p>
+                                    <p>或选择 <code>简易动画器 (图片填充)</code> 进入 ImageFill 模式。</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">2</div>
+                                <div class="step-content">
+                                    <p>在 Inspector 中点击 <strong>QuickInit</strong> 按钮，会自动生成两个子物体作为标记：</p>
+                                    <ul class="feature-list">
+                                        <li><strong>OriginMarker</strong> — 代表动画起点的 Transform 状态</li>
+                                        <li><strong>DisplayMarker</strong> — 代表动画终点的 Transform 状态</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">3</div>
+                                <div class="step-content">
+                                    <p>在 Scene 视图中移动 OriginMarker 和 DisplayMarker 到想要的位置/旋转/缩放。</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">4</div>
+                                <div class="step-content">
+                                    <p>运行时调用代码即可播放动画：</p>
+                                    <div class="code-block"><code>simpleAnimator.ToDisplay();   // 播放到终点状态
+simpleAnimator.ToOrigin();    // 播放到起点状态
+simpleAnimator.Toggle();      // 来回切换</code></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass-card">
-                        <h3>使用方式</h3>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 帧动画控制器</code></div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: Inspector 面板中 QuickInit 后的效果</span><small>展示 OriginMarker / DisplayMarker 子物体和 Inspector 属性</small></div>
                     </div>
+
                     <div class="glass-card">
-                        <h3>属性说明</h3>
+                        <h3>主要属性</h3>
                         <table class="props-table">
-                            <thead><tr><th>属性</th><th>类型</th><th>说明</th></tr></thead>
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
                             <tbody>
-                                <tr><td>Sprites</td><td>Sprite[]</td><td>帧动画序列图片</td></tr>
-                                <tr><td>FrameRate</td><td>float</td><td>播放帧率</td></tr>
-                                <tr><td>Loop</td><td>bool</td><td>是否循环播放</td></tr>
+                                <tr><td>Mode</td><td>Transform 或 ImageFill</td></tr>
+                                <tr><td>Duration</td><td>动画时长（秒）</td></tr>
+                                <tr><td>Use Local Space</td><td>是否使用本地坐标（建议 UI 元素开启）</td></tr>
+                                <tr><td>Rotation Mode</td><td>ShortestPath（最短路径）或 FullRotation（完整旋转）</td></tr>
+                                <tr><td>Init Behaviour</td><td>组件启用时自动定位到起点/终点/不处理</td></tr>
                             </tbody>
                         </table>
                     </div>
-                </section>
 
-                <section class="doc-section" id="section-simple-animator">
-                    <div class="section-hero"><h2>简易动画器 (位移旋转缩放)</h2><p class="subtitle">动画 / SimpleAnimator</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>对 Transform 属性进行简易动画控制，支持循环、Ping-Pong 等播放模式，无需 Animator Controller。</p>
-                    </div>
-                    <div class="glass-card">
-                        <h3>使用方式</h3>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 简易动画器 (位移旋转缩放)</code></div>
-                    </div>
-                </section>
+                        <h3>代码调用速查</h3>
+                        <div class="code-block"><code>// 获取引用
+var anim = GetComponent&lt;SimpleAnimator&gt;();
 
-                <section class="doc-section" id="section-image-fill-animator">
-                    <div class="section-hero"><h2>简易动画器 (图片填充)</h2><p class="subtitle">动画 / ImageFillAnimator</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+// 基本播放
+anim.ToDisplay();              // 到终点
+anim.ToOrigin();               // 到起点
+anim.Toggle();                 // 自动判断方向
+
+// 立即跳转（无动画）
+anim.SetDisplayImmediate();
+anim.SetOriginImmediate();
+
+// 重复播放（来回 N 次）
+anim.ToDisplay(3);             // 到终点再回来，重复 3 次
+
+// 停止
+anim.KillAll();</code></div>
                     </div>
-                    <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>控制 Image 的 fillAmount 属性，实现进度条、冷却环、加载动画等填充效果。</p>
-                    </div>
-                    <div class="glass-card">
-                        <h3>使用方式</h3>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 简易动画器 (图片填充)</code></div>
+
+                    <div class="glass-card tip-card">
+                        <h3>提示</h3>
+                        <p>如果项目中安装了 DOTween，组件会自动使用 DOTween 驱动动画，效果更流畅且支持缓动曲线。未安装则使用内置 Coroutine 方案。</p>
                     </div>
                 </section>
 
+                <!-- 路径动画器 -->
                 <section class="doc-section" id="section-path-animator">
-                    <div class="section-hero"><h2>路径动画器</h2><p class="subtitle">动画 / PathAnimator</p></div>
+                    <div class="section-hero"><h2>路径动画器</h2><p class="subtitle">PathAnimator — 沿路径点移动物体</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>让目标对象沿一组路径点平滑移动。适用于：巡逻路线、相机轨道、UI 引导动画、物体传送带等。</p>
+                    </div>
+
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                        <div class="placeholder-inner"><span>GIF: 物体沿路径点移动的效果 + Scene 视图中的路径 Gizmo 线条</span><small>同时展示运行时效果和编辑器中的可视化路径</small></div>
                     </div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>沿预设路径点移动对象，支持 Scene 视图可视化编辑。适用于巡逻路线、摄像机轨道、UI 引导动画。</p>
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="step-num">1</div>
+                                <div class="step-content">
+                                    <p>右键创建：<code>GameObject &gt; 模板 &gt; 动画 &gt; 路径动画器</code></p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">2</div>
+                                <div class="step-content">
+                                    <p>在 Inspector 中点击 <strong>QuickInit</strong>，会自动生成 3 个路径点子物体。</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">3</div>
+                                <div class="step-content">
+                                    <p>在 Scene 视图中拖动路径点位置。需要更多点可点击 <strong>Add Waypoint</strong>。</p>
+                                    <p>路径会以 Gizmo 线条实时显示在 Scene 视图中。</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-num">4</div>
+                                <div class="step-content">
+                                    <p>运行时调用播放：</p>
+                                    <div class="code-block"><code>pathAnimator.PlayForward();   // 正向播放
+pathAnimator.PlayReverse();   // 反向播放</code></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: Inspector 中路径动画器的属性面板</span><small>展示 Waypoints 列表、插值模式、循环模式等配置</small></div>
+                    </div>
+
                     <div class="glass-card">
-                        <h3>使用方式</h3>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 路径动画器</code></div>
+                        <h3>关键配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Interpolation</td><td><strong>Linear</strong>（折线）或 <strong>CatmullRom</strong>（平滑曲线）</td></tr>
+                                <tr><td>Loop Mode</td><td>Once / Loop / PingPong</td></tr>
+                                <tr><td>Look At Mode</td><td>移动时朝向：无 / 前进方向 / 固定目标 / 下一个路径点</td></tr>
+                                <tr><td>Duration</td><td>走完全程的时间（秒）</td></tr>
+                                <tr><td>Close Path</td><td>是否闭合路径（最后一点连回第一点）</td></tr>
+                                <tr><td>Speed Mode</td><td>Constant（匀速）或 UniformSegment（每段等时间）</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用速查</h3>
+                        <div class="code-block"><code>var path = GetComponent&lt;PathAnimator&gt;();
+
+path.PlayForward();
+path.PlayReverse();
+path.Pause();
+path.Resume();
+path.Stop();
+path.StopAndReset();           // 停止并回到第一个点
+
+// 直接跳到某个点
+path.SnapToPoint(2);           // 跳到第 3 个路径点
+path.SnapToProgress(0.5f);     // 跳到路径 50% 位置
+
+// 只计算位置（不移动物体）
+Vector3 pos = path.EvaluatePathAtProgress(0.75f);</code></div>
                     </div>
                 </section>
 
-                <!-- ==================== 相机 ==================== -->
-                <section class="doc-section" id="section-camera">
-                    <div class="section-hero"><h2>相机模块</h2><p class="subtitle">Camera Kit</p></div>
+<!-- SECTION_LEGACY_AND_MORE -->
+
+                <!-- 帧动画控制器 -->
+                <section class="doc-section" id="section-legacy-animation">
+                    <div class="section-hero"><h2>帧动画控制器</h2><p class="subtitle">LegacyAnimationController — 精确控制 Legacy Animation 的播放帧段</p></div>
+
                     <div class="glass-card">
-                        <p>相机模块提供相机控制、目标切换和视口偏移等功能模板。</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 相机 &gt; [选择组件]</code></div>
+                        <h3>它能做什么</h3>
+                        <p>对挂载了 Legacy Animation 组件的物体，按「起始帧 ~ 结束帧」精确播放动画片段。适用于：机械运动、开关门、设备状态切换等需要帧级控制的场景。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 一个门从关闭播放到打开的帧动画演示</span><small>展示 Play / SnapToFrame 的效果</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>右键创建：<code>GameObject &gt; 模板 &gt; 动画 &gt; 帧动画控制器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>确保目标物体上有 <strong>Animation</strong>（Legacy）组件并挂载了动画片段。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 Inspector 中点击 <strong>QuickInit</strong>，自动读取所有可用的动画片段到列表中。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>设置每个片段的 startFrame / endFrame / playbackSpeed。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用速查</h3>
+                        <div class="code-block"><code>var ctrl = GetComponent&lt;LegacyAnimationController&gt;();
+
+// 播放当前选中的片段（返回播放时长）
+float duration = ctrl.Play();
+
+// 播放指定片段并自定义帧范围
+ctrl.Play("Open", startFrame: 0, endFrame: 30, speed: 1.5f);
+
+// 跳到某一帧
+ctrl.SnapToFrame(15);
+ctrl.SnapToStartFrame();
+ctrl.SnapToEndFrame();
+
+// 暂停 / 恢复
+ctrl.Pause();
+ctrl.Resume();</code></div>
+                    </div>
+                </section>
+
+                <!-- ==================== 相机模块 ==================== -->
+                <section class="doc-section" id="section-camera">
+                    <div class="section-hero"><h2>相机模块</h2><p class="subtitle">三种相机控制模式，覆盖大部分 3D 场景需求</p></div>
+                    <div class="glass-card">
+                        <h3>内置三种模式</h3>
+                        <ul class="feature-list">
+                            <li><strong>鸟瞰式移动相机</strong> — 俯视角拖拽平移 + 滚轮调高度，适合地图/沙盘类</li>
+                            <li><strong>旋转缩放式相机</strong> — 围绕目标旋转 + 缩放，适合展示/查看模型</li>
+                            <li><strong>第一人称飞行移动</strong> — WASD + 鼠标，适合场景漫游</li>
+                        </ul>
+                        <p>三种模式通过 CameraController 统一管理，运行时可随时切换。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 三种相机模式的对比演示</span><small>可以做成三个并排小 GIF 或一个切换演示</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>创建方式</h3>
+                        <div class="code-block"><code>右键 Hierarchy &gt; GameObject &gt; 模板 &gt; 相机 &gt; 相机控制器</code></div>
+                        <p>创建后在 Inspector 的 <strong>Camera Type</strong> 下拉框选择模式。</p>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-camera-controller">
-                    <div class="section-hero"><h2>相机控制器</h2><p class="subtitle">相机 / CameraController</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                    <div class="section-hero"><h2>相机控制器</h2><p class="subtitle">CameraController — 核心组件，管理相机状态切换</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>提供相机跟随、缩放、旋转等基础控制，支持平滑过渡和边界约束。</p>
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建后它会自动查找场景中的 Main Camera。也可手动拖拽指定 Target Camera。</p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>选择 Camera Type：鸟瞰式 / 旋转缩放式 / 第一人称飞行。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>展开对应模式的折叠栏，配置速度、范围等参数。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: CameraController 的 Inspector 面板</span><small>展示模式选择和各模式参数配置区域</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>鸟瞰式相机参数</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Move Speed</td><td>拖拽平移速度</td></tr>
+                                <tr><td>Rotate Speed</td><td>右键旋转速度</td></tr>
+                                <tr><td>Min/Max Height</td><td>滚轮缩放的高度范围</td></tr>
+                                <tr><td>Limit Movement Area</td><td>是否限制平移范围（开启后可设置中心点和宽高）</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>旋转缩放式相机参数</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Target</td><td>围绕旋转的目标物体</td></tr>
+                                <tr><td>Zoom Min/Max</td><td>缩放距离范围</td></tr>
+                                <tr><td>Drag Sensitivity</td><td>鼠标拖拽灵敏度 (X/Y)</td></tr>
+                                <tr><td>Inertia</td><td>松手后的惯性滑动时间</td></tr>
+                                <tr><td>Pitch Limit</td><td>俯仰角限制范围</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>第一人称飞行参数</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Speed</td><td>WASD 移动速度（运行时可按 +/- 调整）</td></tr>
+                                <tr><td>Rotation Speed</td><td>鼠标旋转速度</td></tr>
+                                <tr><td>Enable Collision</td><td>是否启用物理碰撞（开启会自动添加 Rigidbody）</td></tr>
+                                <tr><td>E/Q Up Down Speed</td><td>上下移动速度</td></tr>
+                                <tr><td>Min/Max Height</td><td>高度限制（Enable Min Max Height 开启时生效）</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码切换模式</h3>
+                        <div class="code-block"><code>// 获取单例
+var cam = CameraController.Instance;
+
+// 切换模式
+cam.SetCameraType(CameraController.CameraTypeEnum.旋转缩放式相机);
+
+// 聚焦到某个物体
+cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
                     </div>
                 </section>
 
-                <section class="doc-section" id="section-camera-target-switcher">
-                    <div class="section-hero"><h2>相机目标切换器</h2><p class="subtitle">相机 / CameraTargetSwitcher</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                <section class="doc-section" id="section-camera-zoom">
+                    <div class="section-hero"><h2>目标切换器</h2><p class="subtitle">CameraZoomController — 在预设目标之间切换相机视角</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>在多个目标间平滑切换相机关注点，支持过渡动画和缓动曲线配置。</p>
+                        <h3>它能做什么</h3>
+                        <p>预设多个「关注点」，运行时可一键切换相机到对应位置和角度。适用于：楼层切换、展品聚焦、场景导览等。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 点击按钮切换到不同预设目标的动画效果</span><small>展示相机平滑过渡到不同目标点</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 相机 &gt; 相机目标切换器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 Informs 列表中添加目标配置：拖入目标 Transform、设置缩放距离和旋转角度。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>代码调用切换：</p>
+                                <div class="code-block"><code>CameraZoomController.Instance.SetCameraTarget("展品A");
+
+// 围绕目标旋转（仅旋转缩放模式）
+CameraZoomController.Instance.RotateAroundTarget("展品A", cycleDuration: 5f);</code></div>
+                            </div></div>
+                        </div>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-viewport-offset">
-                    <div class="section-hero"><h2>视口偏移控制器</h2><p class="subtitle">相机 / ViewportOffsetController</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                    <div class="section-hero"><h2>视口偏移控制器</h2><p class="subtitle">CameraViewportController — 画面焦点左右偏移</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>控制相机视口偏移，适用于 UI 面板展开时需要偏移画面焦点的场景。</p>
+                        <h3>它能做什么</h3>
+                        <p>当侧边面板展开时，通过偏移相机镜头让主画面焦点不被遮挡。效果类似地图应用打开详情面板时画面中心的偏移。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 面板展开时画面焦点自动偏移的效果</span><small>对比有偏移和无偏移时的视觉差异</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var vpc = CameraViewportController.Instance;
+
+vpc.SetToLeft();    // 画面偏左（焦点让给右侧面板）
+vpc.SetToRight();   // 画面偏右
+vpc.SetToOri();     // 回到居中</code></div>
                     </div>
                 </section>
 
+<!-- SECTION_NETWORKING -->
+
                 <!-- ==================== 网络通信 ==================== -->
                 <section class="doc-section" id="section-networking">
-                    <div class="section-hero"><h2>网络通信模块</h2><p class="subtitle">Networking Core Kit</p></div>
+                    <div class="section-hero"><h2>网络通信模块</h2><p class="subtitle">HTTP 请求和 WebSocket 长连接的开箱即用方案</p></div>
                     <div class="glass-card">
-                        <p>网络模块提供 HTTP 请求和 WebSocket 长连接的模板组件。</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 网络通信 &gt; [选择组件]</code></div>
+                        <h3>模块包含</h3>
+                        <ul class="feature-list">
+                            <li><strong>HTTP 数据源</strong> — 单个 HTTP 请求组件，支持 GET/POST/PUT/DELETE</li>
+                            <li><strong>HTTP 数据源管理器</strong> — 统一管理多个 API 接口，自带对象池和缓存</li>
+                            <li><strong>WebSocket 客户端</strong> — 长连接，自动重连 + 心跳</li>
+                        </ul>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-http-datasource">
-                    <div class="section-hero"><h2>HTTP 数据源</h2><p class="subtitle">网络通信 / HttpDataSource</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                    <div class="section-hero"><h2>HTTP 数据源</h2><p class="subtitle">HttpDataSource — 直接在 Inspector 中配置 HTTP 请求</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>封装 HTTP 请求逻辑，支持 GET/POST，自动序列化/反序列化 JSON 数据。</p>
+                        <h3>它能做什么</h3>
+                        <p>不写代码也能发 HTTP 请求。URL、方法、参数、Header 全部在 Inspector 中配置，通过 UnityEvent 拿到响应结果。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: HttpDataSource 的 Inspector 全貌</span><small>展示 URL、方法、参数列表、事件绑定等配置区域</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 网络通信 &gt; HTTP 数据源</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content">
+                                <p>在 Inspector 中配置：</p>
+                                <ul class="feature-list">
+                                    <li>填写 URL</li>
+                                    <li>选择 HTTP 方法（GET / POST / PUT / DELETE）</li>
+                                    <li>如果是 POST，设置 Upload Type 和请求体内容</li>
+                                    <li>如需要，添加 Form Parameters 和 Headers</li>
+                                </ul>
+                            </div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content">
+                                <p>绑定响应事件（Inspector 底部的 UnityEvent）：</p>
+                                <ul class="feature-list">
+                                    <li><strong>OnResponseReceived</strong> — 请求成功时触发，参数为 JSON 字符串</li>
+                                    <li><strong>OnErrorReceived</strong> — 请求失败时触发</li>
+                                    <li><strong>OnImageReceived</strong> — 如果开启了 Expect Image Response，图片下载完成时触发</li>
+                                </ul>
+                            </div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content">
+                                <p>选择触发方式（Update Mode）：</p>
+                                <ul class="feature-list">
+                                    <li><strong>Manual</strong> — 手动调用 SendRequest()</li>
+                                    <li><strong>OnEnable</strong> — 组件启用时自动发送</li>
+                                    <li><strong>TimeInterval</strong> — 每隔 N 秒自动发送</li>
+                                    <li><strong>EndlessLoop</strong> — 收到响应后立即发送下一次</li>
+                                </ul>
+                            </div></div>
+                        </div>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 运行后 Console 中打印出响应数据的完整流程</span><small>从 Inspector 配置到运行时看到结果</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var http = GetComponent&lt;HttpDataSource&gt;();
+
+// 手动发送
+http.SendRequest();
+
+// 带回调
+http.SendRequest(response =&gt; {
+    Debug.Log("收到: " + response);
+});
+
+// 动态修改参数
+http.Url = "https://api.example.com/data";
+http.SetUploadString("{\"key\":\"value\"}");
+http.AddFormParameter("page", "1");</code></div>
+                    </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>关于鉴权</h3>
+                        <p>如果请求需要 Token，在同一物体或父物体上挂载 <strong>BearerTokenProvider</strong> 组件，填入 Token 即可自动添加 Authorization Header。</p>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-http-manager">
-                    <div class="section-hero"><h2>HTTP 数据源管理器</h2><p class="subtitle">网络通信 / HttpDataSourceManager</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                    <div class="section-hero"><h2>数据源管理器</h2><p class="subtitle">HttpDataSourceManager — 多接口统一管理 + 对象池 + 缓存</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>统一管理多个 HTTP 数据源，提供全局配置和请求调度能力。</p>
+                        <h3>它能做什么</h3>
+                        <p>当项目有多个 API 接口时，用管理器统一配置 Base URL 和各接口路径，自动管理对象池（避免创建大量 HTTP 组件）和响应缓存（避免重复请求）。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: HttpDataSourceManager 的 Inspector 配置</span><small>展示 Base URL、API Configs 列表配置</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var mgr = GetComponent&lt;HttpDataSourceManager&gt;();
+
+// 发送请求（key 对应 Inspector 中配置的接口名）
+mgr.Request("getUserInfo", parameters, response =&gt; {
+    Debug.Log(response);
+});
+
+// 泛型版本，自动反序列化
+mgr.Request&lt;UserInfo&gt;("getUserInfo", parameters, user =&gt; {
+    Debug.Log(user.name);
+});
+
+// 清除缓存
+mgr.ClearCache("getUserInfo");</code></div>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-websocket">
-                    <div class="section-hero"><h2>WebSocket 客户端</h2><p class="subtitle">网络通信 / WebSocketClient</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                    <div class="section-hero"><h2>WebSocket 客户端</h2><p class="subtitle">WebSocketClient — 长连接通信，自动重连和心跳</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>WebSocket 长连接客户端，支持自动重连、心跳检测和消息收发。</p>
+                        <h3>它能做什么</h3>
+                        <p>建立 WebSocket 长连接，支持自动重连、心跳 Ping、消息收发。同时兼容 Native 平台和 WebGL 平台。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: WebSocketClient 的 Inspector 配置</span><small>展示 URL、重连参数、心跳参数、事件绑定</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 网络通信 &gt; WebSocket 客户端</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>填写 WebSocket URL（ws:// 或 wss://）。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>配置重连和心跳参数（通常保持默认即可）。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>绑定事件：onConnected、onTextReceived、onError、onDisconnected。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>关键配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Connect On Enable</td><td>组件启用时自动连接</td></tr>
+                                <tr><td>Enable Reconnect</td><td>断线后自动重连</td></tr>
+                                <tr><td>Reconnect Delay</td><td>重连间隔秒数</td></tr>
+                                <tr><td>Max Reconnect Attempts</td><td>最大重连次数（-1 = 无限）</td></tr>
+                                <tr><td>Enable Ping</td><td>定时发送心跳</td></tr>
+                                <tr><td>Ping Interval</td><td>心跳间隔秒数</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var ws = GetComponent&lt;WebSocketClient&gt;();
+
+ws.Connect();                 // 手动连接
+ws.SendText("{\"cmd\":\"hello\"}");
+ws.Disconnect();
+
+// 事件监听（代码方式）
+ws.OnTextReceivedDelegate += msg =&gt; Debug.Log(msg);
+ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
                 </section>
 
+<!-- SECTION_UI_FEEDBACK -->
+
                 <!-- ==================== UI 反馈 ==================== -->
                 <section class="doc-section" id="section-ui-feedback">
-                    <div class="section-hero"><h2>UI 反馈模块</h2><p class="subtitle">UI Feedback Kit</p></div>
+                    <div class="section-hero"><h2>UI 反馈模块</h2><p class="subtitle">弹窗确认和顶部 Toast 通知</p></div>
                     <div class="glass-card">
-                        <p>UI 反馈模块提供弹窗和通知的模板组件，开箱即用。</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; UI反馈 &gt; [选择组件]</code></div>
+                        <p>提供两种常见的 UI 反馈方式，使用前需要先通过 Tools 菜单生成预制体资源：</p>
+                        <div class="code-block"><code>菜单栏 &gt; Tools &gt; 模板 &gt; 生成UI反馈预制体资源</code></div>
+                        <p>然后通过右键菜单创建管理器到场景中。</p>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-prompt-popup">
-                    <div class="section-hero"><h2>提示弹窗管理器</h2><p class="subtitle">UI 反馈 / PromptPopupManager</p></div>
+                    <div class="section-hero"><h2>提示弹窗</h2><p class="subtitle">PromptPopupManager — 确认/取消弹窗</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>显示一个标准的确认弹窗（标题 + 描述 + 确认/取消按钮），用于危险操作确认、信息提示等。支持对象池，不会重复创建。</p>
+                    </div>
+
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                        <div class="placeholder-inner"><span>GIF: 弹窗弹出 → 用户点击确认 → 弹窗关闭的流程</span><small>展示弹窗的视觉样式和交互</small></div>
                     </div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>统一的提示弹窗管理，支持确认/取消双按钮、自定义内容和回调。Inspector 提供选项卡式配置面板。</p>
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>先生成预制体：<code>Tools &gt; 模板 &gt; 生成UI反馈预制体资源</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 提示弹窗管理器</code></p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>确保场景中有 Canvas。管理器会自动查找 Canvas 作为弹窗父级。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content">
+                                <p>代码调用显示弹窗：</p>
+                                <div class="code-block"><code>PromptPopupManager.Instance.ShowPrompt(
+    "删除确认",
+    "确定要删除这条记录吗？此操作不可撤销。",
+    onConfirm: () =&gt; { /* 确认逻辑 */ },
+    onCancel: () =&gt; { /* 取消逻辑 */ }
+);</code></div>
+                            </div></div>
+                        </div>
                     </div>
-                    <div class="glass-card">
-                        <h3>Inspector 选项卡</h3>
-                        <ul class="feature-list">
-                            <li>使用说明</li>
-                            <li>配置</li>
-                            <li>调试</li>
-                        </ul>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: PromptPopupManager 的 Inspector 配置</span><small>展示 Template 引用、Pool Size 等</small></div>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-top-toast">
-                    <div class="section-hero"><h2>顶部通知管理器</h2><p class="subtitle">UI 反馈 / TopToastManager</p></div>
+                    <div class="section-hero"><h2>顶部通知</h2><p class="subtitle">TopToastManager — 从顶部滑入的消息通知</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>从屏幕顶部滑入一条通知消息，支持图标、自动消失、点击回调、队列管理。类似手机推送通知的效果。</p>
+                    </div>
+
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                        <div class="placeholder-inner"><span>GIF: Toast 从顶部滑入 → 显示 → 自动滑出消失的效果</span><small>最好展示多条连续弹出的排队效果</small></div>
                     </div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>顶部滑入式通知消息，支持图标预设、自动消失和队列管理。</p>
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>先生成预制体：<code>Tools &gt; 模板 &gt; 生成UI反馈预制体资源</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 顶部通知管理器</code></p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content">
+                                <p>代码调用：</p>
+                                <div class="code-block"><code>TopToastManager.Instance.ShowToast("文件保存成功");
+
+// 带标题和图标类型
+TopToastManager.Instance.ShowToast(
+    "网络连接已断开",
+    title: "系统提示",
+    iconType: TopToastManager.AlarmType
+);
+
+// 带点击回调
+TopToastManager.Instance.ShowToast(
+    "收到新消息",
+    onClick: () =&gt; { OpenMessagePanel(); }
+);
+
+// 常驻通知（不自动消失）
+TopToastManager.Instance.ShowToast("正在下载...", constant: true);</code></div>
+                            </div></div>
+                        </div>
                     </div>
+
                     <div class="glass-card">
-                        <h3>Inspector 选项卡</h3>
-                        <ul class="feature-list">
-                            <li>使用说明</li>
-                            <li>核心配置</li>
-                            <li>清除按钮</li>
-                            <li>图标预设</li>
-                            <li>调试</li>
-                        </ul>
+                        <h3>内置图标类型</h3>
+                        <table class="props-table">
+                            <thead><tr><th>类型常量</th><th>用途</th></tr></thead>
+                            <tbody>
+                                <tr><td>TopToastManager.AlarmType</td><td>警告/报警</td></tr>
+                                <tr><td>TopToastManager.OfflineType</td><td>离线/断连</td></tr>
+                                <tr><td>TopToastManager.SuccessType</td><td>成功</td></tr>
+                                <tr><td>TopToastManager.FailedType</td><td>失败</td></tr>
+                                <tr><td>TopToastManager.NewUpdateType</td><td>新更新/新消息</td></tr>
+                            </tbody>
+                        </table>
+                        <p>图标 Sprite 在 Inspector 的 Icon Presets 列表中配置。</p>
                     </div>
                 </section>
 
                 <!-- ==================== UI 控件 ==================== -->
                 <section class="doc-section" id="section-ui-controls">
-                    <div class="section-hero"><h2>UI 控件模块</h2><p class="subtitle">UI Controls Kit</p></div>
+                    <div class="section-hero"><h2>UI 控件模块</h2><p class="subtitle">常用交互控件的预制模板</p></div>
                     <div class="glass-card">
-                        <p>UI 控件模块提供常用交互控件的模板，快速搭建界面交互。</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; UI控件 &gt; [选择组件]</code></div>
+                        <p>生成预制体资源：</p>
+                        <div class="code-block"><code>菜单栏 &gt; Tools &gt; 模板 &gt; 生成UI控件预制体资源</code></div>
+                        <p>然后通过右键菜单创建到场景中使用。</p>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-button-group">
-                    <div class="section-hero"><h2>按钮组</h2><p class="subtitle">UI 控件 / ButtonGroup</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                    <div class="section-hero"><h2>按钮组</h2><p class="subtitle">ButtonGroup — 互斥选中的按钮组（类似 Tab 切换）</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>管理一组互斥按钮（类似 Radio Group），自动处理选中状态切换。支持通过 Inspector 右键 Initialize 自动扫描子按钮。</p>
+                        <h3>它能做什么</h3>
+                        <p>管理一组按钮的互斥选中状态，点击某个按钮时自动取消其他按钮的选中样式。适用于：Tab 标签页、底部导航栏、筛选选项等。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 点击不同按钮时选中状态切换的效果</span><small>展示颜色/缩放变化的视觉反馈</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 按钮组</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在创建的 GameObject 下面放置多个带 Button 组件的子物体。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>Inspector 中点击右键菜单 <strong>Initialize</strong>（或开启 Auto Initialize On Awake），自动扫描并填充按钮列表。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>监听切换事件：在 Inspector 绑定 OnIndexChanged 事件，或代码监听。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: ButtonGroup Inspector 中 Initialize 后的按钮列表</span><small>展示 Items 列表和各配置项</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var group = GetComponent&lt;ButtonGroup&gt;();
+
+// 设置选中索引
+group.SetIndex(2);
+
+// 监听切换
+group.OnIndexChanged.AddListener(index =&gt; {
+    Debug.Log("选中了第 " + index + " 个按钮");
+});</code></div>
                     </div>
                 </section>
 
-                <section class="doc-section" id="section-toggle-button">
-                    <div class="section-hero"><h2>开关按钮</h2><p class="subtitle">UI 控件 / ToggleButton</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                <section class="doc-section" id="section-switch-button">
+                    <div class="section-hero"><h2>开关按钮</h2><p class="subtitle">SwitchButton — 开/关两种状态的切换按钮</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>带状态切换的按钮组件，支持开/关两种视觉状态和回调。</p>
+                        <h3>它能做什么</h3>
+                        <p>点击在 On/Off 两种状态间切换，自动更换 Sprite 和颜色。适用于：设置开关、夜间模式切换等。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 开关按钮点击切换的效果</span><small>展示颜色和图标的变化</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 开关按钮</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 中设置 On Sprite / Off Sprite 和 On Color / Off Color。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>绑定事件：OnSwitchOn / OnSwitchOff / OnSwitchChanged。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var sw = GetComponent&lt;SwitchButton&gt;();
+
+sw.Toggle();                        // 切换
+sw.SetSwitchState(true);            // 设为开启
+bool isOn = sw.IsOn;                // 读取状态
+
+sw.OnSwitchChanged.AddListener(state =&gt; {
+    Debug.Log("开关状态: " + state);
+});</code></div>
                     </div>
                 </section>
 
-                <section class="doc-section" id="section-draggable-panel">
-                    <div class="section-hero"><h2>可拖拽面板</h2><p class="subtitle">UI 控件 / DraggablePanel</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                <section class="doc-section" id="section-drag-panel">
+                    <div class="section-hero"><h2>可拖拽面板</h2><p class="subtitle">UIDragPanel — 可以拖拽移动的 UI 面板</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>支持拖拽移动的 UI 面板，可配置拖拽区域和移动约束。</p>
+                        <h3>它能做什么</h3>
+                        <p>让 UI 面板支持鼠标拖拽移动，并自动限制在指定区域内。拖拽时自动置顶层级。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 拖拽面板在限定区域内移动的效果</span><small>展示拖拽和边界限制</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Drag Area</td><td>限制拖拽的区域（RectTransform），留空则不限制</td></tr>
+                                <tr><td>Reset Position On Enable</td><td>每次启用时回到初始位置</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
 
                 <section class="doc-section" id="section-ui-follower">
-                    <div class="section-hero"><h2>UI 跟随器</h2><p class="subtitle">UI 控件 / UIFollower</p></div>
+                    <div class="section-hero"><h2>UI 跟随器</h2><p class="subtitle">UIFollower — 让 UI 跟随 3D 世界中的物体</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>将 UI 元素（如血条、名称标签）锚定到 3D 世界中的某个 Transform，UI 会实时跟随其屏幕投影位置。物体移到相机背面时自动隐藏。</p>
+                    </div>
+
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                        <div class="placeholder-inner"><span>GIF: UI 标签跟随 3D 物体移动的效果</span><small>展示物体移动时 UI 实时跟随，以及物体转到背面时 UI 消失</small></div>
                     </div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>使 UI 元素跟随指定目标（世界坐标或屏幕坐标），适用于血条、名称标签等。</p>
+                        <h3>配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>World Target</td><td>要跟随的 3D 物体 Transform</td></tr>
+                                <tr><td>UI Element</td><td>要移动的 UI RectTransform</td></tr>
+                                <tr><td>Offset</td><td>屏幕空间偏移量 (像素)</td></tr>
+                                <tr><td>Update Interval</td><td>更新频率（0 = 每帧更新）</td></tr>
+                                <tr><td>Auto Hide When Behind Camera</td><td>物体在相机后方时自动隐藏 UI</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var follower = GetComponent&lt;UIFollower&gt;();
+
+// 动态更换跟随目标
+follower.WorldTarget = newTarget;
+
+// 手动计算世界坐标到 Canvas 坐标
+Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                     </div>
                 </section>
 
-                <!-- ==================== UI 工具 ==================== -->
-                <section class="doc-section" id="section-ui-tools">
-                    <div class="section-hero"><h2>UI 工具模块</h2><p class="subtitle">UI Tools</p></div>
-                    <div class="glass-card">
-                        <p>编辑器辅助工具，提升 UI 开发效率。</p>
-                    </div>
-                </section>
-
-                <section class="doc-section" id="section-anchor-aligner">
-                    <div class="section-hero"><h2>对齐锚点到角落</h2><p class="subtitle">UI 工具 / Anchors to Corners</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
-                    <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>一键将 RectTransform 的锚点对齐到当前边界角落，解决 UI 自适应布局问题。</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; UI工具 &gt; 对齐锚点到角落</code></div>
-                    </div>
-                </section>
-
-                <!-- ==================== 视觉运行时 ==================== -->
+                <!-- ==================== 视觉效果 ==================== -->
                 <section class="doc-section" id="section-visual">
-                    <div class="section-hero"><h2>视觉运行时模块</h2><p class="subtitle">Visual Runtime Kit</p></div>
+                    <div class="section-hero"><h2>视觉效果模块</h2><p class="subtitle">GPU 驱动的运行时视觉效果</p></div>
                     <div class="glass-card">
-                        <p>运行时视觉效果组件模板。</p>
+                        <p>使用自定义 Shader 实现的视觉效果组件，性能开销低。</p>
                     </div>
                 </section>
 
-                <section class="doc-section" id="section-dot-spinner">
-                    <div class="section-hero"><h2>圆点旋转加载</h2><p class="subtitle">视觉运行时 / DotSpinner</p></div>
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
-                    </div>
+                <section class="doc-section" id="section-metaball-spinner">
+                    <div class="section-hero"><h2>圆点旋转加载</h2><p class="subtitle">MetaballLoadingSpinner — Metaball 融合效果的 Loading 动画</p></div>
+
                     <div class="glass-card">
-                        <h3>功能</h3>
-                        <p>圆点旋转的 Loading 效果，纯代码实现，可自定义颜色、数量和大小。</p>
-                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 视觉 &gt; 圆点旋转加载</code></div>
+                        <h3>它能做什么</h3>
+                        <p>渲染一组 Metaball（元球）旋转融合的加载动画。纯 GPU 计算，支持自定义颜色、数量、大小和发光效果。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: Metaball Loading 动画效果</span><small>展示不同颜色和参数下的效果对比</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 视觉 &gt; 圆点旋转加载</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>组件会自动创建一个 RawImage 子物体来渲染效果。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 Inspector 中调整颜色、大小、速度等参数。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: Inspector 中各参数调整效果对比</span><small>可以拼一张对比图：不同 Ball Count、不同颜色配置的效果</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>主要参数</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Ball Count</td><td>圆球数量 (1-16)</td></tr>
+                                <tr><td>Orbit Radius</td><td>旋转轨道半径</td></tr>
+                                <tr><td>Ball Radius</td><td>单个球的半径</td></tr>
+                                <tr><td>Rotation Speed</td><td>旋转速度（度/秒）</td></tr>
+                                <tr><td>Top/Bottom Color</td><td>渐变色上/下</td></tr>
+                                <tr><td>Glow Color/Intensity</td><td>外发光颜色和强度</td></tr>
+                                <tr><td>Threshold</td><td>Metaball 融合阈值（越小融合越明显）</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用</h3>
+                        <div class="code-block"><code>var spinner = GetComponent&lt;MetaballLoadingSpinner&gt;();
+
+spinner.Show();    // 显示
+spinner.Hide();    // 隐藏</code></div>
                     </div>
                 </section>
+
             </div>
         </main>
     </div>
