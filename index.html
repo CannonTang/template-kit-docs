@@ -269,11 +269,14 @@ var anim = GetComponent&lt;SimpleAnimator&gt;();
 
 // 基本播放
 anim.ToDisplay();              // 到终点
+
 anim.ToOrigin();               // 到起点
+
 anim.Toggle();                 // 自动判断方向
 
 // 立即跳转（无动画）
 anim.SetDisplayImmediate();
+
 anim.SetOriginImmediate();
 
 // 重复播放（来回 N 次）
@@ -359,14 +362,20 @@ pathAnimator.PlayReverse();   // 反向播放</code></div>
                         <div class="code-block"><code>var path = GetComponent&lt;PathAnimator&gt;();
 
 path.PlayForward();
+
 path.PlayReverse();
+
 path.Pause();
+
 path.Resume();
+
 path.Stop();
+
 path.StopAndReset();           // 停止并回到第一个点
 
 // 直接跳到某个点
 path.SnapToPoint(2);           // 跳到第 3 个路径点
+
 path.SnapToProgress(0.5f);     // 跳到路径 50% 位置
 
 // 只计算位置（不移动物体）
@@ -411,11 +420,14 @@ ctrl.Play("Open", startFrame: 0, endFrame: 30, speed: 1.5f);
 
 // 跳到某一帧
 ctrl.SnapToFrame(15);
+
 ctrl.SnapToStartFrame();
+
 ctrl.SnapToEndFrame();
 
 // 暂停 / 恢复
 ctrl.Pause();
+
 ctrl.Resume();</code></div>
                     </div>
                 </section>
@@ -558,7 +570,9 @@ CameraZoomController.Instance.RotateAroundTarget("展品A", cycleDuration: 5f);<
                         <div class="code-block"><code>var vpc = CameraViewportController.Instance;
 
 vpc.SetToLeft();    // 画面偏左（焦点让给右侧面板）
+
 vpc.SetToRight();   // 画面偏右
+
 vpc.SetToOri();     // 回到居中</code></div>
                     </div>
                 </section>
@@ -641,7 +655,9 @@ http.SendRequest(response =&gt; {
 
 // 动态修改参数
 http.Url = "https://api.example.com/data";
+
 http.SetUploadString("{\"key\":\"value\"}");
+
 http.AddFormParameter("page", "1");</code></div>
                     </div>
 
@@ -724,11 +740,14 @@ mgr.ClearCache("getUserInfo");</code></div>
                         <div class="code-block"><code>var ws = GetComponent&lt;WebSocketClient&gt;();
 
 ws.Connect();                 // 手动连接
+
 ws.SendText("{\"cmd\":\"hello\"}");
+
 ws.Disconnect();
 
 // 事件监听（代码方式）
 ws.OnTextReceivedDelegate += msg =&gt; Debug.Log(msg);
+
 ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
                 </section>
@@ -912,7 +931,9 @@ group.OnIndexChanged.AddListener(index =&gt; {
                         <div class="code-block"><code>var sw = GetComponent&lt;SwitchButton&gt;();
 
 sw.Toggle();                        // 切换
+
 sw.SetSwitchState(true);            // 设为开启
+
 bool isOn = sw.IsOn;                // 读取状态
 
 sw.OnSwitchChanged.AddListener(state =&gt; {
@@ -1037,6 +1058,7 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                         <div class="code-block"><code>var spinner = GetComponent&lt;MetaballLoadingSpinner&gt;();
 
 spinner.Show();    // 显示
+
 spinner.Hide();    // 隐藏</code></div>
                     </div>
                 </section>
