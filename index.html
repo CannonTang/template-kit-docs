@@ -118,16 +118,29 @@
                         <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。</p>
                     </div>
 
-                    <div class="glass-card">
-                        <h3>如何使用</h3>
-                        <p>在场景的 Hierarchy 面板空白处或选中某个 GameObject 后右键：</p>
-                        <div class="code-block"><code>右键 &gt; GameObject &gt; 模板 &gt; [分类] &gt; [组件名]</code></div>
-                        <p>选择后会自动创建一个预配置好的 GameObject，挂载对应组件并设置好默认参数。</p>
-                    </div>
-
-                    <div class="media-placeholder">
-                        <!-- 替换: <img src="assets/images/overview-menu.gif" alt="右键菜单演示"> -->
-                        <div class="placeholder-inner"><span>GIF: 右键菜单创建组件的完整流程演示</span><small>建议录制从右键到组件出现在场景中的全过程</small></div>
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <!-- 在这里添加图片，每个 item 一张 -->
+                            <div class="carousel-item active">
+                                <!-- <img src="assets/images/overview-1.gif" alt="右键菜单演示"> -->
+                                <div class="placeholder-inner"><span>图片 1: 右键菜单创建组件流程</span><small>assets/images/overview-1.gif</small></div>
+                            </div>
+                            <div class="carousel-item">
+                                <!-- <img src="assets/images/overview-2.png" alt="组件创建完成"> -->
+                                <div class="placeholder-inner"><span>图片 2: 组件创建后 Inspector 状态</span><small>assets/images/overview-2.png</small></div>
+                            </div>
+                            <div class="carousel-item">
+                                <!-- <img src="assets/images/overview-3.gif" alt="运行效果"> -->
+                                <div class="placeholder-inner"><span>图片 3: 运行时效果预览</span><small>assets/images/overview-3.gif</small></div>
+                            </div>
+                        </div>
+                        <button class="carousel-btn prev" aria-label="上一张">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button class="carousel-btn next" aria-label="下一张">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 6 15 12 9 18"/></svg>
+                        </button>
+                        <div class="carousel-dots"></div>
                     </div>
 
                     <div class="card-grid">

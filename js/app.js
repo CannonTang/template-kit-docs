@@ -89,4 +89,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hash) {
         showSection(hash);
     }
+
+    // Carousel
+    document.querySelectorAll('[data-carousel]').forEach(carousel => {
+        const items = carousel.querySelectorAll('.carousel-item');
+        const prevBtn = carousel.querySelector('.carousel-btn.prev');
+        const nextBtn = carousel.querySelector('.carousel-btn.next');
+        const dotsContainer = carousel.querySelector('.carousel-dots');
+        let current = 0;
+
+        items.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `第 ${i + 1} 张`);
+            dot.addEventListener('click', () => goTo(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        function goTo(index) {
+            items[current].classList.remove('active');
+            dotsContainer.children[current].classList.remove('active');
+            current = (index + items.length) % items.length;
+            items[current].classList.add('active');
+            dotsContainer.children[current].classList.add('active');
+        }
+
+        prevBtn.addEventListener('click', () => goTo(current - 1));
+        nextBtn.addEventListener('click', () => goTo(current + 1));
+    });
 });
