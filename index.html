@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TemplateKit - Unity 模板工具包文档</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h1 class="logo-text">TemplateKit</h1>
+            </div>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#overview" class="nav-link active" data-section="overview">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                            <span>概览</span>
+                        </a>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="#animation" class="nav-link" data-section="animation">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            <span>动画</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#frame-animator" class="nav-link" data-section="frame-animator">帧动画控制器</a></li>
+                            <li><a href="#simple-animator" class="nav-link" data-section="simple-animator">简易动画器 (位移旋转缩放)</a></li>
+                            <li><a href="#image-fill-animator" class="nav-link" data-section="image-fill-animator">简易动画器 (图片填充)</a></li>
+                            <li><a href="#path-animator" class="nav-link" data-section="path-animator">路径动画器</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="#camera" class="nav-link" data-section="camera">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                            <span>相机</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#camera-controller" class="nav-link" data-section="camera-controller">相机控制器</a></li>
+                            <li><a href="#camera-target-switcher" class="nav-link" data-section="camera-target-switcher">相机目标切换器</a></li>
+                            <li><a href="#viewport-offset" class="nav-link" data-section="viewport-offset">视口偏移控制器</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="#networking" class="nav-link" data-section="networking">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            <span>网络通信</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#http-datasource" class="nav-link" data-section="http-datasource">HTTP 数据源</a></li>
+                            <li><a href="#http-manager" class="nav-link" data-section="http-manager">HTTP 数据源管理器</a></li>
+                            <li><a href="#websocket" class="nav-link" data-section="websocket">WebSocket 客户端</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="#ui-feedback" class="nav-link" data-section="ui-feedback">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                            <span>UI 反馈</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#prompt-popup" class="nav-link" data-section="prompt-popup">提示弹窗管理器</a></li>
+                            <li><a href="#top-toast" class="nav-link" data-section="top-toast">顶部通知管理器</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="#ui-controls" class="nav-link" data-section="ui-controls">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                            <span>UI 控件</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#button-group" class="nav-link" data-section="button-group">按钮组</a></li>
+                            <li><a href="#toggle-button" class="nav-link" data-section="toggle-button">开关按钮</a></li>
+                            <li><a href="#draggable-panel" class="nav-link" data-section="draggable-panel">可拖拽面板</a></li>
+                            <li><a href="#ui-follower" class="nav-link" data-section="ui-follower">UI 跟随器</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="#ui-tools" class="nav-link" data-section="ui-tools">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+                            <span>UI 工具</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#anchor-aligner" class="nav-link" data-section="anchor-aligner">对齐锚点到角落</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-children">
+                        <a href="#visual" class="nav-link" data-section="visual">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                            <span>视觉运行时</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#dot-spinner" class="nav-link" data-section="dot-spinner">圆点旋转加载</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <header class="topbar">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+                <div class="breadcrumb" id="breadcrumb">概览</div>
+            </header>
+
+            <div class="content" id="content">
+                <!-- ==================== 概览 ==================== -->
+                <section class="doc-section active" id="section-overview">
+                    <div class="section-hero">
+                        <h2>TemplateKit</h2>
+                        <p class="subtitle">Unity 编辑器模板工具包</p>
+                        <p class="desc">通过右键菜单快速创建预配置组件，提升开发效率。</p>
+                    </div>
+
+                    <div class="card-grid">
+                        <a class="glass-card clickable" data-goto="animation">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                            <h3>动画</h3>
+                            <p>帧动画、简易动画器、路径动画</p>
+                        </a>
+                        <a class="glass-card clickable" data-goto="camera">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+                            <h3>相机</h3>
+                            <p>相机控制、目标切换、视口偏移</p>
+                        </a>
+                        <a class="glass-card clickable" data-goto="networking">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                            <h3>网络通信</h3>
+                            <p>HTTP 数据源、WebSocket 客户端</p>
+                        </a>
+                        <a class="glass-card clickable" data-goto="ui-feedback">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+                            <h3>UI 反馈</h3>
+                            <p>提示弹窗、顶部通知管理器</p>
+                        </a>
+                        <a class="glass-card clickable" data-goto="ui-controls">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
+                            <h3>UI 控件</h3>
+                            <p>按钮组、开关、可拖拽面板、UI 跟随器</p>
+                        </a>
+                        <a class="glass-card clickable" data-goto="visual">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+                            <h3>视觉运行时</h3>
+                            <p>圆点旋转加载等视觉效果</p>
+                        </a>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>快速开始</h3>
+                        <p>在 Unity 编辑器 Hierarchy 面板中右键：</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; [分类] &gt; [组件]</code></div>
+                        <p>或通过 Tools 菜单生成预制体资源：</p>
+                        <div class="code-block"><code>Tools &gt; 模板 &gt; 生成[分类]预制体资源</code></div>
+                    </div>
+                </section>
+
+                <!-- ==================== 动画 ==================== -->
+                <section class="doc-section" id="section-animation">
+                    <div class="section-hero"><h2>动画模块</h2><p class="subtitle">Animation Kit</p></div>
+                    <div class="glass-card">
+                        <p>动画模块提供多种预配置的动画模板组件，涵盖帧动画、属性动画和路径动画。</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; [选择组件]</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-frame-animator">
+                    <div class="section-hero"><h2>帧动画控制器</h2><p class="subtitle">动画 / FrameAnimator</p></div>
+                    <div class="media-placeholder">
+                        <!-- 替换为实际截图或GIF: <img src="assets/images/frame-animator.gif" alt="帧动画控制器演示"> -->
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450 或 GIF 演示</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>播放序列帧动画，支持配置帧率、循环模式和播放控制。适用于 UI 图标动画、角色 2D 动画等场景。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>使用方式</h3>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 帧动画控制器</code></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>属性说明</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>类型</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Sprites</td><td>Sprite[]</td><td>帧动画序列图片</td></tr>
+                                <tr><td>FrameRate</td><td>float</td><td>播放帧率</td></tr>
+                                <tr><td>Loop</td><td>bool</td><td>是否循环播放</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-simple-animator">
+                    <div class="section-hero"><h2>简易动画器 (位移旋转缩放)</h2><p class="subtitle">动画 / SimpleAnimator</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>对 Transform 属性进行简易动画控制，支持循环、Ping-Pong 等播放模式，无需 Animator Controller。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>使用方式</h3>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 简易动画器 (位移旋转缩放)</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-image-fill-animator">
+                    <div class="section-hero"><h2>简易动画器 (图片填充)</h2><p class="subtitle">动画 / ImageFillAnimator</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>控制 Image 的 fillAmount 属性，实现进度条、冷却环、加载动画等填充效果。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>使用方式</h3>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 简易动画器 (图片填充)</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-path-animator">
+                    <div class="section-hero"><h2>路径动画器</h2><p class="subtitle">动画 / PathAnimator</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>沿预设路径点移动对象，支持 Scene 视图可视化编辑。适用于巡逻路线、摄像机轨道、UI 引导动画。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>使用方式</h3>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 动画 &gt; 路径动画器</code></div>
+                    </div>
+                </section>
+
+                <!-- ==================== 相机 ==================== -->
+                <section class="doc-section" id="section-camera">
+                    <div class="section-hero"><h2>相机模块</h2><p class="subtitle">Camera Kit</p></div>
+                    <div class="glass-card">
+                        <p>相机模块提供相机控制、目标切换和视口偏移等功能模板。</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 相机 &gt; [选择组件]</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-camera-controller">
+                    <div class="section-hero"><h2>相机控制器</h2><p class="subtitle">相机 / CameraController</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>提供相机跟随、缩放、旋转等基础控制，支持平滑过渡和边界约束。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-camera-target-switcher">
+                    <div class="section-hero"><h2>相机目标切换器</h2><p class="subtitle">相机 / CameraTargetSwitcher</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>在多个目标间平滑切换相机关注点，支持过渡动画和缓动曲线配置。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-viewport-offset">
+                    <div class="section-hero"><h2>视口偏移控制器</h2><p class="subtitle">相机 / ViewportOffsetController</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>控制相机视口偏移，适用于 UI 面板展开时需要偏移画面焦点的场景。</p>
+                    </div>
+                </section>
+
+                <!-- ==================== 网络通信 ==================== -->
+                <section class="doc-section" id="section-networking">
+                    <div class="section-hero"><h2>网络通信模块</h2><p class="subtitle">Networking Core Kit</p></div>
+                    <div class="glass-card">
+                        <p>网络模块提供 HTTP 请求和 WebSocket 长连接的模板组件。</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 网络通信 &gt; [选择组件]</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-http-datasource">
+                    <div class="section-hero"><h2>HTTP 数据源</h2><p class="subtitle">网络通信 / HttpDataSource</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>封装 HTTP 请求逻辑，支持 GET/POST，自动序列化/反序列化 JSON 数据。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-http-manager">
+                    <div class="section-hero"><h2>HTTP 数据源管理器</h2><p class="subtitle">网络通信 / HttpDataSourceManager</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>统一管理多个 HTTP 数据源，提供全局配置和请求调度能力。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-websocket">
+                    <div class="section-hero"><h2>WebSocket 客户端</h2><p class="subtitle">网络通信 / WebSocketClient</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>WebSocket 长连接客户端，支持自动重连、心跳检测和消息收发。</p>
+                    </div>
+                </section>
+
+                <!-- ==================== UI 反馈 ==================== -->
+                <section class="doc-section" id="section-ui-feedback">
+                    <div class="section-hero"><h2>UI 反馈模块</h2><p class="subtitle">UI Feedback Kit</p></div>
+                    <div class="glass-card">
+                        <p>UI 反馈模块提供弹窗和通知的模板组件，开箱即用。</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; UI反馈 &gt; [选择组件]</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-prompt-popup">
+                    <div class="section-hero"><h2>提示弹窗管理器</h2><p class="subtitle">UI 反馈 / PromptPopupManager</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>统一的提示弹窗管理，支持确认/取消双按钮、自定义内容和回调。Inspector 提供选项卡式配置面板。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Inspector 选项卡</h3>
+                        <ul class="feature-list">
+                            <li>使用说明</li>
+                            <li>配置</li>
+                            <li>调试</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-top-toast">
+                    <div class="section-hero"><h2>顶部通知管理器</h2><p class="subtitle">UI 反馈 / TopToastManager</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>顶部滑入式通知消息，支持图标预设、自动消失和队列管理。</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Inspector 选项卡</h3>
+                        <ul class="feature-list">
+                            <li>使用说明</li>
+                            <li>核心配置</li>
+                            <li>清除按钮</li>
+                            <li>图标预设</li>
+                            <li>调试</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ==================== UI 控件 ==================== -->
+                <section class="doc-section" id="section-ui-controls">
+                    <div class="section-hero"><h2>UI 控件模块</h2><p class="subtitle">UI Controls Kit</p></div>
+                    <div class="glass-card">
+                        <p>UI 控件模块提供常用交互控件的模板，快速搭建界面交互。</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; UI控件 &gt; [选择组件]</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-button-group">
+                    <div class="section-hero"><h2>按钮组</h2><p class="subtitle">UI 控件 / ButtonGroup</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>管理一组互斥按钮（类似 Radio Group），自动处理选中状态切换。支持通过 Inspector 右键 Initialize 自动扫描子按钮。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-toggle-button">
+                    <div class="section-hero"><h2>开关按钮</h2><p class="subtitle">UI 控件 / ToggleButton</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>带状态切换的按钮组件，支持开/关两种视觉状态和回调。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-draggable-panel">
+                    <div class="section-hero"><h2>可拖拽面板</h2><p class="subtitle">UI 控件 / DraggablePanel</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>支持拖拽移动的 UI 面板，可配置拖拽区域和移动约束。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-ui-follower">
+                    <div class="section-hero"><h2>UI 跟随器</h2><p class="subtitle">UI 控件 / UIFollower</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>使 UI 元素跟随指定目标（世界坐标或屏幕坐标），适用于血条、名称标签等。</p>
+                    </div>
+                </section>
+
+                <!-- ==================== UI 工具 ==================== -->
+                <section class="doc-section" id="section-ui-tools">
+                    <div class="section-hero"><h2>UI 工具模块</h2><p class="subtitle">UI Tools</p></div>
+                    <div class="glass-card">
+                        <p>编辑器辅助工具，提升 UI 开发效率。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-anchor-aligner">
+                    <div class="section-hero"><h2>对齐锚点到角落</h2><p class="subtitle">UI 工具 / Anchors to Corners</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>一键将 RectTransform 的锚点对齐到当前边界角落，解决 UI 自适应布局问题。</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; UI工具 &gt; 对齐锚点到角落</code></div>
+                    </div>
+                </section>
+
+                <!-- ==================== 视觉运行时 ==================== -->
+                <section class="doc-section" id="section-visual">
+                    <div class="section-hero"><h2>视觉运行时模块</h2><p class="subtitle">Visual Runtime Kit</p></div>
+                    <div class="glass-card">
+                        <p>运行时视觉效果组件模板。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-dot-spinner">
+                    <div class="section-hero"><h2>圆点旋转加载</h2><p class="subtitle">视觉运行时 / DotSpinner</p></div>
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图 / GIF 占位</span><small>建议尺寸: 800x450</small></div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>功能</h3>
+                        <p>圆点旋转的 Loading 效果，纯代码实现，可自定义颜色、数量和大小。</p>
+                        <div class="code-block"><code>GameObject &gt; 模板 &gt; 视觉 &gt; 圆点旋转加载</code></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
