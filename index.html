@@ -114,16 +114,15 @@
                 <section class="doc-section active" id="section-overview">
                     <div class="section-hero hero-split">
                         <div class="hero-copy">
-                            <h2>TemplateKit</h2>
                             <p class="subtitle">Unity 编辑器模板工具包</p>
                             <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。</p>
                         </div>
                         <div class="hero-actions">
-                            <a class="hero-panel" href="http://192.168.0.155:3000/LTHD/Templates" target="_blank" rel="noreferrer">
+                            <button class="hero-panel hero-panel-button" type="button" data-collab-open>
                                 <span class="hero-panel-kicker">参与贡献</span>
                                 <span class="hero-panel-title">提交 PR</span>
                                 <span class="hero-panel-meta">TemplateKit 仓库协作入口</span>
-                            </a>
+                            </button>
                             <a class="hero-panel" href="http://192.168.0.155:3000/LTHD/Templates/releases" target="_blank" rel="noreferrer">
                                 <span class="hero-panel-kicker">获取最新发布</span>
                                 <span class="hero-panel-title">UnityPackage</span>
@@ -1097,6 +1096,22 @@ spinner.Hide();    // 隐藏</code></div>
                 <img class="image-viewer-image" alt="">
             </div>
             <div class="image-viewer-hint">滚轮缩放，拖拽平移</div>
+        </div>
+    </div>
+    <div class="collab-modal" data-collab-modal aria-hidden="true">
+        <div class="collab-modal-backdrop" data-collab-close></div>
+        <div class="collab-modal-shell" role="dialog" aria-modal="true" aria-label="参与贡献说明">
+            <button class="collab-modal-close" type="button" aria-label="关闭说明" data-collab-close>×</button>
+            <div class="collab-modal-badge">liquid glass</div>
+            <h3>学习如何参加正式协作</h3>
+            <p class="collab-modal-desc">提交 PR 前，请先确认你新增的功能符合现有模块的设计与交互标准。</p>
+            <div class="collab-modal-note">
+                确保PR新增的功能符合现有功能风格，包含完整的右键生成/绑定逻辑，inspector 包含同样的卡片切换面板
+            </div>
+            <div class="collab-modal-actions">
+                <a class="collab-modal-link" href="https://www.bilibili.com/video/BV1pwC6BxEeb" target="_blank" rel="noreferrer">学习如何参加正式协作</a>
+                <a class="collab-modal-confirm" href="http://192.168.0.155:3000/LTHD/Templates" target="_blank" rel="noreferrer">我已了解</a>
+            </div>
         </div>
     </div>
     <script src="js/app.js"></script>

@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewerCloseTargets = viewer?.querySelectorAll('[data-viewer-close]') || [];
     const viewerPrev = viewer?.querySelector('[data-viewer-prev]');
     const viewerNext = viewer?.querySelector('[data-viewer-next]');
+    const collabModal = document.querySelector('[data-collab-modal]');
+    const collabOpen = document.querySelector('[data-collab-open]');
+    const collabCloseTargets = collabModal?.querySelectorAll('[data-collab-close]') || [];
     const navLinks = document.querySelectorAll('.nav-link[data-section]');
     const sections = document.querySelectorAll('.doc-section');
     const parentItems = document.querySelectorAll('.has-children');
@@ -109,6 +112,18 @@ document.addEventListener('DOMContentLoaded', () => {
         viewer.setAttribute('aria-hidden', 'true');
         resetViewerState();
         if (viewerImage) viewerImage.removeAttribute('src');
+    }
+
+    function openCollabModal() {
+        if (!collabModal) return;
+        collabModal.classList.add('open');
+        collabModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeCollabModal() {
+        if (!collabModal) return;
+        collabModal.classList.remove('open');
+        collabModal.setAttribute('aria-hidden', 'true');
     }
 
     function attachZoomableImages(root = document) {
@@ -287,10 +302,19 @@ document.addEventListener('DOMContentLoaded', () => {
         node.addEventListener('click', closeViewer);
     });
 
+    collabOpen?.addEventListener('click', openCollabModal);
+    collabCloseTargets.forEach(node => {
+        node.addEventListener('click', closeCollabModal);
+    });
+
     viewerPrev?.addEventListener('click', () => goViewer(-1));
     viewerNext?.addEventListener('click', () => goViewer(1));
 
     window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && collabModal?.classList.contains('open')) {
+            closeCollabModal();
+            return;
+        }
         if (!viewer?.classList.contains('open')) return;
         if (event.key === 'Escape') {
             closeViewer();
@@ -346,6 +370,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = event.target;
         if (target instanceof HTMLElement && target.closest('.image-viewer-shell')) return;
         closeViewer();
+    });
+
+    collabModal?.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target instanceof HTMLElement && target.closest('.collab-modal-shell')) return;
+        closeCollabModal();
     });
 
     window.addEventListener('resize', () => {
