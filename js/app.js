@@ -2,10 +2,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('sidebar');
     const menuToggle = document.getElementById('menuToggle');
     const breadcrumb = document.getElementById('breadcrumb');
+    const viewer = document.querySelector('[data-image-viewer]');
+    const viewerStage = viewer?.querySelector('.image-viewer-stage');
+    const viewerImage = viewer?.querySelector('.image-viewer-image');
+    const viewerCloseTargets = viewer?.querySelectorAll('[data-viewer-close]') || [];
     const navLinks = document.querySelectorAll('.nav-link[data-section]');
     const sections = document.querySelectorAll('.doc-section');
     const parentItems = document.querySelectorAll('.has-children');
     const clickableCards = document.querySelectorAll('.glass-card.clickable');
+    const zoomState = {
+        scale: 1,
+        minScale: 1,
+        maxScale: 6,
+        offsetX: 0,
+        offsetY: 0,
+        panStartX: 0,
+        panStartY: 0,
+        dragging: false,
+        loaded: false
+    };
+
+    function renderViewer() {
+        if (!viewerImage) return;
+        viewerImage.style.transform = `translate(-50%, -50%) translate(${zoomState.offsetX}px, ${zoomState.offsetY}px) scale(${zoomState.scale})`;
+    }
+
+    function resetViewerState() {
+        zoomState.scale = 1;
+        zoomState.offsetX = 0;
+        zoomState.offsetY = 0;
+        zoomState.dragging = false;
+        if (viewerStage) viewerStage.classList.remove('dragging');
+        renderViewer();
+    }
+
+    function fitViewerImage() {
+        if (!viewerImage || !viewerStage) return;
+        const naturalWidth = viewerImage.naturalWidth || 1;
+        const naturalHeight = viewerImage.naturalHeight || 1;
+        const stageWidth = viewerStage.clientWidth || 1;
+        const stageHeight = viewerStage.clientHeight || 1;
+        zoomState.minScale = Math.min(stageWidth / naturalWidth, stageHeight / naturalHeight, 1);
+        zoomState.scale = zoomState.minScale;
+        zoomState.offsetX = 0;
+        zoomState.offsetY = 0;
+        renderViewer();
+    }
+
+    function openViewer(src, alt) {
+        if (!viewer || !viewerImage) return;
+        viewer.classList.add('open');
+        viewer.setAttribute('aria-hidden', 'false');
+        viewerImage.alt = alt || '';
+        viewerImage.src = src;
+        resetViewerState();
+    }
+
+    function closeViewer() {
+        if (!viewer) return;
+        viewer.classList.remove('open');
+        viewer.setAttribute('aria-hidden', 'true');
+        resetViewerState();
+        if (viewerImage) viewerImage.removeAttribute('src');
+    }
+
+    function attachZoomableImages(root = document) {
+        root.querySelectorAll('img').forEach(img => {
+            if (img.dataset.zoomBound === '1') return;
+            img.dataset.zoomBound = '1';
+            if (img.closest('.image-viewer')) return;
+            img.classList.add('zoomable-image');
+            img.addEventListener('click', () => openViewer(img.src, img.alt));
+        });
+    }
 
     function showSection(sectionId) {
         sections.forEach(s => s.classList.remove('active'));
@@ -74,6 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    attachZoomableImages();
 
     menuToggle.addEventListener('click', () => {
         sidebar.classList.toggle('open');
@@ -150,4 +221,68 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.addEventListener('click', () => goTo(current + 1));
         window.addEventListener('resize', () => updateTrackHeight(current), { passive: true });
     });
+
+    viewerCloseTargets.forEach(node => {
+        node.addEventListener('click', closeViewer);
+    });
+
+    window.addEventListener('keydown', (event) => {
+        if (!viewer?.classList.contains('open')) return;
+        if (event.key === 'Escape') {
+            closeViewer();
+        }
+    });
+
+    viewerImage?.addEventListener('load', () => {
+        fitViewerImage();
+    });
+
+    viewerStage?.addEventListener('wheel', (event) => {
+        if (!viewer?.classList.contains('open')) return;
+        event.preventDefault();
+        const delta = event.deltaY < 0 ? 1.12 : 0.89;
+        const nextScale = Math.max(zoomState.minScale, Math.min(zoomState.maxScale, zoomState.scale * delta));
+        zoomState.scale = nextScale;
+        renderViewer();
+    }, { passive: false });
+
+    viewerStage?.addEventListener('pointerdown', (event) => {
+        if (!viewer?.classList.contains('open') || event.button !== 0) return;
+        zoomState.dragging = true;
+        zoomState.panStartX = event.clientX - zoomState.offsetX;
+        zoomState.panStartY = event.clientY - zoomState.offsetY;
+        viewerStage.setPointerCapture(event.pointerId);
+        viewerStage.classList.add('dragging');
+    });
+
+    viewerStage?.addEventListener('pointermove', (event) => {
+        if (!zoomState.dragging) return;
+        zoomState.offsetX = event.clientX - zoomState.panStartX;
+        zoomState.offsetY = event.clientY - zoomState.panStartY;
+        renderViewer();
+    });
+
+    function stopDragging(event) {
+        if (!zoomState.dragging) return;
+        zoomState.dragging = false;
+        viewerStage?.classList.remove('dragging');
+        if (event && viewerStage?.hasPointerCapture(event.pointerId)) {
+            viewerStage.releasePointerCapture(event.pointerId);
+        }
+    }
+
+    viewerStage?.addEventListener('pointerup', stopDragging);
+    viewerStage?.addEventListener('pointercancel', stopDragging);
+
+    viewer?.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target instanceof HTMLElement && target.closest('.image-viewer-shell')) return;
+        closeViewer();
+    });
+
+    window.addEventListener('resize', () => {
+        if (viewer?.classList.contains('open')) {
+            fitViewerImage();
+        }
+    }, { passive: true });
 });

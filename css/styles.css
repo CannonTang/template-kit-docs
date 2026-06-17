@@ -287,6 +287,9 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 .media-placeholder img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
+.zoomable-image {
+    cursor: zoom-in;
+}
 .placeholder-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; color: var(--text-secondary); }
 .placeholder-inner span { font-size: 15px; font-weight: 500; opacity: 0.5; }
 .placeholder-inner small { margin-top: 6px; font-size: 12px; opacity: 0.35; }
@@ -479,6 +482,92 @@ body {
 }
 
 /* ============================================
+   IMAGE VIEWER - Fullscreen zoomable preview
+   ============================================ */
+.image-viewer {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+.image-viewer.open {
+    display: flex;
+}
+.image-viewer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 15, 25, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.image-viewer-shell {
+    position: relative;
+    z-index: 1;
+    width: min(96vw, 1400px);
+    height: min(92vh, 900px);
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.92);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+.image-viewer-stage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    touch-action: none;
+    cursor: grab;
+}
+.image-viewer-stage.dragging {
+    cursor: grabbing;
+}
+.image-viewer-image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center center;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-drag: none;
+    max-width: none;
+    max-height: none;
+}
+.image-viewer-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+    transition: background 0.2s, transform 0.2s;
+}
+.image-viewer-close:hover {
+    background: rgba(255, 255, 255, 0.24);
+    transform: scale(1.04);
+}
+.image-viewer-hint {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    z-index: 2;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    pointer-events: none;
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
@@ -498,4 +587,13 @@ body {
     .carousel-btn { width: 32px; height: 32px; }
     .carousel-btn.prev { left: 8px; }
     .carousel-btn.next { right: 8px; }
+    .image-viewer-shell {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+    .image-viewer-close {
+        top: 12px;
+        right: 12px;
+    }
 }
