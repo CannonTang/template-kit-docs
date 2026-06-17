@@ -46,7 +46,7 @@
                         </a>
                         <ul class="nav-sublist">
                             <li><a href="#camera-controller" class="nav-link" data-section="camera-controller">相机控制器</a></li>
-                            <li><a href="#camera-zoom" class="nav-link" data-section="camera-zoom">目标切换器</a></li>
+                            <li><a href="#camera-zoom" class="nav-link" data-section="camera-zoom">视角切换器</a></li>
                             <li><a href="#viewport-offset" class="nav-link" data-section="viewport-offset">视口偏移控制器</a></li>
                         </ul>
                     </li>
@@ -84,6 +84,7 @@
                             <li><a href="#switch-button" class="nav-link" data-section="switch-button">开关按钮</a></li>
                             <li><a href="#drag-panel" class="nav-link" data-section="drag-panel">可拖拽面板</a></li>
                             <li><a href="#ui-follower" class="nav-link" data-section="ui-follower">UI 跟随器</a></li>
+                            <li><a href="#template-dropdown" class="nav-link" data-section="template-dropdown">下拉框</a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-children">
@@ -124,9 +125,9 @@
                                 <span class="hero-panel-meta">TemplateKit 仓库协作入口</span>
                             </button>
                             <a class="hero-panel" href="http://192.168.0.155:3000/LTHD/Templates/releases" target="_blank" rel="noreferrer">
-                                <span class="hero-panel-kicker">获取最新发布</span>
+                                <span class="hero-panel-kicker">下载插件</span>
                                 <span class="hero-panel-title">UnityPackage</span>
-                                <span class="hero-panel-meta">查看最新打包与版本记录</span>
+                                <span class="hero-panel-meta">前往 Releases 下载最新插件包</span>
                             </a>
                         </div>
                     </div>
@@ -312,10 +313,6 @@ anim.ToDisplay(3);             // 到终点再回来，重复 3 次
 anim.KillAll();</code></div>
                     </div>
 
-                    <div class="glass-card tip-card">
-                        <h3>提示</h3>
-                        <p>如果项目中安装了 DOTween，组件会自动使用 DOTween 驱动动画，效果更流畅且支持缓动曲线。未安装则使用内置 Coroutine 方案。</p>
-                    </div>
                 </section>
 
                 <!-- 路径动画器 -->
@@ -364,21 +361,44 @@ pathAnimator.PlayReverse();   // 反向播放</code></div>
                         </div>
                     </div>
 
-                    <div class="media-placeholder">
-                        <img src="assets/images/pathanimator-inspector.png" alt="PathAnimator Inspector 属性面板">
+
+                    <div class="glass-card">
+                        <h3>路径插值方式 — Interpolation</h3>
+                        <p><strong>Linear（线性折线）</strong>：物体沿路径点之间的直线段移动。路径呈现为折线段，在拐角处会突然改变方向。适合机械轨道、传送带等需要精确直线运动的场景。</p>
+                        <p style="margin-top:10px;"><strong>CatmullRom（平滑曲线）</strong>：使用 Catmull-Rom 样条曲线插值，路径自动平滑通过每个路径点。曲线受前后相邻控制点影响，始终连续无尖角。适合相机轨道、飞行路线、流体运动等需要自然弧线的场景。若开启 Close Path，首尾衔接处也保持平滑。</p>
                     </div>
 
                     <div class="glass-card">
-                        <h3>关键配置</h3>
+                        <h3>循环方式 — Loop Mode</h3>
+                        <p><strong>Once（单次）</strong>：走完全程后停止，IsPlaying 自动变为 false。</p>
+                        <p style="margin-top:6px;"><strong>Loop（循环）</strong>：到达终点后立即从起点重新开始，一直沿同一方向无限循环。适合持续旋转的展示台、巡逻路线。</p>
+                        <p style="margin-top:6px;"><strong>PingPong（往返）</strong>：到达终点后反向走回起点，再正向走到终点，如此往复。适合来回摆动的平台、电梯、滑动门等。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>运动朝向 — Look At Mode</h3>
+                        <p><strong>None</strong>：不控制物体旋转，保持原有朝向。</p>
+                        <p style="margin-top:6px;"><strong>Forward（前进方向）</strong>：物体始终面朝移动方向。Linear 模式下方向在段内恒定（过路径点瞬间切换）；CatmullRom 模式下方向平滑过渡，无突变。</p>
+                        <p style="margin-top:6px;"><strong>Fixed（固定目标）</strong>：物体始终看向一个固定的目标物体（如聚光灯、玩家）。需要指定 Fixed Look Target。</p>
+                        <p style="margin-top:6px;"><strong>Waypoint（跟随路径点旋转）</strong>：物体的旋转也会随路径点的旋转插值。Linear 模式使用 Slerp 在相邻路径点间过渡；CatmullRom 模式使用 Squad（球面四边形插值），旋转过渡更平滑。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>速度模式 — Speed Mode</h3>
+                        <p><strong>Constant（匀速）</strong>：保持大致恒定的移动速度。每个路径段分配的时间与段长度成正比——长段给更多时间，短段给更少时间。整个路径上的移动看起来像是匀速运动。</p>
+                        <p style="margin-top:10px;"><strong>UniformSegment（等时分段）</strong>：每个路径段分配完全相同的时间（总 duration / 段数）。无论段长短，物体在每段花费相同时间，因此长段速度快、短段速度慢。适合需要精确卡时间的场景，比如"每 2 秒到达下一个检查点"。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>其他配置</h3>
                         <table class="props-table">
                             <thead><tr><th>属性</th><th>说明</th></tr></thead>
                             <tbody>
-                                <tr><td>Interpolation</td><td><strong>Linear</strong>（折线）或 <strong>CatmullRom</strong>（平滑曲线）</td></tr>
-                                <tr><td>Loop Mode</td><td>Once / Loop / PingPong</td></tr>
-                                <tr><td>Look At Mode</td><td>移动时朝向：无 / 前进方向 / 固定目标 / 下一个路径点</td></tr>
-                                <tr><td>Duration</td><td>走完全程的时间（秒）</td></tr>
-                                <tr><td>Close Path</td><td>是否闭合路径（最后一点连回第一点）</td></tr>
-                                <tr><td>Speed Mode</td><td>Constant（匀速）或 UniformSegment（每段等时间）</td></tr>
+                                <tr><td>Duration</td><td>走完全程的时间（秒），受 Speed Mode 影响实际每段耗时</td></tr>
+                                <tr><td>Close Path</td><td>开启后最后一点连回第一点形成闭环。Linear 模式多一条闭合折线段；CatmullRom 模式首尾处 C1 连续，形成完美平滑环</td></tr>
+                                <tr><td>Use Local Space</td><td>开启后在本地坐标系下计算位置和旋转，移动父物体即可整体平移整个路径</td></tr>
+                                <tr><td>Init Behaviour</td><td>组件启用时的行为：None（不做处理）/ SnapToFirst（跳到第一点）/ SnapToLast（跳到最后一点）</td></tr>
+                                <tr><td>Show Path Gizmo</td><td>是否在 Scene 视图中绘制路径预览线（仅编辑器）</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -499,42 +519,43 @@ ctrl.Resume();</code></div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>鸟瞰式相机参数</h3>
+                        <h3>鸟瞰式相机 — 操作方式</h3>
                         <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <thead><tr><th>操作</th><th>功能</th></tr></thead>
                             <tbody>
-                                <tr><td>Move Speed</td><td>拖拽平移速度</td></tr>
-                                <tr><td>Rotate Speed</td><td>右键旋转速度</td></tr>
-                                <tr><td>Min/Max Height</td><td>滚轮缩放的高度范围</td></tr>
-                                <tr><td>Limit Movement Area</td><td>是否限制平移范围（开启后可设置中心点和宽高）</td></tr>
+                                <tr><td>鼠标左键拖拽</td><td>平移视野（水平方向移动）</td></tr>
+                                <tr><td>鼠标中键拖拽</td><td>旋转视角（俯仰 + 偏航）</td></tr>
+                                <tr><td>滚轮滚动</td><td>升降相机高度</td></tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="glass-card">
-                        <h3>旋转缩放式相机参数</h3>
+                        <h3>旋转缩放式相机 — 操作方式</h3>
                         <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <thead><tr><th>操作</th><th>功能</th></tr></thead>
                             <tbody>
-                                <tr><td>Target</td><td>围绕旋转的目标物体</td></tr>
-                                <tr><td>Zoom Min/Max</td><td>缩放距离范围</td></tr>
-                                <tr><td>Drag Sensitivity</td><td>鼠标拖拽灵敏度 (X/Y)</td></tr>
-                                <tr><td>Inertia</td><td>松手后的惯性滑动时间</td></tr>
-                                <tr><td>Pitch Limit</td><td>俯仰角限制范围</td></tr>
+                                <tr><td>鼠标左键拖拽</td><td>围绕目标物体旋转（俯仰 + 偏航）</td></tr>
+                                <tr><td>滚轮滚动</td><td>拉近 / 拉远与目标之间的距离</td></tr>
+                                <tr><td>松手后惯性</td><td>旋转自动衰减滑动，无需手动减速</td></tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="glass-card">
-                        <h3>第一人称飞行参数</h3>
+                        <h3>第一人称飞行 — 操作方式</h3>
                         <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <thead><tr><th>按键</th><th>功能</th></tr></thead>
                             <tbody>
-                                <tr><td>Speed</td><td>WASD 移动速度（运行时可按 +/- 调整）</td></tr>
-                                <tr><td>Rotation Speed</td><td>鼠标旋转速度</td></tr>
-                                <tr><td>Enable Collision</td><td>是否启用物理碰撞（开启会自动添加 Rigidbody）</td></tr>
-                                <tr><td>E/Q Up Down Speed</td><td>上下移动速度</td></tr>
-                                <tr><td>Min/Max Height</td><td>高度限制（Enable Min Max Height 开启时生效）</td></tr>
+                                <tr><td>W / ↑</td><td>前进</td></tr>
+                                <tr><td>S / ↓</td><td>后退</td></tr>
+                                <tr><td>A / ←</td><td>向左平移</td></tr>
+                                <tr><td>D / →</td><td>向右平移</td></tr>
+                                <tr><td>E</td><td>上升</td></tr>
+                                <tr><td>Q</td><td>下降</td></tr>
+                                <tr><td>=</td><td>加速移动</td></tr>
+                                <tr><td>-</td><td>减速移动</td></tr>
+                                <tr><td>鼠标左键拖拽</td><td>环顾四周（俯仰 + 偏航）</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -553,21 +574,21 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
                 </section>
 
                 <section class="doc-section" id="section-camera-zoom">
-                    <div class="section-hero"><h2>目标切换器</h2><p class="subtitle">CameraZoomController — 在预设目标之间切换相机视角</p></div>
+                    <div class="section-hero"><h2>视角切换器</h2><p class="subtitle">CameraZoomController — 预设多个机位，一键切换相机视角</p></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>预设多个「关注点」，运行时可一键切换相机到对应位置和角度。适用于：楼层切换、展品聚焦、场景导览等。</p>
+                        <p>提前设置好场景中几个关键观察位置（机位），运行时一键即可让相机平滑飞过去。适用于：建筑楼层切换、展品多角度查看、场景导览跳转等。</p>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 点击按钮切换到不同预设目标的动画效果</span><small>展示相机平滑过渡到不同目标点</small></div>
+                        <div class="placeholder-inner"><span>GIF: 点击按钮在不同机位之间平滑切换</span><small>展示相机飞到不同预设位置和角度的动画过程</small></div>
                     </div>
 
                     <div class="glass-card">
                         <h3>使用步骤</h3>
                         <div class="steps">
-                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 相机 &gt; 相机目标切换器</code></p></div></div>
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 相机 &gt; 视角切换器</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 Informs 列表中添加目标配置：拖入目标 Transform、设置缩放距离和旋转角度。</p></div></div>
                             <div class="step"><div class="step-num">3</div><div class="step-content"><p>代码调用切换：</p>
                                 <div class="code-block"><code>CameraZoomController.Instance.SetCameraTarget("展品A");
@@ -784,9 +805,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                 <section class="doc-section" id="section-ui-feedback">
                     <div class="section-hero"><h2>UI 反馈模块</h2><p class="subtitle">弹窗确认和顶部 Toast 通知</p></div>
                     <div class="glass-card">
-                        <p>提供两种常见的 UI 反馈方式，使用前需要先通过 Tools 菜单生成预制体资源：</p>
-                        <div class="code-block"><code>菜单栏 &gt; Tools &gt; 模板 &gt; 生成UI反馈预制体资源</code></div>
-                        <p>然后通过右键菜单创建管理器到场景中。</p>
+                        <p>提供两种常见的 UI 反馈方式，通过右键菜单直接创建管理器到场景中。</p>
                     </div>
                 </section>
 
@@ -799,16 +818,15 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 弹窗弹出 → 用户点击确认 → 弹窗关闭的流程</span><small>展示弹窗的视觉样式和交互</small></div>
+                        <video src="assets/images/video-prompt.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
                         <h3>使用步骤</h3>
                         <div class="steps">
-                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>先生成预制体：<code>Tools &gt; 模板 &gt; 生成UI反馈预制体资源</code></p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 提示弹窗管理器</code></p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>确保场景中有 Canvas。管理器会自动查找 Canvas 作为弹窗父级。</p></div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 提示弹窗管理器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>确保场景中有 Canvas。管理器会自动查找 Canvas 作为弹窗父级。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content">
                                 <p>代码调用显示弹窗：</p>
                                 <div class="code-block"><code>PromptPopupManager.Instance.ShowPrompt(
     "删除确认",
@@ -821,7 +839,17 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: PromptPopupManager 的 Inspector 配置</span><small>展示 Template 引用、Pool Size 等</small></div>
+                        <video src="assets/images/video-promptmanager-code.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                    </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>自定义弹窗样式</h3>
+                        <p>弹窗的外观完全由 <strong>Template</strong> 字段中引用的预制体决定。如果不同项目的 UI 风格不同（如颜色、字体、按钮样式），只需替换 PromptPopupManager 组件上的 Template 预制体：</p>
+                        <ul class="feature-list" style="margin-top:10px;">
+                            <li>复制原有的弹窗预制体，修改其中的背景图、按钮颜色、字体等 UI 元素</li>
+                            <li>将修改后的预制体拖入 PromptPopupManager 的 <strong>Template</strong> 字段</li>
+                            <li>运行时创建的弹窗实例会自动继承新预制体的样式，无需改动调用代码</li>
+                        </ul>
                     </div>
                 </section>
 
@@ -840,9 +868,8 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     <div class="glass-card">
                         <h3>使用步骤</h3>
                         <div class="steps">
-                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>先生成预制体：<code>Tools &gt; 模板 &gt; 生成UI反馈预制体资源</code></p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 顶部通知管理器</code></p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 顶部通知管理器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content">
                                 <p>代码调用：</p>
                                 <div class="code-block"><code>TopToastManager.Instance.ShowToast("文件保存成功");
 
@@ -885,9 +912,7 @@ TopToastManager.Instance.ShowToast("正在下载...", constant: true);</code></d
                 <section class="doc-section" id="section-ui-controls">
                     <div class="section-hero"><h2>UI 控件模块</h2><p class="subtitle">常用交互控件的预制模板</p></div>
                     <div class="glass-card">
-                        <p>生成预制体资源：</p>
-                        <div class="code-block"><code>菜单栏 &gt; Tools &gt; 模板 &gt; 生成UI控件预制体资源</code></div>
-                        <p>然后通过右键菜单创建到场景中使用。</p>
+                        <p>通过右键菜单直接创建控件到场景中使用。</p>
                     </div>
                 </section>
 
@@ -1030,6 +1055,156 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                     </div>
                 </section>
 
+                <!-- 下拉框 -->
+                <section class="doc-section" id="section-template-dropdown">
+                    <div class="section-hero"><h2>下拉框</h2><p class="subtitle">TemplateDropdown — 带展开动画的自定义下拉选择控件</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>一个完全自定义的下拉选择框，替代 Unity 原生的 Dropdown。基于 TextMeshPro 渲染文本，带有平滑的展开/收起动画和箭头旋转效果。</p>
+                        <p style="margin-top:10px;"><strong>代码动态管理选项</strong>：支持运行时通过 <code>SetOptions</code> 批量替换选项、<code>AddOption</code> 动态追加、<code>RemoveOptionAt</code> 按索引删除、<code>ClearOptions</code> 一键清空，无需预先在 Inspector 中固定配置。</p>
+                        <p style="margin-top:6px;"><strong>双事件回调</strong>：<code>OnValueChanged(int)</code> 返回选中索引，<code>OnTextChanged(string)</code> 返回选中文本，可在 Inspector 中直接绑定或通过代码 <code>AddListener</code> 监听。</p>
+                        <p style="margin-top:6px;"><strong>灵活的 UI 行为</strong>：支持向上/向下展开、列表自适应高度或限制可见项数（自动启用滚动）、选中后自动关闭、点击外部遮罩关闭。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 下拉框展开/收起动画 + 选项选中效果</span><small>展示展开方向、箭头旋转、选项高亮和选中状态的完整交互</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 下拉框</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 <strong>Options</strong> 列表中填入选项文本。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>配置展开方向和列表尺寸模式：</p>
+                                <ul class="feature-list">
+                                    <li><strong>Expand Direction</strong> — Bottom（向下展开）/ Top（向上展开）</li>
+                                    <li><strong>List Size Mode</strong> — ShowAll（显示全部）/ LimitVisible（限制可见数量，出现滚动条）</li>
+                                </ul>
+                            </div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>绑定事件：在 Inspector 底部绑定 <strong>OnValueChanged</strong>（int 索引）或 <strong>OnTextChanged</strong>（string 文本）。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: TemplateDropdown 的 Inspector 面板</span><small>展示 References、Behavior、Arrow Animation、Colors、Sprites 各配置区域</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>Behavior 配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Expand Direction</td><td>Bottom（向下展开）/ Top（向上展开）</td></tr>
+                                <tr><td>List Size Mode</td><td>ShowAll（全部显示）/ LimitVisible（限制可见数）</td></tr>
+                                <tr><td>Max Visible Items</td><td>LimitVisible 模式下最多可见的选项数量</td></tr>
+                                <tr><td>Item Height</td><td>每个选项的行高（像素）</td></tr>
+                                <tr><td>Animation Duration</td><td>展开/收起动画时长（秒），默认 0.15</td></tr>
+                                <tr><td>Close On Select</td><td>选中选项后是否自动关闭列表</td></tr>
+                                <tr><td>Close On Click Outside</td><td>点击列表外部是否自动关闭</td></tr>
+                                <tr><td>Default Index</td><td>初始化时默认选中的选项索引（-1 不选中）</td></tr>
+                                <tr><td>Placeholder Text</td><td>未选中时显示的占位文本</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>箭头动画</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Enable Arrow Animation</td><td>是否启用箭头旋转动画</td></tr>
+                                <tr><td>Arrow Closed Angle</td><td>收起状态箭头角度（默认 0°）</td></tr>
+                                <tr><td>Arrow Open Angle</td><td>展开状态箭头角度（默认 180°）</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>颜色配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Button Color</td><td>主按钮背景色</td></tr>
+                                <tr><td>List Color</td><td>下拉列表背景色</td></tr>
+                                <tr><td>Item Normal Color</td><td>选项默认背景色</td></tr>
+                                <tr><td>Item Hover Color</td><td>选项悬停背景色</td></tr>
+                                <tr><td>Item Selected Color</td><td>选项选中背景色</td></tr>
+                                <tr><td>Text Color</td><td>选项文字默认颜色</td></tr>
+                                <tr><td>Selected Text Color</td><td>选中项文字颜色</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>Sprite 配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Button Sprite / Type / PPU</td><td>主按钮的精灵图、类型和像素单位</td></tr>
+                                <tr><td>List Sprite / Type / PPU</td><td>下拉列表背景的精灵配置</td></tr>
+                                <tr><td>Item Sprite / Type / PPU</td><td>选项背景的精灵配置</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">如果 Sprite 留空，则使用对应的 Color 纯色填充；如果设置了 Sprite，Color 会被忽略。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用速查</h3>
+                        <div class="code-block"><code>var dropdown = GetComponent&lt;TemplateDropdown&gt;();
+
+// 设置选项（字符串列表）
+dropdown.SetOptions(new List&lt;string&gt; { "选项A", "选项B", "选项C" });
+
+// 设置选项（带数据对象）
+dropdown.SetOptions(new List&lt;TemplateDropdownOptionData&gt; {
+    new TemplateDropdownOptionData("选项A"),
+    new TemplateDropdownOptionData("选项B")
+});
+
+// 动态增删
+dropdown.AddOption("新选项");
+
+dropdown.RemoveOptionAt(2);
+
+dropdown.ClearOptions();
+
+// 刷新（修改 Options 列表后调用）
+dropdown.RefreshOptions();
+
+// 选中
+dropdown.SelectIndex(0);          // 按索引选中
+dropdown.SelectValue("选项A");    // 按文本选中
+
+// 展开/关闭/切换
+dropdown.Open();
+
+dropdown.Close();
+
+dropdown.Toggle();
+
+// 读取状态
+int idx = dropdown.CurrentIndex;           // 当前选中索引（-1 为无）
+string val = dropdown.CurrentValue;         // 当前选中文本
+bool expanded = dropdown.IsExpanded;        // 是否已展开
+var opts = dropdown.Options;                // 只读选项列表
+
+// 事件监听（代码方式）
+dropdown.OnValueChanged.AddListener(index =&gt; {
+    Debug.Log("选中索引: " + index);
+});
+
+dropdown.OnTextChanged.AddListener(text =&gt; {
+    Debug.Log("选中文本: " + text);
+});</code></div>
+                    </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>实现说明</h3>
+                        <p>展开时自动在 Canvas 中插入一个透明遮罩层（DropdownBlocker），点击遮罩即关闭列表。动画使用 Coroutine 驱动，同时控制 CanvasGroup 的 alpha、列表的 scaleY 和箭头的 Z 轴旋转。编辑器模式下通过 HideFlags 管理预览项，不污染 Hierarchy。</p>
+                    </div>
+                </section>
+
                 <!-- ==================== 视觉效果 ==================== -->
                 <section class="doc-section" id="section-visual">
                     <div class="section-hero"><h2>视觉效果模块</h2><p class="subtitle">GPU 驱动的运行时视觉效果</p></div>
@@ -1047,7 +1222,7 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: Metaball Loading 动画效果</span><small>展示不同颜色和参数下的效果对比</small></div>
+                        <video src="assets/images/video-metaball.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -1059,9 +1234,6 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                         </div>
                     </div>
 
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: Inspector 中各参数调整效果对比</span><small>可以拼一张对比图：不同 Ball Count、不同颜色配置的效果</small></div>
-                    </div>
 
                     <div class="glass-card">
                         <h3>主要参数</h3>
