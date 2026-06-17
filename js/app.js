@@ -6,10 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewerStage = viewer?.querySelector('.image-viewer-stage');
     const viewerImage = viewer?.querySelector('.image-viewer-image');
     const viewerCloseTargets = viewer?.querySelectorAll('[data-viewer-close]') || [];
+    const viewerPrev = viewer?.querySelector('[data-viewer-prev]');
+    const viewerNext = viewer?.querySelector('[data-viewer-next]');
     const navLinks = document.querySelectorAll('.nav-link[data-section]');
     const sections = document.querySelectorAll('.doc-section');
     const parentItems = document.querySelectorAll('.has-children');
     const clickableCards = document.querySelectorAll('.glass-card.clickable');
+    const galleryGroups = new Map();
     const zoomState = {
         scale: 1,
         minScale: 1,
@@ -20,6 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         panStartY: 0,
         dragging: false,
         loaded: false
+    };
+    const viewerState = {
+        group: null,
+        index: 0
     };
 
     function renderViewer() {
@@ -51,11 +58,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openViewer(src, alt) {
         if (!viewer || !viewerImage) return;
+        viewerState.group = null;
+        viewerState.index = 0;
+        if (viewerPrev) viewerPrev.classList.remove('visible');
+        if (viewerNext) viewerNext.classList.remove('visible');
         viewer.classList.add('open');
         viewer.setAttribute('aria-hidden', 'false');
         viewerImage.alt = alt || '';
         viewerImage.src = src;
         resetViewerState();
+    }
+
+    function showGalleryImage(index) {
+        if (!viewerState.group || !viewerImage) return;
+        const group = viewerState.group;
+        const safeIndex = (index + group.length) % group.length;
+        viewerState.index = safeIndex;
+        const item = group[safeIndex];
+        viewerImage.alt = item.alt || '';
+        viewerImage.src = item.src;
+        resetViewerState();
+        if (viewerPrev) viewerPrev.classList.toggle('visible', group.length > 1);
+        if (viewerNext) viewerNext.classList.toggle('visible', group.length > 1);
+    }
+
+    function openGallery(group, index = 0) {
+        if (!viewer || !viewerImage || !group.length) return;
+        viewerState.group = group;
+        viewerState.index = index;
+        viewer.classList.add('open');
+        viewer.setAttribute('aria-hidden', 'false');
+        if (group.length > 1) {
+            if (viewerPrev) viewerPrev.classList.add('visible');
+            if (viewerNext) viewerNext.classList.add('visible');
+        } else {
+            if (viewerPrev) viewerPrev.classList.remove('visible');
+            if (viewerNext) viewerNext.classList.remove('visible');
+        }
+        showGalleryImage(index);
+    }
+
+    function goViewer(delta) {
+        if (!viewerState.group || viewerState.group.length < 2) return;
+        showGalleryImage(viewerState.index + delta);
     }
 
     function closeViewer() {
@@ -72,7 +117,23 @@ document.addEventListener('DOMContentLoaded', () => {
             img.dataset.zoomBound = '1';
             if (img.closest('.image-viewer')) return;
             img.classList.add('zoomable-image');
-            img.addEventListener('click', () => openViewer(img.src, img.alt));
+            const gallery = img.closest('[data-image-gallery]');
+            if (gallery) {
+                const galleryImages = Array.from(gallery.querySelectorAll('img'))
+                    .filter(node => !node.closest('.image-viewer'));
+                const group = galleryImages.map(node => ({ src: node.src, alt: node.alt }));
+                galleryImages.forEach((node, index) => {
+                    galleryGroups.set(node, { group, index });
+                });
+            }
+            img.addEventListener('click', () => {
+                const galleryInfo = galleryGroups.get(img);
+                if (galleryInfo) {
+                    openGallery(galleryInfo.group, galleryInfo.index);
+                } else {
+                    openViewer(img.src, img.alt);
+                }
+            });
         });
     }
 
@@ -226,10 +287,17 @@ document.addEventListener('DOMContentLoaded', () => {
         node.addEventListener('click', closeViewer);
     });
 
+    viewerPrev?.addEventListener('click', () => goViewer(-1));
+    viewerNext?.addEventListener('click', () => goViewer(1));
+
     window.addEventListener('keydown', (event) => {
         if (!viewer?.classList.contains('open')) return;
         if (event.key === 'Escape') {
             closeViewer();
+        } else if (event.key === 'ArrowLeft') {
+            goViewer(-1);
+        } else if (event.key === 'ArrowRight') {
+            goViewer(1);
         }
     });
 
