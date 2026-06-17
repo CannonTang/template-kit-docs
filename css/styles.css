@@ -404,7 +404,8 @@ body {
 
 .carousel-track {
     position: relative;
-    min-height: 200px;
+    min-height: 240px;
+    transition: height 0.28s ease;
 }
 
 .carousel-item {
@@ -419,9 +420,6 @@ body {
     width: 100%;
     height: auto;
     display: block;
-}
-.carousel-item .placeholder-inner {
-    padding: 80px 20px;
 }
 
 .carousel-btn {
@@ -496,4 +494,8 @@ body {
 @media (max-width: 480px) {
     .content { padding: 16px; }
     .glass-card { padding: 18px; border-radius: 14px; }
+    .carousel-track { min-height: 180px; }
+    .carousel-btn { width: 32px; height: 32px; }
+    .carousel-btn.prev { left: 8px; }
+    .carousel-btn.next { right: 8px; }
 }

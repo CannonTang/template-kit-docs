@@ -96,7 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevBtn = carousel.querySelector('.carousel-btn.prev');
         const nextBtn = carousel.querySelector('.carousel-btn.next');
         const dotsContainer = carousel.querySelector('.carousel-dots');
+        const track = carousel.querySelector('.carousel-track');
         let current = 0;
+        const itemSizes = new Array(items.length).fill(null);
 
         items.forEach((_, i) => {
             const dot = document.createElement('button');
@@ -106,15 +108,46 @@ document.addEventListener('DOMContentLoaded', () => {
             dotsContainer.appendChild(dot);
         });
 
+        function updateTrackHeight(index) {
+            const size = itemSizes[index];
+            if (!size || !size.width || !size.height) return;
+            const containerWidth = carousel.clientWidth;
+            if (!containerWidth) return;
+            const height = Math.round(containerWidth * (size.height / size.width));
+            track.style.height = `${height}px`;
+        }
+
+        function syncItemImage(index) {
+            const img = items[index].querySelector('img');
+            if (!img) return;
+            const applySize = () => {
+                itemSizes[index] = {
+                    width: img.naturalWidth,
+                    height: img.naturalHeight
+                };
+                if (index === current) updateTrackHeight(index);
+            };
+
+            if (img.complete && img.naturalWidth) {
+                applySize();
+            } else {
+                img.addEventListener('load', applySize, { once: true });
+            }
+        }
+
         function goTo(index) {
             items[current].classList.remove('active');
             dotsContainer.children[current].classList.remove('active');
             current = (index + items.length) % items.length;
             items[current].classList.add('active');
             dotsContainer.children[current].classList.add('active');
+            updateTrackHeight(current);
         }
 
+        items.forEach((_, i) => syncItemImage(i));
+        updateTrackHeight(current);
         prevBtn.addEventListener('click', () => goTo(current - 1));
         nextBtn.addEventListener('click', () => goTo(current + 1));
+        window.addEventListener('resize', () => updateTrackHeight(current), { passive: true });
     });
 });
