@@ -115,7 +115,7 @@
                     <div class="section-hero hero-split">
                         <div class="hero-copy">
                             <p class="subtitle">Unity 编辑器模板工具包</p>
-                            <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。</p>
+                            <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。不依赖任何第三方插件</p>
                         </div>
                         <div class="hero-actions">
                             <button class="hero-panel hero-panel-button" type="button" data-collab-open>
@@ -140,10 +140,16 @@
                                 <img src="assets/images/overview-2.png" alt="首页轮换截图 2">
                             </div>
                             <div class="carousel-item">
-                                <img src="assets/images/overview-3.png" alt="首页轮换截图 3">
+                                <video src="assets/images/video-pathanimator-imp.mp4" aria-label="路径动画器演示" autoplay muted loop playsinline preload="metadata"></video>
                             </div>
                             <div class="carousel-item">
-                                <img src="assets/images/overview-4.png" alt="首页轮换截图 4">
+                                <video src="assets/images/video-httpdatasource.mp4" aria-label="HTTP 数据源演示" autoplay muted loop playsinline preload="metadata"></video>
+                            </div>
+                            <div class="carousel-item">
+                                <video src="assets/images/video-prompt.mp4" aria-label="提示弹窗演示" autoplay muted loop playsinline preload="metadata"></video>
+                            </div>
+                            <div class="carousel-item">
+                                <video src="assets/images/video-toast.mp4" aria-label="顶部通知演示" autoplay muted loop playsinline preload="metadata"></video>
                             </div>
                         </div>
                         <button class="carousel-btn prev" aria-label="上一张">
@@ -322,7 +328,7 @@ anim.KillAll();</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 物体沿路径点移动的效果 + Scene 视图中的路径 Gizmo 线条</span><small>同时展示运行时效果和编辑器中的可视化路径</small></div>
+                        <video src="assets/images/video-pathanimator.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -359,7 +365,7 @@ pathAnimator.PlayReverse();   // 反向播放</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: Inspector 中路径动画器的属性面板</span><small>展示 Waypoints 列表、插值模式、循环模式等配置</small></div>
+                        <img src="assets/images/pathanimator-inspector.png" alt="PathAnimator Inspector 属性面板">
                     </div>
 
                     <div class="glass-card">
@@ -1094,6 +1100,7 @@ spinner.Hide();    // 隐藏</code></div>
             <button class="image-viewer-nav next" type="button" aria-label="下一张" data-viewer-next>›</button>
             <div class="image-viewer-stage">
                 <img class="image-viewer-image" alt="">
+                <video class="image-viewer-video" controls playsinline loop></video>
             </div>
             <div class="image-viewer-hint">滚轮缩放，拖拽平移</div>
         </div>
@@ -1102,7 +1109,7 @@ spinner.Hide();    // 隐藏</code></div>
         <div class="collab-modal-backdrop" data-collab-close></div>
         <div class="collab-modal-shell" role="dialog" aria-modal="true" aria-label="参与贡献说明">
             <button class="collab-modal-close" type="button" aria-label="关闭说明" data-collab-close>×</button>
-            <h3>学习如何参加正式协作</h3>
+            <h3>提示</h3>
             <p class="collab-modal-desc">提交 PR 前，请先确认你新增的功能符合现有模块的设计与交互标准。</p>
             <div class="collab-modal-note">
                 确保PR新增的功能符合现有功能风格，包含完整的右键生成/绑定逻辑，inspector 包含同样的卡片切换面板

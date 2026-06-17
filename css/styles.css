@@ -641,6 +641,12 @@ body {
     height: auto;
     display: block;
 }
+.carousel-item video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: rgba(15, 23, 42, 0.36);
+}
 
 .carousel-btn {
     position: absolute;
@@ -749,6 +755,24 @@ body {
     -webkit-user-drag: none;
     max-width: none;
     max-height: none;
+}
+.image-viewer-video {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    width: min(100%, 1200px);
+    max-height: calc(100% - 72px);
+    display: none;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.92);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+}
+.image-viewer.show-video .image-viewer-video {
+    display: block;
+}
+.image-viewer.show-video .image-viewer-image,
+.image-viewer.show-video .image-viewer-hint {
+    display: none;
 }
 .image-viewer-close {
     position: absolute;

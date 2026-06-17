@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewer = document.querySelector('[data-image-viewer]');
     const viewerStage = viewer?.querySelector('.image-viewer-stage');
     const viewerImage = viewer?.querySelector('.image-viewer-image');
+    const viewerVideo = viewer?.querySelector('.image-viewer-video');
     const viewerCloseTargets = viewer?.querySelectorAll('[data-viewer-close]') || [];
     const viewerPrev = viewer?.querySelector('[data-viewer-prev]');
     const viewerNext = viewer?.querySelector('[data-viewer-next]');
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function renderViewer() {
-        if (!viewerImage) return;
+        if (!viewerImage || viewer?.classList.contains('show-video')) return;
         viewerImage.style.transform = `translate(-50%, -50%) translate(${zoomState.offsetX}px, ${zoomState.offsetY}px) scale(${zoomState.scale})`;
     }
 
@@ -59,34 +60,68 @@ document.addEventListener('DOMContentLoaded', () => {
         renderViewer();
     }
 
-    function openViewer(src, alt) {
+    function stopViewerVideo() {
+        if (!viewerVideo) return;
+        viewerVideo.pause();
+        viewerVideo.removeAttribute('src');
+        viewerVideo.load();
+    }
+
+    function showViewerImage(item) {
         if (!viewer || !viewerImage) return;
+        viewer.classList.remove('show-video');
+        stopViewerVideo();
+        viewerImage.alt = item.alt || '';
+        viewerImage.src = item.src;
+        resetViewerState();
+    }
+
+    function showViewerVideo(item) {
+        if (!viewer || !viewerVideo) return;
+        viewer.classList.add('show-video');
+        if (viewerImage) {
+            viewerImage.removeAttribute('src');
+            viewerImage.alt = '';
+        }
+        resetViewerState();
+        viewerVideo.src = item.src;
+        viewerVideo.currentTime = 0;
+        viewerVideo.muted = false;
+        viewerVideo.play().catch(() => {});
+    }
+
+    function openViewer(item) {
+        if (!viewer) return;
         viewerState.group = null;
         viewerState.index = 0;
         if (viewerPrev) viewerPrev.classList.remove('visible');
         if (viewerNext) viewerNext.classList.remove('visible');
         viewer.classList.add('open');
         viewer.setAttribute('aria-hidden', 'false');
-        viewerImage.alt = alt || '';
-        viewerImage.src = src;
-        resetViewerState();
+        if (item.type === 'video') {
+            showViewerVideo(item);
+        } else {
+            showViewerImage(item);
+        }
     }
 
-    function showGalleryImage(index) {
-        if (!viewerState.group || !viewerImage) return;
+    function showGalleryMedia(index) {
+        if (!viewerState.group) return;
         const group = viewerState.group;
         const safeIndex = (index + group.length) % group.length;
         viewerState.index = safeIndex;
         const item = group[safeIndex];
-        viewerImage.alt = item.alt || '';
-        viewerImage.src = item.src;
-        resetViewerState();
+        if (item.type === 'video') {
+            showViewerVideo(item);
+        } else {
+            showViewerImage(item);
+        }
         if (viewerPrev) viewerPrev.classList.toggle('visible', group.length > 1);
         if (viewerNext) viewerNext.classList.toggle('visible', group.length > 1);
     }
 
     function openGallery(group, index = 0) {
-        if (!viewer || !viewerImage || !group.length) return;
+        if (!viewer || !group.length) return;
         viewerState.group = group;
         viewerState.index = index;
         viewer.classList.add('open');
@@ -98,20 +133,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (viewerPrev) viewerPrev.classList.remove('visible');
             if (viewerNext) viewerNext.classList.remove('visible');
         }
-        showGalleryImage(index);
+        showGalleryMedia(index);
     }
 
     function goViewer(delta) {
         if (!viewerState.group || viewerState.group.length < 2) return;
-        showGalleryImage(viewerState.index + delta);
+        showGalleryMedia(viewerState.index + delta);
     }
 
     function closeViewer() {
         if (!viewer) return;
         viewer.classList.remove('open');
+        viewer.classList.remove('show-video');
         viewer.setAttribute('aria-hidden', 'true');
         resetViewerState();
         if (viewerImage) viewerImage.removeAttribute('src');
+        stopViewerVideo();
     }
 
     function openCollabModal() {
@@ -126,27 +163,48 @@ document.addEventListener('DOMContentLoaded', () => {
         collabModal.setAttribute('aria-hidden', 'true');
     }
 
-    function attachZoomableImages(root = document) {
-        root.querySelectorAll('img').forEach(img => {
-            if (img.dataset.zoomBound === '1') return;
-            img.dataset.zoomBound = '1';
-            if (img.closest('.image-viewer')) return;
-            img.classList.add('zoomable-image');
-            const gallery = img.closest('[data-image-gallery]');
+    function buildMediaItem(node) {
+        if (node.tagName === 'VIDEO') {
+            return {
+                type: 'video',
+                src: node.currentSrc || node.src,
+                alt: node.getAttribute('aria-label') || node.getAttribute('title') || ''
+            };
+        }
+        return {
+            type: 'image',
+            src: node.currentSrc || node.src,
+            alt: node.alt || ''
+        };
+    }
+
+    function attachZoomableMedia(root = document) {
+        root.querySelectorAll('img, video').forEach(node => {
+            if (node.dataset.zoomBound === '1') return;
+            node.dataset.zoomBound = '1';
+            if (node.closest('.image-viewer')) return;
+            const gallery = node.closest('[data-image-gallery]');
             if (gallery) {
-                const galleryImages = Array.from(gallery.querySelectorAll('img'))
-                    .filter(node => !node.closest('.image-viewer'));
-                const group = galleryImages.map(node => ({ src: node.src, alt: node.alt }));
-                galleryImages.forEach((node, index) => {
-                    galleryGroups.set(node, { group, index });
+                const galleryMedia = Array.from(gallery.querySelectorAll('img, video'))
+                    .filter(item => !item.closest('.image-viewer'));
+                const group = galleryMedia.map(buildMediaItem);
+                galleryMedia.forEach((item, index) => {
+                    galleryGroups.set(item, { group, index });
                 });
             }
-            img.addEventListener('click', () => {
-                const galleryInfo = galleryGroups.get(img);
+
+            if (node.tagName === 'IMG') {
+                node.classList.add('zoomable-image');
+            } else {
+                node.classList.add('zoomable-image');
+            }
+
+            node.addEventListener('click', () => {
+                const galleryInfo = galleryGroups.get(node);
                 if (galleryInfo) {
                     openGallery(galleryInfo.group, galleryInfo.index);
                 } else {
-                    openViewer(img.src, img.alt);
+                    openViewer(buildMediaItem(node));
                 }
             });
         });
@@ -198,12 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggle = item.querySelector(':scope > .nav-link');
         toggle.addEventListener('click', (e) => {
             e.preventDefault();
-            const wasExpanded = item.classList.contains('expanded');
-            if (!wasExpanded) {
-                item.classList.add('expanded');
-            } else {
-                item.classList.toggle('expanded');
-            }
+            item.classList.toggle('expanded');
             const section = toggle.dataset.section;
             showSection(section);
             history.replaceState(null, '', '#' + section);
@@ -220,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    attachZoomableImages();
+    attachZoomableMedia();
 
     menuToggle.addEventListener('click', () => {
         sidebar.classList.toggle('open');
@@ -264,21 +317,31 @@ document.addEventListener('DOMContentLoaded', () => {
             track.style.height = `${height}px`;
         }
 
-        function syncItemImage(index) {
-            const img = items[index].querySelector('img');
-            if (!img) return;
+        function syncItemMedia(index) {
+            const media = items[index].querySelector('img, video');
+            if (!media) return;
             const applySize = () => {
+                const width = media.tagName === 'VIDEO' ? media.videoWidth : media.naturalWidth;
+                const height = media.tagName === 'VIDEO' ? media.videoHeight : media.naturalHeight;
                 itemSizes[index] = {
-                    width: img.naturalWidth,
-                    height: img.naturalHeight
+                    width,
+                    height
                 };
                 if (index === current) updateTrackHeight(index);
             };
 
-            if (img.complete && img.naturalWidth) {
-                applySize();
+            if (media.tagName === 'VIDEO') {
+                if (media.readyState >= 1 && media.videoWidth) {
+                    applySize();
+                } else {
+                    media.addEventListener('loadedmetadata', applySize, { once: true });
+                }
             } else {
-                img.addEventListener('load', applySize, { once: true });
+                if (media.complete && media.naturalWidth) {
+                    applySize();
+                } else {
+                    media.addEventListener('load', applySize, { once: true });
+                }
             }
         }
 
@@ -291,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTrackHeight(current);
         }
 
-        items.forEach((_, i) => syncItemImage(i));
+        items.forEach((_, i) => syncItemMedia(i));
         updateTrackHeight(current);
         prevBtn.addEventListener('click', () => goTo(current - 1));
         nextBtn.addEventListener('click', () => goTo(current + 1));
@@ -327,6 +390,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     viewerImage?.addEventListener('load', () => {
         fitViewerImage();
+    });
+
+    viewerVideo?.addEventListener('loadedmetadata', () => {
+        if (viewer?.classList.contains('show-video')) {
+            viewerVideo.play().catch(() => {});
+        }
     });
 
     viewerStage?.addEventListener('wheel', (event) => {
