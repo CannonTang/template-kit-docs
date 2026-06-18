@@ -290,6 +290,19 @@ document.addEventListener('DOMContentLoaded', () => {
         showSection(hash);
     }
 
+    const contentEl = document.querySelector('.content');
+
+    document.querySelectorAll('.scroll-to-code').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = btn.dataset.scrollTo;
+            const target = document.getElementById(targetId);
+            if (!target || !contentEl) return;
+            const targetTop = target.getBoundingClientRect().top + contentEl.scrollTop - contentEl.getBoundingClientRect().top - 24;
+            contentEl.scrollTo({ top: targetTop, behavior: 'smooth' });
+        });
+    });
+
     // Carousel
     document.querySelectorAll('[data-carousel]').forEach(carousel => {
         const items = carousel.querySelectorAll('.carousel-item');

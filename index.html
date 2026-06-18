@@ -85,6 +85,7 @@
                             <li><a href="#drag-panel" class="nav-link" data-section="drag-panel">可拖拽面板</a></li>
                             <li><a href="#ui-follower" class="nav-link" data-section="ui-follower">UI 跟随器</a></li>
                             <li><a href="#template-dropdown" class="nav-link" data-section="template-dropdown">下拉框</a></li>
+                            <li><a href="#date-picker" class="nav-link" data-section="date-picker">日期选择器</a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-children">
@@ -186,7 +187,7 @@
                         <a class="glass-card clickable" data-goto="ui-controls">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
                             <h3>UI 控件</h3>
-                            <p>按钮组、开关、拖拽面板、UI 跟随</p>
+                            <p>按钮组、开关、拖拽面板、UI 跟随、下拉框、日期选择</p>
                         </a>
                         <a class="glass-card clickable" data-goto="visual">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></div>
@@ -262,10 +263,7 @@
                             <div class="step">
                                 <div class="step-num">4</div>
                                 <div class="step-content">
-                                    <p>运行时调用代码即可播放动画：</p>
-                                    <div class="code-block"><code>simpleAnimator.ToDisplay();   // 播放到终点状态
-simpleAnimator.ToOrigin();    // 播放到起点状态
-simpleAnimator.Toggle();      // 来回切换</code></div>
+                                    <p>跳转到下方<button class="scroll-to-code" data-scroll-to="simple-animator-code">代码调用速查</button>获取完整 API，或进入<strong>调试</strong>标签页直接预览测试效果。</p>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +288,19 @@ simpleAnimator.Toggle();      // 来回切换</code></div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用速查</h3>
+                        <h3>Edit 模式预览</h3>
+                        <p>在 <strong>调试</strong> 标签页中，无需进入 Play 模式即可直接预览动画效果，方便在编辑场景时快速验证动画参数。</p>
+                        <ul class="feature-list">
+                            <li><strong>模拟预览</strong> — 预览不会真正修改物体的原始 Transform 状态，仅作视觉模拟</li>
+                            <li><strong>自动还原</strong> — 进入 Play 模式或点击选中其他物体时，物体会立即回到预览前的原始状态</li>
+                            <li><strong>完整控制</strong> — 支持播放到 Display / Origin、立即跳转、Toggle 切换、停止还原等操作</li>
+                            <li><strong>进度显示</strong> — 面板中实时展示进度条和当前动画状态</li>
+                        </ul>
+                        <p style="margin-top:10px;">Transform 模式下插值 Position、Rotation、Scale 及 RectTransform 属性；ImageFill 模式下直接驱动 fillAmount 值变化，预览结束自动还原。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 id="simple-animator-code">代码调用速查</h3>
                         <div class="code-block"><code>// 获取引用
 var anim = GetComponent&lt;SimpleAnimator&gt;();
 
@@ -353,9 +363,7 @@ anim.KillAll();</code></div>
                             <div class="step">
                                 <div class="step-num">4</div>
                                 <div class="step-content">
-                                    <p>运行时调用播放：</p>
-                                    <div class="code-block"><code>pathAnimator.PlayForward();   // 正向播放
-pathAnimator.PlayReverse();   // 反向播放</code></div>
+                                    <p>跳转到下方<button class="scroll-to-code" data-scroll-to="path-animator-code">代码调用速查</button>获取完整 API，或进入<strong>调试</strong>标签页直接预览测试效果。</p>
                                 </div>
                             </div>
                         </div>
@@ -363,48 +371,46 @@ pathAnimator.PlayReverse();   // 反向播放</code></div>
 
 
                     <div class="glass-card">
-                        <h3>路径插值方式 — Interpolation</h3>
-                        <p><strong>Linear（线性折线）</strong>：物体沿路径点之间的直线段移动。路径呈现为折线段，在拐角处会突然改变方向。适合机械轨道、传送带等需要精确直线运动的场景。</p>
-                        <p style="margin-top:10px;"><strong>CatmullRom（平滑曲线）</strong>：使用 Catmull-Rom 样条曲线插值，路径自动平滑通过每个路径点。曲线受前后相邻控制点影响，始终连续无尖角。适合相机轨道、飞行路线、流体运动等需要自然弧线的场景。若开启 Close Path，首尾衔接处也保持平滑。</p>
+                        <h3>核心配置</h3>
+
+                        <h4>路径插值 — Interpolation</h4>
+                        <p><strong>Linear</strong> — 直线连接路径点，拐角处方向突变。适合机械轨道、传送带。</p>
+                        <p><strong>CatmullRom</strong> — Catmull-Rom 样条曲线，平滑通过所有路径点。适合相机轨道、飞行路线。</p>
+
+                        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:16px 0;">
+
+                        <h4>循环方式 — Loop Mode</h4>
+                        <p><strong>Once</strong> — 播放一次后停止。 <strong>Loop</strong> — 无限循环。 <strong>PingPong</strong> — 到达终点后反向，往复运动。</p>
+
+                        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:16px 0;">
+
+                        <h4>运动朝向 — Look At Mode</h4>
+                        <p><strong>None</strong> — 不控制旋转。 <strong>Forward</strong> — 始终面朝移动方向。 <strong>Fixed</strong> — 看向固定目标。 <strong>Waypoint</strong> — 按路径点旋转插值（Linear→Slerp，CatmullRom→Squad）。</p>
+
+                        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:16px 0;">
+
+                        <h4>速度模式 — Speed Mode</h4>
+                        <p><strong>Constant</strong> — 匀速，每段时间与段长成正比。 <strong>UniformSegment</strong> — 每段等时，长段快短段慢。</p>
+
+                        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:16px 0;">
+
+                        <h4>其他属性</h4>
+                        <p><strong>Duration</strong> — 全程时长（秒）。 <strong>Close Path</strong> — 首尾闭合。 <strong>Use Local Space</strong> — 本地坐标系计算。 <strong>Init Behaviour</strong> — 启动时定位。 <strong>Show Path Gizmo</strong> — Scene 视图路径预览线。</p>
                     </div>
 
                     <div class="glass-card">
-                        <h3>循环方式 — Loop Mode</h3>
-                        <p><strong>Once（单次）</strong>：走完全程后停止，IsPlaying 自动变为 false。</p>
-                        <p style="margin-top:6px;"><strong>Loop（循环）</strong>：到达终点后立即从起点重新开始，一直沿同一方向无限循环。适合持续旋转的展示台、巡逻路线。</p>
-                        <p style="margin-top:6px;"><strong>PingPong（往返）</strong>：到达终点后反向走回起点，再正向走到终点，如此往复。适合来回摆动的平台、电梯、滑动门等。</p>
+                        <h3>Edit 模式预览</h3>
+                        <p>在 <strong>调试</strong> 标签页中，无需进入 Play 模式即可预览完整路径动画，方便调参和验证路径效果。</p>
+                        <ul class="feature-list">
+                            <li><strong>模拟预览</strong> — 物体沿路径移动仅是视觉模拟，预览结束后自动还原到原始位置，不会改变物体的实际 Transform 状态</li>
+                            <li><strong>自动还原</strong> — 进入 Play 模式或点击选中其他物体时，物体会立即回到预览前的原始状态，无需手动撤销</li>
+                            <li><strong>完整路径支持</strong> — 正向/反向播放、暂停/继续、停止及回到起点，支持 Linear / CatmullRom 插值、Once / Loop / PingPong 循环模式、Forward / Fixed 朝向模式</li>
+                            <li><strong>实时进度</strong> — 面板中显示当前播放进度条和状态文字</li>
+                        </ul>
                     </div>
 
                     <div class="glass-card">
-                        <h3>运动朝向 — Look At Mode</h3>
-                        <p><strong>None</strong>：不控制物体旋转，保持原有朝向。</p>
-                        <p style="margin-top:6px;"><strong>Forward（前进方向）</strong>：物体始终面朝移动方向。Linear 模式下方向在段内恒定（过路径点瞬间切换）；CatmullRom 模式下方向平滑过渡，无突变。</p>
-                        <p style="margin-top:6px;"><strong>Fixed（固定目标）</strong>：物体始终看向一个固定的目标物体（如聚光灯、玩家）。需要指定 Fixed Look Target。</p>
-                        <p style="margin-top:6px;"><strong>Waypoint（跟随路径点旋转）</strong>：物体的旋转也会随路径点的旋转插值。Linear 模式使用 Slerp 在相邻路径点间过渡；CatmullRom 模式使用 Squad（球面四边形插值），旋转过渡更平滑。</p>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>速度模式 — Speed Mode</h3>
-                        <p><strong>Constant（匀速）</strong>：保持大致恒定的移动速度。每个路径段分配的时间与段长度成正比——长段给更多时间，短段给更少时间。整个路径上的移动看起来像是匀速运动。</p>
-                        <p style="margin-top:10px;"><strong>UniformSegment（等时分段）</strong>：每个路径段分配完全相同的时间（总 duration / 段数）。无论段长短，物体在每段花费相同时间，因此长段速度快、短段速度慢。适合需要精确卡时间的场景，比如"每 2 秒到达下一个检查点"。</p>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>其他配置</h3>
-                        <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
-                            <tbody>
-                                <tr><td>Duration</td><td>走完全程的时间（秒），受 Speed Mode 影响实际每段耗时</td></tr>
-                                <tr><td>Close Path</td><td>开启后最后一点连回第一点形成闭环。Linear 模式多一条闭合折线段；CatmullRom 模式首尾处 C1 连续，形成完美平滑环</td></tr>
-                                <tr><td>Use Local Space</td><td>开启后在本地坐标系下计算位置和旋转，移动父物体即可整体平移整个路径</td></tr>
-                                <tr><td>Init Behaviour</td><td>组件启用时的行为：None（不做处理）/ SnapToFirst（跳到第一点）/ SnapToLast（跳到最后一点）</td></tr>
-                                <tr><td>Show Path Gizmo</td><td>是否在 Scene 视图中绘制路径预览线（仅编辑器）</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>代码调用速查</h3>
+                        <h3 id="path-animator-code">代码调用速查</h3>
                         <div class="code-block"><code>var path = GetComponent&lt;PathAnimator&gt;();
 
 path.PlayForward();
@@ -450,12 +456,12 @@ Vector3 pos = path.EvaluatePathAtProgress(0.75f);</code></div>
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>右键创建：<code>GameObject &gt; 模板 &gt; 动画 &gt; 帧动画控制器</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>确保目标物体上有 <strong>Animation</strong>（Legacy）组件并挂载了动画片段。</p></div></div>
                             <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 Inspector 中点击 <strong>QuickInit</strong>，自动读取所有可用的动画片段到列表中。</p></div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>设置每个片段的 startFrame / endFrame / playbackSpeed。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="legacy-animation-code">代码调用速查</button>获取完整 API，或进入<strong>调试</strong>标签页直接测试效果。</p></div></div>
                         </div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用速查</h3>
+                        <h3 id="legacy-animation-code">代码调用速查</h3>
                         <div class="code-block"><code>var ctrl = GetComponent&lt;LegacyAnimationController&gt;();
 
 // 播放当前选中的片段（返回播放时长）
@@ -510,7 +516,7 @@ ctrl.Resume();</code></div>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建后它会自动查找场景中的 Main Camera。也可手动拖拽指定 Target Camera。</p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>选择 Camera Type：鸟瞰式 / 旋转缩放式 / 第一人称飞行。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>展开对应模式的折叠栏，配置速度、范围等参数。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>展开对应模式的折叠栏配置参数，进入<strong>调试</strong>标签页可直接测试相机操控效果。</p></div></div>
                         </div>
                     </div>
 
@@ -590,12 +596,7 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 相机 &gt; 视角切换器</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 Informs 列表中添加目标配置：拖入目标 Transform、设置缩放距离和旋转角度。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>代码调用切换：</p>
-                                <div class="code-block"><code>CameraZoomController.Instance.SetCameraTarget("展品A");
-
-// 围绕目标旋转（仅旋转缩放模式）
-CameraZoomController.Instance.RotateAroundTarget("展品A", cycleDuration: 5f);</code></div>
-                            </div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>进入<strong>调试</strong>标签页可直接代码调用或手动触发切换，实时测试机位切换效果。</p></div></div>
                         </div>
                     </div>
                 </section>
@@ -613,7 +614,7 @@ CameraZoomController.Instance.RotateAroundTarget("展品A", cycleDuration: 5f);<
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="viewport-offset-code">代码调用</h3>
                         <div class="code-block"><code>var vpc = CameraViewportController.Instance;
 
 vpc.SetToLeft();    // 画面偏左（焦点让给右侧面板）
@@ -672,15 +673,7 @@ vpc.SetToOri();     // 回到居中</code></div>
                                     <li><strong>OnImageReceived</strong> — 如果开启了 Expect Image Response，图片下载完成时触发</li>
                                 </ul>
                             </div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content">
-                                <p>选择触发方式（Update Mode）：</p>
-                                <ul class="feature-list">
-                                    <li><strong>Manual</strong> — 手动调用 SendRequest()</li>
-                                    <li><strong>OnEnable</strong> — 组件启用时自动发送</li>
-                                    <li><strong>TimeInterval</strong> — 每隔 N 秒自动发送</li>
-                                    <li><strong>EndlessLoop</strong> — 收到响应后立即发送下一次</li>
-                                </ul>
-                            </div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="http-source-code">代码调用</button>获取完整 API，或在<strong>调试</strong>标签页手动发送请求测试。</p></div></div>
                         </div>
                     </div>
 
@@ -689,7 +682,7 @@ vpc.SetToOri();     // 回到居中</code></div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="http-source-code">代码调用</h3>
                         <div class="code-block"><code>var http = GetComponent&lt;HttpDataSource&gt;();
 
 // 手动发送
@@ -727,7 +720,7 @@ http.AddFormParameter("page", "1");</code></div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="http-manager-code">代码调用</h3>
                         <div class="code-block"><code>var mgr = GetComponent&lt;HttpDataSourceManager&gt;();
 
 // 发送请求（key 对应 Inspector 中配置的接口名）
@@ -763,7 +756,7 @@ mgr.ClearCache("getUserInfo");</code></div>
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 网络通信 &gt; WebSocket 客户端</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>填写 WebSocket URL（ws:// 或 wss://）。</p></div></div>
                             <div class="step"><div class="step-num">3</div><div class="step-content"><p>配置重连和心跳参数（通常保持默认即可）。</p></div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>绑定事件：onConnected、onTextReceived、onError、onDisconnected。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="websocket-code">代码调用</button>获取完整 API，或在<strong>调试</strong>标签页手动连接测试。</p></div></div>
                         </div>
                     </div>
 
@@ -783,7 +776,7 @@ mgr.ClearCache("getUserInfo");</code></div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="websocket-code">代码调用</h3>
                         <div class="code-block"><code>var ws = GetComponent&lt;WebSocketClient&gt;();
 
 ws.Connect();                 // 手动连接
@@ -826,15 +819,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 提示弹窗管理器</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>确保场景中有 Canvas。管理器会自动查找 Canvas 作为弹窗父级。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content">
-                                <p>代码调用显示弹窗：</p>
-                                <div class="code-block"><code>PromptPopupManager.Instance.ShowPrompt(
-    "删除确认",
-    "确定要删除这条记录吗？此操作不可撤销。",
-    onConfirm: () =&gt; { /* 确认逻辑 */ },
-    onCancel: () =&gt; { /* 取消逻辑 */ }
-);</code></div>
-                            </div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>进入<strong>调试</strong>标签页可直接调用 ShowPrompt 弹出测试弹窗，验证标题、按钮回调等参数。</p></div></div>
                         </div>
                     </div>
 
@@ -869,26 +854,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                         <h3>使用步骤</h3>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建管理器：<code>GameObject &gt; 模板 &gt; UI反馈 &gt; 顶部通知管理器</code></p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content">
-                                <p>代码调用：</p>
-                                <div class="code-block"><code>TopToastManager.Instance.ShowToast("文件保存成功");
-
-// 带标题和图标类型
-TopToastManager.Instance.ShowToast(
-    "网络连接已断开",
-    title: "系统提示",
-    iconType: TopToastManager.AlarmType
-);
-
-// 带点击回调
-TopToastManager.Instance.ShowToast(
-    "收到新消息",
-    onClick: () =&gt; { OpenMessagePanel(); }
-);
-
-// 常驻通知（不自动消失）
-TopToastManager.Instance.ShowToast("正在下载...", constant: true);</code></div>
-                            </div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>进入<strong>调试</strong>标签页可直接调用 ShowToast 弹出通知，测试消息内容和图标类型。</p></div></div>
                         </div>
                     </div>
 
@@ -934,7 +900,7 @@ TopToastManager.Instance.ShowToast("正在下载...", constant: true);</code></d
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 按钮组</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>在创建的 GameObject 下面放置多个带 Button 组件的子物体。</p></div></div>
                             <div class="step"><div class="step-num">3</div><div class="step-content"><p>Inspector 中点击右键菜单 <strong>Initialize</strong>（或开启 Auto Initialize On Awake），自动扫描并填充按钮列表。</p></div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>监听切换事件：在 Inspector 绑定 OnIndexChanged 事件，或代码监听。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="button-group-code">代码调用速查</button>获取完整 API，或在<strong>调试</strong>标签页直接测试按钮切换。</p></div></div>
                         </div>
                     </div>
 
@@ -943,7 +909,7 @@ TopToastManager.Instance.ShowToast("正在下载...", constant: true);</code></d
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="button-group-code">代码调用</h3>
                         <div class="code-block"><code>var group = GetComponent&lt;ButtonGroup&gt;();
 
 // 设置选中索引
@@ -973,12 +939,12 @@ group.OnIndexChanged.AddListener(index =&gt; {
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 开关按钮</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 中设置 On Sprite / Off Sprite 和 On Color / Off Color。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>绑定事件：OnSwitchOn / OnSwitchOff / OnSwitchChanged。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="toggle-button-code">代码调用速查</button>获取完整 API，或在<strong>调试</strong>标签页直接切换测试。</p></div></div>
                         </div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="toggle-button-code">代码调用</h3>
                         <div class="code-block"><code>var sw = GetComponent&lt;SwitchButton&gt;();
 
 sw.Toggle();                        // 切换
@@ -1044,7 +1010,7 @@ sw.OnSwitchChanged.AddListener(state =&gt; {
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="ui-follower-code">代码调用</h3>
                         <div class="code-block"><code>var follower = GetComponent&lt;UIFollower&gt;();
 
 // 动态更换跟随目标
@@ -1082,7 +1048,7 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                                     <li><strong>List Size Mode</strong> — ShowAll（显示全部）/ LimitVisible（限制可见数量，出现滚动条）</li>
                                 </ul>
                             </div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>绑定事件：在 Inspector 底部绑定 <strong>OnValueChanged</strong>（int 索引）或 <strong>OnTextChanged</strong>（string 文本）。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="dropdown-code">代码调用速查</button>获取完整 API，或在<strong>调试</strong>标签页直接测试下拉交互。</p></div></div>
                         </div>
                     </div>
 
@@ -1150,7 +1116,7 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用速查</h3>
+                        <h3 id="dropdown-code">代码调用速查</h3>
                         <div class="code-block"><code>var dropdown = GetComponent&lt;TemplateDropdown&gt;();
 
 // 设置选项（字符串列表）
@@ -1205,6 +1171,63 @@ dropdown.OnTextChanged.AddListener(text =&gt; {
                     </div>
                 </section>
 
+                <!-- 日期选择器 -->
+                <section class="doc-section" id="section-date-picker">
+                    <div class="section-hero"><h2>日期选择器</h2><p class="subtitle">DatePicker — 日历式日期选择控件</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>提供一个弹出式日历面板，用户可按月浏览并点选日期。适用于订单日期选择、日程安排、筛选条件等需要日期输入的场景。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>GIF: 日期选择器弹出/收起日历面板、点选日期的效果</span><small>展示月份切换、日期选中高亮和确认/取消操作</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 日期选择器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>配置日期格式、可选范围、默认值等参数。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>绑定 OnDateChanged 事件或在代码中读取选中日期。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <div class="placeholder-inner"><span>截图: DatePicker Inspector 面板</span><small>展示各配置属性和事件绑定</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>主要属性</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Date Format</td><td>日期显示格式，如 yyyy/MM/dd</td></tr>
+                                <tr><td>Min Date / Max Date</td><td>可选日期范围限制</td></tr>
+                                <tr><td>Default Value</td><td>初始默认选中日期</td></tr>
+                                <tr><td>Show Week Header</td><td>是否显示周标题行（日一二三四五六）</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>代码调用速查</h3>
+                        <div class="code-block"><code>var picker = GetComponent&lt;DatePicker&gt;();
+
+// 获取 / 设置日期
+DateTime selected = picker.SelectedDate;
+picker.SetDate(DateTime.Today);
+
+// 设置范围
+picker.SetRange(DateTime.Today.AddMonths(-1), DateTime.Today.AddMonths(3));
+
+// 事件监听
+picker.OnDateChanged.AddListener(date =&gt; {
+    Debug.Log("选中日期: " + date.ToString("yyyy-MM-dd"));
+});</code></div>
+                    </div>
+                </section>
+
                 <!-- ==================== 视觉效果 ==================== -->
                 <section class="doc-section" id="section-visual">
                     <div class="section-hero"><h2>视觉效果模块</h2><p class="subtitle">GPU 驱动的运行时视觉效果</p></div>
@@ -1230,7 +1253,7 @@ dropdown.OnTextChanged.AddListener(text =&gt; {
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 视觉 &gt; 圆点旋转加载</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>组件会自动创建一个 RawImage 子物体来渲染效果。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 Inspector 中调整颜色、大小、速度等参数。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 Inspector 中调整参数，或在<strong>调试</strong>标签页直接测试加载动画效果。</p></div></div>
                         </div>
                     </div>
 
@@ -1252,7 +1275,7 @@ dropdown.OnTextChanged.AddListener(text =&gt; {
                     </div>
 
                     <div class="glass-card">
-                        <h3>代码调用</h3>
+                        <h3 id="metaball-spinner-code">代码调用</h3>
                         <div class="code-block"><code>var spinner = GetComponent&lt;MetaballLoadingSpinner&gt;();
 
 spinner.Show();    // 显示
