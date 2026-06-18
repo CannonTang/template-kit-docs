@@ -86,6 +86,7 @@
                             <li><a href="#ui-follower" class="nav-link" data-section="ui-follower">UI 跟随器</a></li>
                             <li><a href="#template-dropdown" class="nav-link" data-section="template-dropdown">下拉框</a></li>
                             <li><a href="#date-picker" class="nav-link" data-section="date-picker">日期选择器</a></li>
+                            <li><a href="#date-range-picker" class="nav-link" data-section="date-range-picker">日期范围选择器</a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-children">
@@ -117,7 +118,7 @@
                     <div class="section-hero hero-split">
                         <div class="hero-copy">
                             <p class="subtitle">Unity 编辑器模板工具包</p>
-                            <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。不依赖任何第三方插件</p>
+                            <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。不依赖任何第三方插件，全平台兼容。</p>
                         </div>
                         <div class="hero-actions">
                             <button class="hero-panel hero-panel-button" type="button" data-collab-open>
@@ -1174,57 +1175,16 @@ dropdown.OnTextChanged.AddListener(text =&gt; {
                 <!-- 日期选择器 -->
                 <section class="doc-section" id="section-date-picker">
                     <div class="section-hero"><h2>日期选择器</h2><p class="subtitle">DatePicker — 日历式日期选择控件</p></div>
-
-                    <div class="glass-card">
-                        <h3>它能做什么</h3>
-                        <p>提供一个弹出式日历面板，用户可按月浏览并点选日期。适用于订单日期选择、日程安排、筛选条件等需要日期输入的场景。</p>
+                    <div class="glass-card" style="text-align:center;padding:40px 20px;">
+                        <p style="color:var(--text-secondary);font-size:15px;">正在开发中</p>
                     </div>
+                </section>
 
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 日期选择器弹出/收起日历面板、点选日期的效果</span><small>展示月份切换、日期选中高亮和确认/取消操作</small></div>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>使用步骤</h3>
-                        <div class="steps">
-                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 日期选择器</code></p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>配置日期格式、可选范围、默认值等参数。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>绑定 OnDateChanged 事件或在代码中读取选中日期。</p></div></div>
-                        </div>
-                    </div>
-
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: DatePicker Inspector 面板</span><small>展示各配置属性和事件绑定</small></div>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>主要属性</h3>
-                        <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
-                            <tbody>
-                                <tr><td>Date Format</td><td>日期显示格式，如 yyyy/MM/dd</td></tr>
-                                <tr><td>Min Date / Max Date</td><td>可选日期范围限制</td></tr>
-                                <tr><td>Default Value</td><td>初始默认选中日期</td></tr>
-                                <tr><td>Show Week Header</td><td>是否显示周标题行（日一二三四五六）</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>代码调用速查</h3>
-                        <div class="code-block"><code>var picker = GetComponent&lt;DatePicker&gt;();
-
-// 获取 / 设置日期
-DateTime selected = picker.SelectedDate;
-picker.SetDate(DateTime.Today);
-
-// 设置范围
-picker.SetRange(DateTime.Today.AddMonths(-1), DateTime.Today.AddMonths(3));
-
-// 事件监听
-picker.OnDateChanged.AddListener(date =&gt; {
-    Debug.Log("选中日期: " + date.ToString("yyyy-MM-dd"));
-});</code></div>
+                <!-- 日期范围选择器 -->
+                <section class="doc-section" id="section-date-range-picker">
+                    <div class="section-hero"><h2>日期范围选择器</h2><p class="subtitle">DateRangePicker — 选择起止日期范围</p></div>
+                    <div class="glass-card" style="text-align:center;padding:40px 20px;">
+                        <p style="color:var(--text-secondary);font-size:15px;">正在开发中</p>
                     </div>
                 </section>
 
