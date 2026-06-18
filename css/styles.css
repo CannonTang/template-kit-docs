@@ -205,7 +205,7 @@ body {
 .section-hero .desc { margin-top: 8px; color: var(--text-secondary); font-size: 15px; }
 .hero-split {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 36px;
 }
@@ -221,10 +221,10 @@ body {
     color: var(--text);
 }
 .hero-copy .desc {
-    margin-top: 14px;
+    margin-top: 10px;
     max-width: 520px;
-    font-size: 18px;
-    line-height: 1.55;
+    font-size: 16px;
+    line-height: 1.45;
 }
 .hero-actions {
     display: flex;
