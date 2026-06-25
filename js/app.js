@@ -303,6 +303,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    document.querySelectorAll('[data-case-accordion]').forEach(accordion => {
+        const items = accordion.querySelectorAll('.case-item');
+        items.forEach(item => {
+            item.addEventListener('toggle', () => {
+                if (!item.open) return;
+                items.forEach(other => {
+                    if (other !== item) other.open = false;
+                });
+            });
+        });
+    });
+
     // Carousel
     document.querySelectorAll('[data-carousel]').forEach(carousel => {
         const items = carousel.querySelectorAll('.carousel-item');

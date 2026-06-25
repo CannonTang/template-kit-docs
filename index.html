@@ -80,6 +80,7 @@
                             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                         </a>
                         <ul class="nav-sublist">
+                            <li><a href="#ui-font" class="nav-link" data-section="ui-font">字体</a></li>
                             <li><a href="#button-group" class="nav-link" data-section="button-group">按钮组</a></li>
                             <li><a href="#switch-button" class="nav-link" data-section="switch-button">开关按钮</a></li>
                             <li><a href="#drag-panel" class="nav-link" data-section="drag-panel">可拖拽面板</a></li>
@@ -207,8 +208,8 @@
                     <div class="glass-card">
                         <h3>模块包含</h3>
                         <ul class="feature-list">
-                            <li><strong>简易动画器</strong> — 在两个状态之间做 Transform 或 Image 填充动画</li>
-                            <li><strong>路径动画器</strong> — 让物体沿路径点序列移动</li>
+                            <li><strong>简易动画器</strong> — 快速、一键、无代码地生成物体或 UI 的简单动画</li>
+                            <li><strong>路径动画器</strong> — 快速、一键、无代码地生成物体或 UI 的路径动画</li>
                             <li><strong>帧动画控制器</strong> — 控制 Legacy Animation 组件的播放帧段</li>
                         </ul>
                     </div>
@@ -220,19 +221,20 @@
 
                 <!-- 简易动画器 -->
                 <section class="doc-section" id="section-simple-animator">
-                    <div class="section-hero"><h2>简易动画器</h2><p class="subtitle">SimpleAnimator — 两点之间的补间动画</p></div>
+                    <div class="section-hero"><h2>简易动画器</h2><p class="subtitle">SimpleAnimator — 一键生成基础动画</p></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>在「起点状态」和「终点状态」之间做平滑过渡动画。支持两种模式：</p>
+                        <p>快速、一键、无代码地生成物体或 UI 的简单动画，让对象在起点和终点之间自动过渡。支持两种模式：</p>
                         <ul class="feature-list">
                             <li><strong>Transform 模式</strong> — 位移、旋转、缩放（包括 RectTransform 的 anchoredPosition、sizeDelta 等）</li>
                             <li><strong>ImageFill 模式</strong> — 控制 Image 的 fillAmount（进度条、冷却环等）</li>
                         </ul>
+                        <p style="margin-top:10px;">更适合做<strong>轻量、直接、无需 Animator Controller</strong> 的交互动画：面板滑入、按钮弹出、图标旋转、进度填充、冷却圈推进这类两端状态明确的场景都很合适。</p>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: Transform 模式下物体在两点之间往返的效果</span><small>展示一个面板从屏幕外滑入的动画</small></div>
+                        <video src="assets/images/video-simpleanimator.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -270,8 +272,22 @@
                         </div>
                     </div>
 
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: Inspector 面板中 QuickInit 后的效果</span><small>展示 OriginMarker / DisplayMarker 子物体和 Inspector 属性</small></div>
+                    <div class="simple-media-grid">
+                        <div class="simple-media-card glass-card">
+                            <video src="assets/images/video-simpleanimator-ui.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:16px;"></video>
+                            <h4>UI 面板位移演示</h4>
+                            <p>更偏向界面交互场景，例如抽屉面板、设置框、提示条的滑入滑出。推荐搭配 <code>Use Local Space</code> 使用。</p>
+                        </div>
+                        <div class="simple-media-card glass-card">
+                            <video src="assets/images/video-simpleanimator-ui-fill.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:16px;"></video>
+                            <h4>ImageFill 填充演示</h4>
+                            <p>适合血条、冷却环、加载进度。只关心起点和终点的 <code>fillAmount</code>，不需要单独写数值补间逻辑。</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>演示说明</h3>
+                        <p>上方主视频现在以 <strong>3D / 通用 Transform</strong> 为主，突出 SimpleAnimator 最基础也最通用的两点补间能力；下方两个补充演示再分别覆盖 <strong>UI 面板位移</strong> 和 <strong>ImageFill</strong>，版面层级会更清楚。</p>
                     </div>
 
                     <div class="glass-card">
@@ -328,11 +344,11 @@ anim.KillAll();</code></div>
 
                 <!-- 路径动画器 -->
                 <section class="doc-section" id="section-path-animator">
-                    <div class="section-hero"><h2>路径动画器</h2><p class="subtitle">PathAnimator — 沿路径点移动物体</p></div>
+                    <div class="section-hero"><h2>路径动画器</h2><p class="subtitle">PathAnimator — 简易动画器的进阶版</p></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>让目标对象沿一组路径点平滑移动。适用于：巡逻路线、相机轨道、UI 引导动画、物体传送带等。</p>
+                        <p>快速、一键、无代码地生成物体或 UI 的路径动画，让目标对象沿一组路径点平滑移动。可以理解为简易动画器的进阶版本。适用于：巡逻路线、相机轨道、UI 引导动画、物体传送带等。</p>
                     </div>
 
                     <div class="media-placeholder">
@@ -522,7 +538,7 @@ ctrl.Resume();</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: CameraController 的 Inspector 面板</span><small>展示模式选择和各模式参数配置区域</small></div>
+                        <video src="assets/images/video-cameracontroller.mp4" aria-label="CameraController 相机控制器演示视频" autoplay muted loop playsinline preload="metadata" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -596,9 +612,51 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
                         <h3>使用步骤</h3>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 相机 &gt; 视角切换器</code></p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 Informs 列表中添加目标配置：拖入目标 Transform、设置缩放距离和旋转角度。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>进入<strong>调试</strong>标签页可直接代码调用或手动触发切换，实时测试机位切换效果。</p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 <strong>Informs</strong> 列表中添加机位配置，至少填入 <strong>Name</strong> 和 <strong>Target</strong>。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>如果当前由 <strong>CameraController</strong> 管理的是<strong>旋转缩放式相机</strong>，重点配置 <strong>Zoom Distance</strong>、<strong>Rotation Angle X/Y</strong>。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>如果当前是其他相机模式，则实际使用的是 <strong>Camera Offset</strong> 和 <strong>Look Eulers</strong> 来决定机位和朝向；<strong>Zoom Distance</strong> / <strong>Rotation Angle</strong> 在这类模式下不是主要控制项。</p></div></div>
+                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>进入<strong>调试</strong>标签页可直接代码调用或手动触发切换，实时测试机位切换效果。</p></div></div>
                         </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>Informs 字段说明</h3>
+                        <table class="props-table">
+                            <thead><tr><th>字段</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Name</td><td>机位名称，供代码按名称切换</td></tr>
+                                <tr><td>Target</td><td>观察目标 Transform</td></tr>
+                                <tr><td>Zoom Distance</td><td>旋转缩放式相机下的目标距离</td></tr>
+                                <tr><td>Rotation Angle Y / X</td><td>旋转缩放式相机下的目标偏航角 / 俯仰角</td></tr>
+                                <tr><td>Duration</td><td>切换动画时长</td></tr>
+                                <tr><td>Camera Offset</td><td>非旋转缩放模式下，相机相对目标的位移偏移</td></tr>
+                                <tr><td>Look Eulers</td><td>非旋转缩放模式下的固定朝向；留空向量时自动朝向目标</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 id="camera-zoom-code">代码调用</h3>
+                        <div class="code-block"><code>var zoom = CameraZoomController.Instance;
+
+// 按名称切换到预设机位
+zoom.SetCameraTarget("Lobby");
+
+// 直接传配置对象
+zoom.SetCameraTarget(new CameraZoomController.CameraCenterTargetInform {
+    name = "MachineA",
+    target = targetTransform,
+    zoomDistance = 8f,
+    rotationAngleY = 35f,
+    rotationAngleX = 20f,
+    duration = 1.2f
+});
+
+// 仅旋转缩放式相机可用：绕目标旋转
+zoom.RotateAroundTarget("Lobby", cycleDuration: 5f);
+
+// 停止当前镜头动画
+zoom.StopCurrentAnimation();</code></div>
                     </div>
                 </section>
 
@@ -612,6 +670,30 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
 
                     <div class="media-placeholder">
                         <div class="placeholder-inner"><span>GIF: 面板展开时画面焦点自动偏移的效果</span><small>对比有偏移和无偏移时的视觉差异</small></div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 相机 &gt; 视口偏移控制器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 中设置 <strong>Shift Amount</strong> 作为左右偏移量，设置 <strong>Transition Duration</strong> 控制过渡时长。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>如果希望场景启动后默认偏到左侧，可开启 <strong>Init Set Left</strong>。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>通常把它和侧边栏开关、详情面板展开按钮联动：面板打开时 <code>SetToLeft()</code>，关闭时 <code>SetToOri()</code>。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>关键配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Transition Duration</td><td>偏移动画时长</td></tr>
+                                <tr><td>Shift Amount</td><td>镜头左右偏移量，范围 0~1</td></tr>
+                                <tr><td>Ease Curve</td><td>偏移动画缓动曲线</td></tr>
+                                <tr><td>Init Set Left</td><td>启动后是否默认偏到左侧</td></tr>
+                                <tr><td>Enable Transition</td><td>是否立即执行命令；关闭后会暂存命令，重新开启时再执行</td></tr>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="glass-card">
@@ -634,7 +716,7 @@ vpc.SetToOri();     // 回到居中</code></div>
                     <div class="glass-card">
                         <h3>模块包含</h3>
                         <ul class="feature-list">
-                            <li><strong>HTTP 数据源</strong> — 单个 HTTP 请求组件，支持 GET/POST/PUT/DELETE</li>
+                            <li><strong>HTTP 数据源</strong> — 单个 HTTP 请求组件，支持 GET / POST / PUT / DELETE / PATCH / HEAD / OPTIONS</li>
                             <li><strong>HTTP 数据源管理器</strong> — 统一管理多个 API 接口，自带对象池和缓存</li>
                             <li><strong>WebSocket 客户端</strong> — 长连接，自动重连 + 心跳</li>
                         </ul>
@@ -646,11 +728,11 @@ vpc.SetToOri();     // 回到居中</code></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>不写代码也能发 HTTP 请求。URL、方法、参数、Header 全部在 Inspector 中配置，通过 UnityEvent 拿到响应结果。</p>
+                        <p>不写代码也能发 HTTP 请求。URL、方法、参数、请求头都可以在 Inspector 中配置；如果运行时需要临时改接口、参数或返回类型，也可以用 <code>HttpRequestOptions</code> 把 <code>url / method / query / headers / body / responseType</code> 明确写出来。</p>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: HttpDataSource 的 Inspector 全貌</span><small>展示 URL、方法、参数列表、事件绑定等配置区域</small></div>
+                        <video src="assets/images/video-httpdatasource-demo.mp4" aria-label="HTTP 数据源演示视频" autoplay muted loop playsinline preload="metadata" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -658,53 +740,352 @@ vpc.SetToOri();     // 回到居中</code></div>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 网络通信 &gt; HTTP 数据源</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content">
-                                <p>在 Inspector 中配置：</p>
+                                <p>在 Inspector 的<strong>请求配置</strong>页中配置：</p>
                                 <ul class="feature-list">
                                     <li>填写 URL</li>
-                                    <li>选择 HTTP 方法（GET / POST / PUT / DELETE）</li>
-                                    <li>如果是 POST，设置 Upload Type 和请求体内容</li>
-                                    <li>如需要，添加 Form Parameters 和 Headers</li>
+                                    <li>选择 Method（GET / POST / PUT / DELETE / PATCH / HEAD / OPTIONS）和 Response Type（Text / Json / Binary / Image）</li>
+                                    <li>如果需要请求体，设置 Body Type 和内容；GET / HEAD 一般不带 Body，只通过 Query 传参</li>
+                                    <li>如需要，添加 Parameters、Headers，并选择是否使用 Auth Provider 自动补充鉴权 Header</li>
+                                    <li>同一页底部即可绑定 OnResponseReceived / OnErrorReceived / OnImageReceived</li>
                                 </ul>
                             </div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content">
-                                <p>绑定响应事件（Inspector 底部的 UnityEvent）：</p>
-                                <ul class="feature-list">
-                                    <li><strong>OnResponseReceived</strong> — 请求成功时触发，参数为 JSON 字符串</li>
-                                    <li><strong>OnErrorReceived</strong> — 请求失败时触发</li>
-                                    <li><strong>OnImageReceived</strong> — 如果开启了 Expect Image Response，图片下载完成时触发</li>
-                                </ul>
-                            </div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="http-source-code">代码调用</button>获取完整 API，或在<strong>调试</strong>标签页手动发送请求测试。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在<strong>调试</strong>标签页手动发送请求测试、查看历史响应；如果需要额外打印运行日志，再开启 <strong>输出到 Console</strong>。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="http-source-code">代码案例库</button>查看按场景拆分的调用方式。</p></div></div>
                         </div>
                     </div>
 
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 运行后 Console 中打印出响应数据的完整流程</span><small>从 Inspector 配置到运行时看到结果</small></div>
+                    <div class="glass-card">
+                        <h3>支持范围</h3>
+                        <ul class="feature-list">
+                            <li>请求方法：GET / POST / PUT / DELETE / PATCH / HEAD / OPTIONS</li>
+                            <li>响应类型：Text / Json / Binary / Image</li>
+                            <li>请求体：字符串、字节数组、本地文件</li>
+                            <li>参数入口：URL Query、JSON Body、application/x-www-form-urlencoded、multipart/form-data</li>
+                            <li>鉴权：自定义 Header 或 IAuthHeaderProvider 自动注入</li>
+                        </ul>
+                        <p style="margin-top:10px;">下面的案例按真实支持能力拆成折叠项，覆盖常规网页前端里最常见的请求方式。先看场景再展开代码会更直观。</p>
                     </div>
 
                     <div class="glass-card">
-                        <h3 id="http-source-code">代码调用</h3>
-                        <div class="code-block"><code>var http = GetComponent&lt;HttpDataSource&gt;();
+                        <h3 id="http-source-code">代码案例库</h3>
+                        <div class="case-accordion" data-case-accordion>
+                            <details class="case-item" open>
+                                <summary>读取列表、详情或 JSON 对象</summary>
+                                <div class="case-body">
+                                    <p>适用场景：页面初始加载、详情读取、基础 GET 查询、直接反序列化 JSON。</p>
+                                    <div class="code-block"><code>var listOptions = new HttpRequestOptions("https://api.example.com/users", HttpMethod.GET) {
+    responseType = HttpResponseType.Json
+}
+    .AddQuery("page", "1")
+    .AddQuery("pageSize", "20");
 
-// 手动发送
-http.SendRequest();
+http.SendRequest(listOptions, response =&gt; {
+    if (!response.IsSuccess) {
+        Debug.LogError(response.Error);
+        return;
+    }
 
-// 带回调
-http.SendRequest(response =&gt; {
-    Debug.Log("收到: " + response);
+    var model = response.FromJson&lt;UserListResponse&gt;();
+    Debug.Log(model.total);
 });
 
-// 动态修改参数
-http.Url = "https://api.example.com/data";
+var detailOptions = new HttpRequestOptions("https://api.example.com/users/42", HttpMethod.GET)
+    .AddQuery("page", "1")
+    .AddQuery("pageSize", "20");
 
-http.SetUploadString("{\"key\":\"value\"}");
+http.SendRequest(detailOptions, response =&gt; {
+    if (!response.IsSuccess) {
+        Debug.LogError(response.Error);
+        return;
+    }
 
-http.AddFormParameter("page", "1");</code></div>
+    Debug.Log(response.Text);
+});</code></div>
+                                    <p>关键点：GET / HEAD 不带请求体；需要直接反序列化时可把 <code>responseType</code> 设成 <code>Json</code>，再用 <code>FromJson&lt;T&gt;()</code>。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>提交 JSON 表单</summary>
+                                <div class="case-body">
+                                    <p>适用场景：登录、保存设置、创建记录、更新表单。</p>
+                                    <div class="code-block"><code>var saveOptions = new HttpRequestOptions("https://api.example.com/profile", HttpMethod.PUT)
+    .AddHeader("Content-Type", "application/json")
+    .SetJsonBody("{\"nickname\":\"Alice\",\"age\":18}");
+
+http.SendRequest(saveOptions, response =&gt; {
+    if (!response.IsSuccess) {
+        Debug.LogError(response.Error);
+        return;
+    }
+
+    Debug.Log(response.Text);
+});</code></div>
+                                    <p>关键点：JSON 提交最常用的是 <code>SetJsonBody</code>；方法通常是 POST / PUT / PATCH。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>普通表单提交 (x-www-form-urlencoded)</summary>
+                                <div class="case-body">
+                                    <p>适用场景：传统登录接口、OAuth token 交换、后端仍按表单字段接收的旧接口。</p>
+                                    <div class="code-block"><code>var formFields = new List&lt;FormParameter&gt; {
+    new FormParameter("username", "alice"),
+    new FormParameter("password", "123456"),
+    new FormParameter("remember", "true", ParameterType.Bool)
+};
+
+var formOptions = new HttpRequestOptions("https://api.example.com/login", HttpMethod.POST)
+    .SetFormUrlEncodedBody(formFields);
+
+http.SendRequest(formOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <p>关键点：这会生成真正的 <code>application/x-www-form-urlencoded</code> 请求体，不再只是 Query 或 JSON。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>发送纯文本或自定义 Content-Type</summary>
+                                <div class="case-body">
+                                    <p>适用场景：发纯文本、XML、日志内容，或者接口要求非 JSON 的字符串请求体。</p>
+                                    <div class="code-block"><code>var textOptions = new HttpRequestOptions("https://api.example.com/raw", HttpMethod.POST)
+    .SetTextBody("plain-text-payload", "text/plain");
+
+http.SendRequest(textOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <p>关键点：<code>SetTextBody</code> 也是字符串请求体，只是 Content-Type 不再固定为 <code>application/json</code>。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>用参数自动组装请求</summary>
+                                <div class="case-body">
+                                    <p>适用场景：接口字段简单，想继续用组件里的 Parameters 列表管理输入。</p>
+                                    <div class="code-block"><code>var parameters = new List&lt;FormParameter&gt; {
+    new FormParameter("keyword", "alice"),
+    new FormParameter("page", "1", ParameterType.Int),
+    new FormParameter("needTotal", "true", ParameterType.Bool)
+};
+
+http.SetFormParameters(parameters);
+http.SendRequest();</code></div>
+                                    <p>关键点：组件模式下，GET 会把参数拼到 URL；POST / PUT / PATCH 且未手写 Body 时，可在 Inspector 里切成 JSON Body。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>自定义 Header 与 Token</summary>
+                                <div class="case-body">
+                                    <p>适用场景：鉴权、语言区分、设备标识、灰度环境标记。</p>
+                                    <div class="code-block"><code>var authOptions = new HttpRequestOptions("https://api.example.com/orders", HttpMethod.GET)
+    .AddHeader("Accept-Language", "zh-CN")
+    .AddHeader("X-Device-Id", SystemInfo.deviceUniqueIdentifier);
+
+authOptions.includeAuthHeaders = true;
+
+http.SendRequest(authOptions, response =&gt; {
+    if (response.IsSuccess) Debug.Log(response.Text);
+});</code></div>
+                                    <p>关键点：<code>includeAuthHeaders = true</code> 时，会从同物体或父物体上的 <code>IAuthHeaderProvider</code> 自动补鉴权 Header。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>DELETE / PATCH / HEAD / OPTIONS</summary>
+                                <div class="case-body">
+                                    <p>适用场景：删除记录、局部更新、探测接口是否存在、检查服务器支持能力。</p>
+                                    <div class="code-block"><code>var deleteOptions = new HttpRequestOptions("https://api.example.com/users/42", HttpMethod.DELETE);
+
+var patchOptions = new HttpRequestOptions("https://api.example.com/users/42", HttpMethod.PATCH)
+    .SetJsonBody("{\"status\":\"disabled\"}");
+
+var headOptions = new HttpRequestOptions("https://api.example.com/users/42", HttpMethod.HEAD);
+var optionsRequest = new HttpRequestOptions("https://api.example.com/users", HttpMethod.OPTIONS);
+
+http.SendRequest(deleteOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? "Deleted" : response.Error);
+});
+
+http.SendRequest(patchOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <p>关键点：HEAD 和 OPTIONS 通常只看 <code>StatusCode</code> / <code>Headers</code>；不要给 GET / HEAD 带请求体。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>统一处理错误与状态码</summary>
+                                <div class="case-body">
+                                    <p>适用场景：前端页面需要把网络错误、业务失败、空响应分开处理。</p>
+                                    <div class="code-block"><code>http.SendRequest(options, response =&gt; {
+    if (response == null) {
+        Debug.LogError("No response object.");
+        return;
+    }
+
+    if (!response.IsSuccess) {
+        Debug.LogError($"HTTP {response.StatusCode}: {response.Error}");
+        return;
+    }
+
+    if (string.IsNullOrEmpty(response.Text)) {
+        Debug.LogWarning("Response text is empty.");
+        return;
+    }
+
+    Debug.Log(response.Text);
+});</code></div>
+                                    <p>关键点：不要只判断 <code>Text</code> 是否为空；应优先用 <code>IsSuccess</code>、<code>StatusCode</code>、<code>Error</code> 分支处理。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>图片响应</summary>
+                                <div class="case-body">
+                                    <p>适用场景：头像、海报、截图、运行时纹理下载。</p>
+                                    <div class="code-block"><code>var imageOptions = new HttpRequestOptions("https://picsum.photos/200/300", HttpMethod.GET) {
+    responseType = HttpResponseType.Image
+};
+
+http.SendRequest(imageOptions, response =&gt; {
+    if (!response.IsSuccess || response.Texture == null) return;
+    rawImage.texture = response.Texture;
+});
+
+http.OnImageDelegate += texture =&gt; {
+    rawImage.texture = texture;
+};</code></div>
+                                    <p>关键点：图片响应走 <code>response.Texture</code>；如果想用 UnityEvent / Delegate，也可以直接绑定图片事件。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>二进制响应</summary>
+                                <div class="case-body">
+                                    <p>适用场景：文件下载、音频字节流、自定义二进制协议包。</p>
+                                    <div class="code-block"><code>var binaryOptions = new HttpRequestOptions("https://api.example.com/report.bin", HttpMethod.GET) {
+    responseType = HttpResponseType.Binary
+};
+
+http.SendRequest(binaryOptions, response =&gt; {
+    if (!response.IsSuccess || response.Bytes == null) return;
+
+    Debug.Log($"Downloaded {response.Bytes.Length} bytes");
+    File.WriteAllBytes(Path.Combine(Application.persistentDataPath, "report.bin"), response.Bytes);
+});</code></div>
+                                    <p>关键点：Binary 不会触发字符串 UnityEvent，处理入口是 <code>response.Bytes</code>。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>上传字节数组或本地文件</summary>
+                                <div class="case-body">
+                                    <p>适用场景：上传导出文件、截图、日志包或本地资源。</p>
+                                    <div class="code-block"><code>// 方案 1：运行时上传字节数组
+byte[] screenshotBytes = File.ReadAllBytes(imagePath);
+var uploadBytesOptions = new HttpRequestOptions("https://api.example.com/upload", HttpMethod.POST)
+    .SetBytesBody(screenshotBytes, "image/png");
+
+http.SendRequest(uploadBytesOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? "Upload ok" : response.Error);
+});
+
+// 方案 2：直接上传本地文件
+var fileOptions = new HttpRequestOptions("https://api.example.com/upload", HttpMethod.POST)
+    .SetLocalFileBody(logZipPath, "application/zip");
+
+http.SendRequest(fileOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <p>关键点：字节流和本地文件都走请求体，不通过 Parameters 列表。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>multipart 表单上传</summary>
+                                <div class="case-body">
+                                    <p>适用场景：上传头像、截图、附件，同时还要带描述、业务 ID、分类字段。</p>
+                                    <div class="code-block"><code>var multipartFields = new List&lt;FormParameter&gt; {
+    new FormParameter("userId", "42", ParameterType.Int),
+    new FormParameter("category", "avatar")
+};
+
+var multipartFiles = new List&lt;MultipartFormFileParameter&gt; {
+    new MultipartFormFileParameter("file", avatarPath, "avatar.png", "image/png")
+};
+
+var multipartOptions = new HttpRequestOptions("https://api.example.com/upload/avatar", HttpMethod.POST)
+    .SetMultipartFormDataBody(multipartFields, multipartFiles);
+
+http.SendRequest(multipartOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <div class="code-block"><code>// 运行时直接传内存字节
+var bytes = File.ReadAllBytes(avatarPath);
+var runtimeMultipart = new HttpRequestOptions("https://api.example.com/upload/avatar", HttpMethod.POST)
+    .AddFormField("userId", "42", ParameterType.Int)
+    .AddMultipartFile("file", bytes, "avatar.png", "image/png");
+
+http.SendRequest(runtimeMultipart, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <p>关键点：需要字段和文件混发时，用 <code>SetMultipartFormDataBody</code> 或 <code>AddMultipartFile</code>；如果走管理器，可改用 <code>Request(key, HttpRequestOptions, callback)</code> 传入同样的 options。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>临时覆盖 Inspector 默认配置</summary>
+                                <div class="case-body">
+                                    <p>适用场景：场景里已经挂好默认 URL / Header / 参数规则，但某次请求需要临时改地址、方法或返回类型。</p>
+                                    <div class="code-block"><code>var options = http.BuildConfiguredOptions();
+options.url = "https://api.example.com/users/42";
+options.method = HttpMethod.DELETE;
+options.responseType = HttpResponseType.Json;
+options.headers["X-Trace-Id"] = Guid.NewGuid().ToString("N");
+
+http.SendRequest(options, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <p>关键点：<code>BuildConfiguredOptions()</code> 会先继承 Inspector 当前配置，再按代码覆盖。</p>
+                                </div>
+                            </details>
+
+                            <details class="case-item">
+                                <summary>多接口项目交给管理器</summary>
+                                <div class="case-body">
+                                    <p>适用场景：同一页面或系统里有多个 API，需要统一 Base URL、缓存和对象池。</p>
+                                    <div class="code-block"><code>var mgr = GetComponent&lt;HttpDataSourceManager&gt;();
+
+mgr.Request("getUserInfo", new List&lt;FormParameter&gt; {
+    new FormParameter("userId", "42", ParameterType.Int)
+}, text =&gt; {
+    Debug.Log(text);
+});
+
+var overrideOptions = new HttpRequestOptions {
+    method = HttpMethod.PATCH,
+    responseType = HttpResponseType.Json
+}.SetJsonBody("{\"status\":\"disabled\"}");
+
+mgr.Request("updateUserStatus", overrideOptions, response =&gt; {
+    Debug.Log(response.IsSuccess ? response.Text : response.Error);
+});</code></div>
+                                    <p>关键点：`HttpDataSource` 适合单个独立请求；接口数量一多，`HttpDataSourceManager` 的对象池和缓存会更省心。</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>当前边界</h3>
+                        <p>这一版 HTTP API 已覆盖大多数网页前端常用场景，包括 Query、JSON、<code>application/x-www-form-urlencoded</code> 和 <code>multipart/form-data</code>。当前仍未覆盖的是流式响应处理、cookie jar 和浏览器级跨域语义；如果继续向浏览器请求栈靠拢，优先级最高的是流式响应。</p>
                     </div>
 
                     <div class="glass-card tip-card">
                         <h3>关于鉴权</h3>
-                        <p>如果请求需要 Token，在同一物体或父物体上挂载 <strong>BearerTokenProvider</strong> 组件，填入 Token 即可自动添加 Authorization Header。</p>
+                        <p>如果请求需要 Token，在同一物体或父物体上挂载 <strong>BearerTokenProvider</strong> 组件，填入 Token，并在 HTTP 数据源的请求头区块保持 <strong>使用 Auth Provider</strong> 开启。需要图片返回时，在 Inspector 中把 <strong>Response Type</strong> 设为 <strong>Image</strong>，代码里则设置 <code>responseType = HttpResponseType.Image</code>。</p>
                     </div>
                 </section>
 
@@ -721,17 +1102,61 @@ http.AddFormParameter("page", "1");</code></div>
                     </div>
 
                     <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 网络通信 &gt; HTTP 数据源管理器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在<strong>全局配置</strong>中填写 <strong>Default Base URL</strong>，作为大多数接口的公共服务器地址。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 <strong>API Configs</strong> 列表中逐个配置接口：<strong>Key</strong>、<strong>URL Path</strong>、请求方式、连接池大小和缓存时长。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>如果某个接口不走公共域名，可单独开启 <strong>Use Forced Base URL</strong> 覆盖全局地址。</p></div></div>
+                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="http-manager-code">代码调用</button>获取完整 API，运行时可在<strong>调试</strong>标签页查看缓存、连接池和历史响应。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>配置要点</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>Default Base URL</td><td>默认服务器地址，例如 <code>https://api.example.com</code></td></tr>
+                                <tr><td>Key</td><td>接口唯一标识，代码里通过它发请求</td></tr>
+                                <tr><td>URL Path</td><td>接口路径，例如 <code>/v1/users</code></td></tr>
+                                <tr><td>Pool Size</td><td>该接口预创建的请求实例数量；池满时会自动扩容</td></tr>
+                                <tr><td>Cache Duration Seconds</td><td>大于 0 时启用缓存；相同请求会直接返回缓存结果</td></tr>
+                                <tr><td>Default Headers</td><td>该接口固定携带的 Header 列表</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
                         <h3 id="http-manager-code">代码调用</h3>
                         <div class="code-block"><code>var mgr = GetComponent&lt;HttpDataSourceManager&gt;();
 
-// 发送请求（key 对应 Inspector 中配置的接口名）
+// 1. 用 Inspector 里配置好的 key 发送请求
 mgr.Request("getUserInfo", parameters, response =&gt; {
     Debug.Log(response);
 });
 
-// 泛型版本，自动反序列化
+// 2. 泛型版本，自动反序列化
 mgr.Request&lt;UserInfo&gt;("getUserInfo", parameters, user =&gt; {
     Debug.Log(user.name);
+});
+
+// 3. 运行时临时改请求方式和请求体
+var options = new HttpRequestOptions {
+    method = HttpMethod.PATCH,
+    responseType = HttpResponseType.Json
+}
+    .AddHeader("Content-Type", "application/json")
+    .SetJsonBody("{\"nickname\":\"alice\"}");
+
+mgr.Request("updateUser", options, response =&gt; {
+    if (!response.IsSuccess) {
+        Debug.LogError(response.Error);
+        return;
+    }
+
+    Debug.Log(response.StatusCode);
+    Debug.Log(response.Text);
 });
 
 // 清除缓存
@@ -756,8 +1181,9 @@ mgr.ClearCache("getUserInfo");</code></div>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 网络通信 &gt; WebSocket 客户端</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>填写 WebSocket URL（ws:// 或 wss://）。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>配置重连和心跳参数（通常保持默认即可）。</p></div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="websocket-code">代码调用</button>获取完整 API，或在<strong>调试</strong>标签页手动连接测试。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>如果要组件启用后自动连接，勾选 <strong>Connect On Enable</strong>。如果同时勾选了 <strong>Require Explicit Activation</strong>，则还需要先代码调用 <code>Activate()</code>，否则不会自动连接。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>根据业务需要配置重连和心跳参数；大多数实时推送场景保持默认值即可。</p></div></div>
+                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="websocket-code">代码调用</button>获取完整 API，或在<strong>调试</strong>标签页手动连接测试。</p></div></div>
                         </div>
                     </div>
 
@@ -767,6 +1193,7 @@ mgr.ClearCache("getUserInfo");</code></div>
                             <thead><tr><th>属性</th><th>说明</th></tr></thead>
                             <tbody>
                                 <tr><td>Connect On Enable</td><td>组件启用时自动连接</td></tr>
+                                <tr><td>Require Explicit Activation</td><td>开启后，必须先调用 <code>Activate()</code> 才允许连接或自动连接</td></tr>
                                 <tr><td>Enable Reconnect</td><td>断线后自动重连</td></tr>
                                 <tr><td>Reconnect Delay</td><td>重连间隔秒数</td></tr>
                                 <tr><td>Max Reconnect Attempts</td><td>最大重连次数（-1 = 无限）</td></tr>
@@ -778,7 +1205,10 @@ mgr.ClearCache("getUserInfo");</code></div>
 
                     <div class="glass-card">
                         <h3 id="websocket-code">代码调用</h3>
-                        <div class="code-block"><code>var ws = GetComponent&lt;WebSocketClient&gt;();
+<div class="code-block"><code>var ws = GetComponent&lt;WebSocketClient&gt;();
+
+// 如果启用了 Require Explicit Activation，需要先激活
+ws.Activate();
 
 ws.Connect();                 // 手动连接
 
@@ -848,7 +1278,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: Toast 从顶部滑入 → 显示 → 自动滑出消失的效果</span><small>最好展示多条连续弹出的排队效果</small></div>
+                        <video src="assets/images/video-toast-demo.mp4" aria-label="顶部通知演示视频" autoplay muted loop playsinline preload="metadata" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -879,7 +1309,44 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                 <section class="doc-section" id="section-ui-controls">
                     <div class="section-hero"><h2>UI 控件模块</h2><p class="subtitle">常用交互控件的预制模板</p></div>
                     <div class="glass-card">
-                        <p>通过右键菜单直接创建控件到场景中使用。</p>
+                        <p>通过右键菜单直接创建控件到场景中使用。除控件本体外，当前模板还内置了统一的 UI 字体资源，方便近期和后续项目保持一致的视觉基线。</p>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-ui-font">
+                    <div class="section-hero"><h2>字体</h2><p class="subtitle">UI 字体资源与统一使用约定</p></div>
+
+                    <div class="glass-card">
+                        <h3>当前默认字体</h3>
+                        <p>当前模板已经内置 <strong>OPPO Sans</strong> 相关资源，作为最近以及后续项目统一使用的 UI 字体基线。通过右键菜单创建的大部分 UI 模板，默认都会优先引用这套 TMP 字体资源。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>资源位置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>资源</th><th>路径</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>TMP 字体资源</td><td><code>Assets/ProjectRes/UIFonts/Templates/Resources/Fonts &amp; Materials/OPPO Sans 4.asset</code></td><td>模板默认引用的 TMP Font Asset</td></tr>
+                                <tr><td>原始字体文件</td><td><code>Assets/ProjectRes/UIFonts/Templates/Resources/OriginalFont/OPPO Sans 4.0.ttf</code></td><td>原始 TTF 文件，便于后续重新生成 TMP 资源</td></tr>
+                                <tr><td>TMP 全局设置</td><td><code>Assets/ProjectRes/UIFonts/Templates/Resources/TMP Settings.asset</code></td><td>模板附带的 TMP 设置资源</td></tr>
+                                <tr><td>Fallback 字体</td><td><code>Assets/ProjectRes/UIFonts/Templates/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset</code></td><td>缺字或兜底场景使用的补充字体资源</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用建议</h3>
+                        <ul class="feature-list">
+                            <li><strong>保持默认</strong> — 如果项目希望直接沿用当前模板的 UI 视觉风格，通常无需额外处理，继续使用默认字体即可。</li>
+                            <li><strong>按需导入</strong> — 是否把原始 TTF、TMP Settings、Fallback、Sprite Assets 一并带入目标项目，需要根据包体、品牌规范、字体授权和实际界面需求自行决定。</li>
+                            <li><strong>统一替换</strong> — 如果项目已有既定字体体系，建议在模板落地初期统一替换 TMP Font Asset，避免后期页面混用多套字体。</li>
+                            <li><strong>生成逻辑</strong> — 当前 UI 模板创建脚本默认会从上述路径加载 OPPO Sans TMP 资源，因此删除或改名后，相关模板的生成结果也会受影响。</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>约定说明</h3>
+                        <p>这套字体资源更适合作为 <strong>UI 设计和模板生成的统一默认值</strong>，不是强制要求所有项目必须原样导入。简单说：默认跟着模板走，若项目有自己更明确的品牌字体或交付要求，再统一替换即可。</p>
                     </div>
                 </section>
 
@@ -892,7 +1359,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 点击不同按钮时选中状态切换的效果</span><small>展示颜色/缩放变化的视觉反馈</small></div>
+                        <video src="assets/images/video-buttongroup.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -905,16 +1372,13 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                         </div>
                     </div>
 
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: ButtonGroup Inspector 中 Initialize 后的按钮列表</span><small>展示 Items 列表和各配置项</small></div>
-                    </div>
-
                     <div class="glass-card">
                         <h3 id="button-group-code">代码调用</h3>
                         <div class="code-block"><code>var group = GetComponent&lt;ButtonGroup&gt;();
 
 // 设置选中索引
 group.SetIndex(2);
+group.SetIndexWithoutNotify(2);    // 静默设置，不触发 OnIndexChanged
 
 // 监听切换
 group.OnIndexChanged.AddListener(index =&gt; {
@@ -932,7 +1396,7 @@ group.OnIndexChanged.AddListener(index =&gt; {
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 开关按钮点击切换的效果</span><small>展示颜色和图标的变化</small></div>
+                        <video src="assets/images/video-switchbutton.mp4" aria-label="开关按钮点击切换效果演示" autoplay muted loop playsinline preload="metadata" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -951,6 +1415,7 @@ group.OnIndexChanged.AddListener(index =&gt; {
 sw.Toggle();                        // 切换
 
 sw.SetSwitchState(true);            // 设为开启
+sw.SetSwitchStateWithoutNotify(true); // 静默设置，不触发切换事件
 
 bool isOn = sw.IsOn;                // 读取状态
 
@@ -969,7 +1434,17 @@ sw.OnSwitchChanged.AddListener(state =&gt; {
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 拖拽面板在限定区域内移动的效果</span><small>展示拖拽和边界限制</small></div>
+                        <video src="assets/images/video-uidragpanel.mp4" aria-label="可拖拽面板拖动与边界限制演示" autoplay muted loop playsinline preload="metadata" controls></video>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 可拖拽面板</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>把组件挂在需要被拖动的 UI 面板根节点上，该节点必须是 <strong>RectTransform</strong>。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>如需限制拖动范围，将一个边界容器拖到 <strong>Drag Area</strong>；留空则不限制范围。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>如果希望面板每次重新显示时回到初始位置，保持 <strong>Reset Position On Enable</strong> 开启；否则关闭它以保留用户上次拖动后的停留位置。</p></div></div>
+                        </div>
                     </div>
 
                     <div class="glass-card">
@@ -982,6 +1457,11 @@ sw.OnSwitchChanged.AddListener(state =&gt; {
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>行为说明</h3>
+                        <p>开始拖拽时组件会把当前面板提升到同级最后一个兄弟节点，因此弹出的设置窗、浮层工具条在拖动时会自动置顶显示。</p>
+                    </div>
                 </section>
 
                 <section class="doc-section" id="section-ui-follower">
@@ -989,11 +1469,23 @@ sw.OnSwitchChanged.AddListener(state =&gt; {
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>将 UI 元素（如血条、名称标签）锚定到 3D 世界中的某个 Transform，UI 会实时跟随其屏幕投影位置。物体移到相机背面时自动隐藏。</p>
+                        <p>将 UI 元素（如血条、名称标签）锚定到 3D 世界中的某个 Transform，UI 会实时跟随其屏幕投影位置。物体移到相机背面时可自动隐藏。</p>
+                        <p style="margin-top:10px;">常见用法包括角色头顶血条、建筑名称牌、交互点标记和设备状态标签。核心价值是把 3D 世界坐标稳定映射到 UI Canvas 中，不需要手写坐标换算逻辑。</p>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: UI 标签跟随 3D 物体移动的效果</span><small>展示物体移动时 UI 实时跟随，以及物体转到背面时 UI 消失</small></div>
+                        <video src="assets/images/video-uifollwer.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; UI跟随器</code></p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>拖入 <strong>World Target</strong> 作为要跟随的 3D 目标，再拖入 <strong>UI Element</strong> 作为需要被移动的 UI 节点。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p><strong>Target Camera</strong> 和 <strong>Target Canvas</strong> 默认可留空，组件会自动查找；只有多相机、多 Canvas 场景才建议手动指定。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>通过 <strong>Offset</strong> 调整屏幕偏移，通过 <strong>Update Interval</strong> 平衡跟随流畅度和性能开销。</p></div></div>
+                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>需要可见性回调时，可在 Inspector 绑定 <strong>On Became Visible</strong> / <strong>On Became Invisible</strong>。</p></div></div>
+                        </div>
                     </div>
 
                     <div class="glass-card">
@@ -1005,9 +1497,16 @@ sw.OnSwitchChanged.AddListener(state =&gt; {
                                 <tr><td>UI Element</td><td>要移动的 UI RectTransform</td></tr>
                                 <tr><td>Offset</td><td>屏幕空间偏移量 (像素)</td></tr>
                                 <tr><td>Update Interval</td><td>更新频率（0 = 每帧更新）</td></tr>
-                                <tr><td>Auto Hide When Behind Camera</td><td>物体在相机后方时自动隐藏 UI</td></tr>
+                                <tr><td>Target Camera / Target Canvas</td><td>留空时自动查找 Camera.main 和上层根 Canvas</td></tr>
+                                <tr><td>Auto Hide When Behind Camera</td><td>物体在相机后方时自动切换 <code>UI Element</code> 的激活状态</td></tr>
+                                <tr><td>Hide Position</td><td>不可见时用于返回的占位坐标</td></tr>
                             </tbody>
                         </table>
+                    </div>
+
+                    <div class="glass-card tip-card">
+                        <h3>自动隐藏说明</h3>
+                        <p>开启 <strong>Auto Hide When Behind Camera</strong> 后，组件不是单纯改透明度，而是会直接对 <code>UI Element.gameObject</code> 执行启用/禁用切换。如果该节点上还挂了动画、布局或其他脚本，请把这个行为一起考虑进去。</p>
                     </div>
 
                     <div class="glass-card">
@@ -1032,88 +1531,60 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                         <p style="margin-top:10px;"><strong>代码动态管理选项</strong>：支持运行时通过 <code>SetOptions</code> 批量替换选项、<code>AddOption</code> 动态追加、<code>RemoveOptionAt</code> 按索引删除、<code>ClearOptions</code> 一键清空，无需预先在 Inspector 中固定配置。</p>
                         <p style="margin-top:6px;"><strong>双事件回调</strong>：<code>OnValueChanged(int)</code> 返回选中索引，<code>OnTextChanged(string)</code> 返回选中文本，可在 Inspector 中直接绑定或通过代码 <code>AddListener</code> 监听。</p>
                         <p style="margin-top:6px;"><strong>灵活的 UI 行为</strong>：支持向上/向下展开、列表自适应高度或限制可见项数（自动启用滚动）、选中后自动关闭、点击外部遮罩关闭。</p>
+                        <p style="margin-top:6px;"><strong>选项背景支持颜色或三态精灵</strong>：选项可以继续使用默认色 / 悬停色 / 选中色，也可以切换为 <code>默认 Sprite</code>、<code>悬停 Sprite</code>、<code>选中 Sprite</code> 三张状态图。</p>
+                        <p style="margin-top:6px;"><strong>精灵配置带安全回退</strong>：只有三张状态图都配置齐全时才启用精灵模式；缺任意一张都会自动回退到颜色配置，避免半配置状态下出现不一致的交互表现。</p>
                     </div>
 
                     <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>GIF: 下拉框展开/收起动画 + 选项选中效果</span><small>展示展开方向、箭头旋转、选项高亮和选中状态的完整交互</small></div>
+                        <video src="assets/images/video-dropdown.mp4" aria-label="下拉框展开、悬停和选中效果演示" autoplay muted loop playsinline preload="metadata" controls></video>
                     </div>
 
                     <div class="glass-card">
                         <h3>使用步骤</h3>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 下拉框</code></p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 <strong>Options</strong> 列表中填入选项文本。</p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Inspector 的 <strong>Options</strong> 列表中填入选项文本，并按需要设置 <strong>Placeholder Text</strong> 与 <strong>Default Index</strong>。</p></div></div>
                             <div class="step"><div class="step-num">3</div><div class="step-content"><p>配置展开方向和列表尺寸模式：</p>
                                 <ul class="feature-list">
                                     <li><strong>Expand Direction</strong> — Bottom（向下展开）/ Top（向上展开）</li>
                                     <li><strong>List Size Mode</strong> — ShowAll（显示全部）/ LimitVisible（限制可见数量，出现滚动条）</li>
                                 </ul>
                             </div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="dropdown-code">代码调用速查</button>获取完整 API，或在<strong>调试</strong>标签页直接测试下拉交互。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>如果想用图片状态切换选项背景，请在 <strong>Sprite</strong> 配置中一次性补齐 <strong>默认 / 悬停 / 选中</strong> 三张图；如果只配置了部分状态，组件会自动回退到颜色模式。</p></div></div>
+                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="dropdown-code">代码调用速查</button>获取完整 API，或在<strong>调试</strong>标签页直接测试下拉交互。</p></div></div>
                         </div>
                     </div>
 
-                    <div class="media-placeholder">
-                        <div class="placeholder-inner"><span>截图: TemplateDropdown 的 Inspector 面板</span><small>展示 References、Behavior、Arrow Animation、Colors、Sprites 各配置区域</small></div>
+                    <div class="glass-card">
+                        <h3>怎么理解这些配置</h3>
+                        <p>如果你只想尽快把下拉框用起来，最常改的其实就三类：</p>
+                        <ul class="feature-list">
+                            <li><strong>内容怎么来</strong> — 直接在 <strong>Options</strong> 里填文本，或者运行时用 <code>SetOptions</code> / <code>AddOption</code> 动态改。</li>
+                            <li><strong>展开后长什么样</strong> — 想让列表往上弹还是往下弹、是一次性全展开，还是只显示几项并自动滚动，都在行为配置里控制。</li>
+                            <li><strong>外观走颜色还是图片</strong> — 简单场景只配颜色就够用；如果要做更明确的视觉状态，再补按钮、列表和选项的 Sprite。</li>
+                        </ul>
                     </div>
 
                     <div class="glass-card">
-                        <h3>Behavior 配置</h3>
-                        <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
-                            <tbody>
-                                <tr><td>Expand Direction</td><td>Bottom（向下展开）/ Top（向上展开）</td></tr>
-                                <tr><td>List Size Mode</td><td>ShowAll（全部显示）/ LimitVisible（限制可见数）</td></tr>
-                                <tr><td>Max Visible Items</td><td>LimitVisible 模式下最多可见的选项数量</td></tr>
-                                <tr><td>Item Height</td><td>每个选项的行高（像素）</td></tr>
-                                <tr><td>Animation Duration</td><td>展开/收起动画时长（秒），默认 0.15</td></tr>
-                                <tr><td>Close On Select</td><td>选中选项后是否自动关闭列表</td></tr>
-                                <tr><td>Close On Click Outside</td><td>点击列表外部是否自动关闭</td></tr>
-                                <tr><td>Default Index</td><td>初始化时默认选中的选项索引（-1 不选中）</td></tr>
-                                <tr><td>Placeholder Text</td><td>未选中时显示的占位文本</td></tr>
-                            </tbody>
-                        </table>
+                        <h3>颜色模式怎么用</h3>
+                        <p>颜色模式适合大多数普通表单、设置面板和工具栏场景。你只需要关心：</p>
+                        <ul class="feature-list">
+                            <li><strong>按钮背景色</strong> — 收起状态下主按钮是什么颜色。</li>
+                            <li><strong>列表背景色</strong> — 展开后整块下拉面板是什么颜色。</li>
+                            <li><strong>选项默认 / 悬停 / 选中颜色</strong> — 鼠标移入、点击选中时怎么变化。</li>
+                            <li><strong>文字默认 / 选中颜色</strong> — 让选中项更突出，或者保证深色背景下可读。</li>
+                        </ul>
+                        <p style="margin-top:10px;">如果你不想处理图片资源，直接把这几组颜色调顺，基本就能得到一套完整可用的下拉框外观。</p>
                     </div>
 
                     <div class="glass-card">
-                        <h3>箭头动画</h3>
-                        <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
-                            <tbody>
-                                <tr><td>Enable Arrow Animation</td><td>是否启用箭头旋转动画</td></tr>
-                                <tr><td>Arrow Closed Angle</td><td>收起状态箭头角度（默认 0°）</td></tr>
-                                <tr><td>Arrow Open Angle</td><td>展开状态箭头角度（默认 180°）</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>颜色配置</h3>
-                        <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
-                            <tbody>
-                                <tr><td>Button Color</td><td>主按钮背景色</td></tr>
-                                <tr><td>List Color</td><td>下拉列表背景色</td></tr>
-                                <tr><td>Item Normal Color</td><td>选项默认背景色</td></tr>
-                                <tr><td>Item Hover Color</td><td>选项悬停背景色</td></tr>
-                                <tr><td>Item Selected Color</td><td>选项选中背景色</td></tr>
-                                <tr><td>Text Color</td><td>选项文字默认颜色</td></tr>
-                                <tr><td>Selected Text Color</td><td>选中项文字颜色</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>Sprite 配置</h3>
-                        <table class="props-table">
-                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
-                            <tbody>
-                                <tr><td>Button Sprite / Type / PPU</td><td>主按钮的精灵图、类型和像素单位</td></tr>
-                                <tr><td>List Sprite / Type / PPU</td><td>下拉列表背景的精灵配置</td></tr>
-                                <tr><td>Item Sprite / Type / PPU</td><td>选项背景的精灵配置</td></tr>
-                            </tbody>
-                        </table>
-                        <p style="margin-top:12px;font-size:13px;color:var(--text-secondary);">如果 Sprite 留空，则使用对应的 Color 纯色填充；如果设置了 Sprite，Color 会被忽略。</p>
+                        <h3>精灵模式怎么用</h3>
+                        <ul class="feature-list">
+                            <li><strong>按钮和列表</strong> 仍然是单张背景图覆盖，适合做整体面板皮肤。</li>
+                            <li><strong>选项背景</strong> 需要一次性补齐 <strong>默认 / 悬停 / 选中</strong> 三张状态图，这样鼠标移入和选中时才会正确切换。</li>
+                            <li><strong>安全回退</strong> — 如果三张图没配全，组件不会半吊子地只切一部分状态，而是自动退回颜色模式，继续使用默认色、悬停色和选中色。</li>
+                        </ul>
+                        <p style="margin-top:10px;">可以把它理解成“颜色模式永远可用，精灵模式是完整配置后的增强版”。这样团队里即使有人只先补了一张图，也不会把交互状态弄乱。</p>
                     </div>
 
                     <div class="glass-card">
