@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="bg-image-layer"></div>
+    <div class="bg-glass-overlay" id="glassOverlay"></div>
     <div class="layout">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -100,6 +102,16 @@
                             <li><a href="#metaball-spinner" class="nav-link" data-section="metaball-spinner">圆点旋转加载</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item has-children">
+                        <a href="#ai-generation" class="nav-link" data-section="ai-generation">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 15l.9 2.6L22 18.5l-2.1.9L19 22l-.9-2.6-2.1-.9 2.1-.9L19 15z"/></svg>
+                            <span>AI 生成</span>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </a>
+                        <ul class="nav-sublist">
+                            <li><a href="#effect2ugui" class="nav-link" data-section="effect2ugui">Effect2UGUI</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -121,13 +133,13 @@
                             <p class="subtitle">Unity 编辑器模板工具包</p>
                             <p class="desc">右键 Hierarchy 面板即可创建预配置组件，省去从零搭建的时间。不依赖任何第三方插件，全平台兼容。</p>
                         </div>
-                        <div class="hero-actions">
-                            <button class="hero-panel hero-panel-button" type="button" data-collab-open>
+                        <div class="hero-actions liquid-cluster">
+                            <button class="hero-panel hero-panel-button liquid-panel" type="button" data-collab-open>
                                 <span class="hero-panel-kicker">参与贡献</span>
                                 <span class="hero-panel-title">提交 PR</span>
                                 <span class="hero-panel-meta">TemplateKit 仓库协作入口</span>
                             </button>
-                            <a class="hero-panel" href="http://192.168.0.155:3000/LTHD/Templates/releases" target="_blank" rel="noreferrer">
+                            <a class="hero-panel liquid-panel" href="http://192.168.0.155:3000/LTHD/Templates/releases" target="_blank" rel="noreferrer">
                                 <span class="hero-panel-kicker">下载插件</span>
                                 <span class="hero-panel-title">UnityPackage</span>
                                 <span class="hero-panel-meta">前往 Releases 下载最新插件包</span>
@@ -155,6 +167,9 @@
                             <div class="carousel-item">
                                 <video src="assets/images/video-toast.mp4" aria-label="顶部通知演示" autoplay muted loop playsinline preload="metadata"></video>
                             </div>
+                            <div class="carousel-item">
+                                <video src="assets/images/video-effect2ui.mp4" aria-label="Effect2UGUI 生成 uGUI 预制体演示" autoplay muted loop playsinline preload="metadata"></video>
+                            </div>
                         </div>
                         <button class="carousel-btn prev" aria-label="上一张">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -165,36 +180,41 @@
                         <div class="carousel-dots"></div>
                     </div>
 
-                    <div class="card-grid">
-                        <a class="glass-card clickable" data-goto="animation">
+                    <div class="card-grid liquid-card-grid">
+                        <a class="glass-card clickable liquid-card" data-goto="animation">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                             <h3>动画</h3>
                             <p>位移旋转缩放动画、路径动画、帧动画</p>
                         </a>
-                        <a class="glass-card clickable" data-goto="camera">
+                        <a class="glass-card clickable liquid-card" data-goto="camera">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
                             <h3>相机</h3>
                             <p>鸟瞰、旋转缩放、第一人称三种模式</p>
                         </a>
-                        <a class="glass-card clickable" data-goto="networking">
+                        <a class="glass-card clickable liquid-card" data-goto="networking">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
                             <h3>网络通信</h3>
                             <p>HTTP 请求、WebSocket 长连接</p>
                         </a>
-                        <a class="glass-card clickable" data-goto="ui-feedback">
+                        <a class="glass-card clickable liquid-card" data-goto="ui-feedback">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
                             <h3>UI 反馈</h3>
                             <p>弹窗确认、顶部 Toast 通知</p>
                         </a>
-                        <a class="glass-card clickable" data-goto="ui-controls">
+                        <a class="glass-card clickable liquid-card" data-goto="ui-controls">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
                             <h3>UI 控件</h3>
                             <p>按钮组、开关、拖拽面板、UI 跟随、下拉框、日期选择</p>
                         </a>
-                        <a class="glass-card clickable" data-goto="visual">
+                        <a class="glass-card clickable liquid-card" data-goto="visual">
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg></div>
                             <h3>视觉效果</h3>
                             <p>Metaball 加载动画等 GPU 特效</p>
+                        </a>
+                        <a class="glass-card clickable liquid-card" data-goto="ai-generation">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 15l.9 2.6L22 18.5l-2.1.9L19 22l-.9-2.6-2.1-.9 2.1-.9L19 15z"/></svg></div>
+                            <h3>AI 生成</h3>
+                            <p>设计图 + 切图资源，自动生成可编辑 uGUI 预制体粗稿</p>
                         </a>
                     </div>
 
@@ -1913,6 +1933,87 @@ spinner.Hide();    // 隐藏</code></div>
                     </div>
                 </section>
 
+                <!-- ==================== AI 生成 ==================== -->
+                <section class="doc-section" id="section-ai-generation">
+                    <div class="section-hero"><h2>AI 生成模块</h2></div>
+                    <div class="glass-card">
+                        <h3>模块包含</h3>
+                        <ul class="feature-list">
+                            <li><strong>Effect2UGUI</strong>：根据设计图和 UI 元素目录生成 uGUI 预制体粗稿。</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card">
+                        <h3>创建方式</h3>
+                        <div class="code-block"><code>右键 Hierarchy &gt; GameObject &gt; 模板 &gt; AI生成 &gt; Effect2UGUI 代理任务</code></div>
+                    </div>
+                </section>
+
+                <section class="doc-section" id="section-effect2ugui">
+                    <div class="section-hero"><h2>Effect2UGUI</h2><p class="subtitle">设计图 + UI 元素目录，生成 uGUI 预制体粗稿</p></div>
+
+                    <div class="glass-card">
+                        <h3>它能做什么</h3>
+                        <p>这是一个基于设计图和 UI 元素，让 AI 自动生成预制体的功能。</p>
+                        <p style="margin-top:10px;">可以把它看成一个 Skill。区别是它集成在 Unity 里，不在 Codex 或 Claude Code 里。因为在 Unity 里指定资源、生成 prefab 更方便。</p>
+                        <p style="margin-top:10px;">简单说，就是把一套任务流程固定下来，然后让 AI Agent 按这个流程一步一步做。</p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>环境需求</h3>
+                        <p>本功能要求 Code Agent 支持图片输入，并具备基础 OCR / 视觉理解能力。仅文本模型不建议使用；否则只能根据资源名、尺寸和人工说明推断布局，生成精度不可控。</p>
+                        <table class="props-table">
+                            <thead><tr><th>Code Agent</th><th>支持模型</th><th>成本</th><th>能力</th></tr></thead>
+                            <tbody>
+                                <tr><td>Codex CLI / IDE</td><td><code>gpt-5.5</code></td><td><span class="metric metric-cost metric-5"><span class="metric-label">很高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-5"><span class="metric-label">很高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>Codex CLI / IDE</td><td><code>gpt-5.4</code></td><td><span class="metric metric-cost metric-3"><span class="metric-label">中</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-4"><span class="metric-label">高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>Codex CLI / IDE</td><td><code>gpt-5.4-mini</code></td><td><span class="metric metric-cost metric-1"><span class="metric-label">很低</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-3"><span class="metric-label">中</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>Claude Code</td><td><code>claude-fable-5</code></td><td><span class="metric metric-cost metric-5"><span class="metric-label">很高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-5"><span class="metric-label">很高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>Claude Code</td><td><code>claude-opus-4-8</code></td><td><span class="metric metric-cost metric-5"><span class="metric-label">很高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-5"><span class="metric-label">很高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>Claude Code</td><td><code>claude-sonnet-4-6</code></td><td><span class="metric metric-cost metric-3"><span class="metric-label">中</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-4"><span class="metric-label">高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>Claude Code</td><td><code>claude-haiku-4-5</code></td><td><span class="metric metric-cost metric-2"><span class="metric-label">低</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-3"><span class="metric-label">中</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>Gemini CLI（自定义命令）</td><td><code>Gemini 3</code></td><td><span class="metric metric-cost metric-3"><span class="metric-label">中</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-4"><span class="metric-label">高</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                                <tr><td>GitHub Copilot CLI（自定义命令）</td><td>支持图片识别的当前可选模型</td><td><span class="metric metric-cost metric-3"><span class="metric-label">中</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td><td><span class="metric metric-capability metric-3"><span class="metric-label">中</span><span class="metric-bar"><i></i><i></i><i></i><i></i><i></i></span></span></td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top:10px;">统计时间：2026-06-26。实际可用模型以本机 CLI、账号权限和组织策略为准。</p>
+                    </div>
+
+                    <div class="media-placeholder">
+                        <video src="assets/images/video-effect2ui.mp4" aria-label="Effect2UGUI 任务配置、代理生成和 Prefab 输出流程演示" autoplay muted loop playsinline preload="metadata" controls></video>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>使用步骤</h3>
+                        <div class="steps">
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建任务对象：<code>GameObject &gt; 模板 &gt; AI生成 &gt; Effect2UGUI 代理任务</code>。</p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 <strong>输入</strong> 标签页填界面名称、UI 元素目录、设计图、工作目录和输出目录。项目内资源直接拖进去；外部文件用路径。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 <strong>代理</strong> 标签页选择 Codex、Claude Code 或自定义命令。一般保持“启动前生成资源清单”开启。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>进入 <strong>命令</strong> 标签页，复制命令，或者直接启动代理终端。Agent 只生成布局 JSON 和报告，不直接写 prefab。</p></div></div>
+                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>Agent 跑完后回到 Unity，点 <strong>从布局 JSON 生成 Prefab</strong>。Prefab 会由当前 Editor 生成并做基础检查。</p></div></div>
+                            <div class="step"><div class="step-num">6</div><div class="step-content"><p>生成后看一遍报告。有偏差的地方手动调。</p></div></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>核心配置</h3>
+                        <table class="props-table">
+                            <thead><tr><th>属性</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>界面名称</td><td>默认文件名会用它生成，包括布局 JSON、prefab 和报告。</td></tr>
+                                <tr><td>UI 元素目录</td><td>放切图资源的目录。放在 Assets 里时，工具能写出更完整的资源清单。</td></tr>
+                                <tr><td>设计图</td><td>Agent 用来对位置和尺寸的参考图，可以是项目贴图，也可以是外部图片路径。</td></tr>
+                                <tr><td>工作目录</td><td>代理命令执行的位置。留空时使用当前 Unity 项目根目录。</td></tr>
+                                <tr><td>输出目录</td><td>布局 JSON、prefab 和报告的保存位置，默认是 <code>Assets/Generated/Effect2UGUI</code>。</td></tr>
+                                <tr><td>代理类型</td><td>Codex、Claude Code 或自定义 shell 命令。</td></tr>
+                                <tr><td>资源清单目录</td><td>保存 manifest 的目录，默认在输出目录下的 <code>Manifests</code>。</td></tr>
+                                <tr><td>执行约束</td><td>写给 Agent 的规则。重点是别写 prefab/YAML，只输出 JSON 和报告。</td></tr>
+                                <tr><td>补充说明</td><td>给当前界面加特殊要求，比如按钮怎么识别、字体怎么兜底、哪些地方先留给人工确认。</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
             </div>
         </main>
     </div>
@@ -1943,6 +2044,9 @@ spinner.Hide();    // 隐藏</code></div>
                 <a class="collab-modal-confirm" href="http://192.168.0.155:3000/LTHD/Templates" target="_blank" rel="noreferrer">我已了解</a>
             </div>
         </div>
+    </div>
+    <div class="glass-opacity-panel" id="glassOpacityPanel">
+        <input type="range" id="glassOpacity" min="0" max="100" value="50">
     </div>
     <script src="js/app.js"></script>
 </body>

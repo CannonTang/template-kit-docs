@@ -222,8 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
         if (activeLink) {
             activeLink.classList.add('active');
-            const parent = activeLink.closest('.has-children');
-            if (parent) parent.classList.add('expanded');
             updateBreadcrumb(activeLink);
         }
 
@@ -247,6 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const section = link.dataset.section;
+            const parent = link.closest('.has-children');
+            // 父级切换链接由 parentItems 处理，避免重复监听导致展开/收起冲突
+            if (parent && link.parentElement === parent) return;
+            if (parent) parent.classList.add('expanded');
             showSection(section);
             history.replaceState(null, '', '#' + section);
         });
@@ -256,7 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggle = item.querySelector(':scope > .nav-link');
         toggle.addEventListener('click', (e) => {
             e.preventDefault();
+            const wasExpanded = item.classList.contains('expanded');
             item.classList.toggle('expanded');
+            if (wasExpanded) return;
             const section = toggle.dataset.section;
             showSection(section);
             history.replaceState(null, '', '#' + section);
@@ -287,19 +291,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hash = window.location.hash.slice(1);
     if (hash) {
+        const hashLink = document.querySelector(`.nav-link[data-section="${hash}"]`);
+        if (hashLink) {
+            const parent = hashLink.closest('.has-children');
+            if (parent) parent.classList.add('expanded');
+        }
         showSection(hash);
     }
 
-    const contentEl = document.querySelector('.content');
+    const mainEl = document.querySelector('.main');
 
     document.querySelectorAll('.scroll-to-code').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = btn.dataset.scrollTo;
             const target = document.getElementById(targetId);
-            if (!target || !contentEl) return;
-            const targetTop = target.getBoundingClientRect().top + contentEl.scrollTop - contentEl.getBoundingClientRect().top - 24;
-            contentEl.scrollTo({ top: targetTop, behavior: 'smooth' });
+            if (!target || !mainEl) return;
+            const targetTop = target.getBoundingClientRect().top + mainEl.scrollTop - mainEl.getBoundingClientRect().top - 24;
+            mainEl.scrollTo({ top: targetTop, behavior: 'smooth' });
         });
     });
 
@@ -477,4 +486,12 @@ document.addEventListener('DOMContentLoaded', () => {
             fitViewerImage();
         }
     }, { passive: true });
+
+    const glassSlider = document.getElementById('glassOpacity');
+    const glassOverlay = document.getElementById('glassOverlay');
+    if (glassSlider && glassOverlay) {
+        glassSlider.addEventListener('input', () => {
+            glassOverlay.style.background = `rgba(255, 255, 255, ${glassSlider.value / 100})`;
+        });
+    }
 });
