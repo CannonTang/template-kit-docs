@@ -490,8 +490,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const glassSlider = document.getElementById('glassOpacity');
     const glassOverlay = document.getElementById('glassOverlay');
     if (glassSlider && glassOverlay) {
-        glassSlider.addEventListener('input', () => {
+        const applyGlassOpacity = () => {
             glassOverlay.style.background = `rgba(255, 255, 255, ${glassSlider.value / 100})`;
-        });
+        };
+
+        applyGlassOpacity();
+        glassSlider.addEventListener('input', applyGlassOpacity);
     }
 });
