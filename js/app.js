@@ -32,6 +32,50 @@ document.addEventListener('DOMContentLoaded', () => {
         group: null,
         index: 0
     };
+    const lazyMediaSelector = 'img[data-src], video[data-src]';
+
+    function getMediaSrc(node) {
+        return node.currentSrc || node.getAttribute('src') || node.dataset.src || '';
+    }
+
+    function loadLazyMedia(node) {
+        if (!node) return null;
+        const pendingSrc = node.dataset.src;
+        if (!pendingSrc || node.getAttribute('src')) return node;
+
+        if (node.tagName === 'IMG') {
+            node.loading = node.loading || 'lazy';
+            node.decoding = node.decoding || 'async';
+            node.src = pendingSrc;
+        } else if (node.tagName === 'VIDEO') {
+            node.preload = 'metadata';
+            node.src = pendingSrc;
+            node.load();
+        }
+
+        delete node.dataset.src;
+        return node;
+    }
+
+    function playAutoplayVideo(video) {
+        if (!video.autoplay || !video.muted) return;
+        video.play().catch(() => {});
+    }
+
+    function loadSectionMedia(section) {
+        section.querySelectorAll(lazyMediaSelector).forEach(node => {
+            if (node.closest('[data-carousel]')) return;
+            loadLazyMedia(node);
+        });
+        section.querySelectorAll('video[autoplay]').forEach(playAutoplayVideo);
+    }
+
+    function pauseInactiveSectionMedia(activeSection) {
+        sections.forEach(section => {
+            if (section === activeSection) return;
+            section.querySelectorAll('video').forEach(video => video.pause());
+        });
+    }
 
     function renderViewer() {
         if (!viewerImage || viewer?.classList.contains('show-video')) return;
@@ -167,13 +211,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (node.tagName === 'VIDEO') {
             return {
                 type: 'video',
-                src: node.currentSrc || node.src,
+                src: getMediaSrc(node),
                 alt: node.getAttribute('aria-label') || node.getAttribute('title') || ''
             };
         }
         return {
             type: 'image',
-            src: node.currentSrc || node.src,
+            src: getMediaSrc(node),
             alt: node.alt || ''
         };
     }
@@ -216,6 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target) {
             target.classList.add('active');
             target.scrollTop = 0;
+            pauseInactiveSectionMedia(target);
+            loadSectionMedia(target);
+            target.querySelectorAll('[data-carousel]').forEach(carousel => {
+                carousel.dispatchEvent(new CustomEvent('carousel:show'));
+            });
         }
 
         navLinks.forEach(l => l.classList.remove('active'));
@@ -352,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function syncItemMedia(index) {
-            const media = items[index].querySelector('img, video');
+            const media = loadLazyMedia(items[index].querySelector('img, video'));
             if (!media) return;
             const applySize = () => {
                 const width = media.tagName === 'VIDEO' ? media.videoWidth : media.naturalWidth;
@@ -379,17 +428,51 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        function pauseInactiveCarouselMedia() {
+            items.forEach((item, index) => {
+                item.querySelectorAll('video').forEach(video => {
+                    if (index === current) {
+                        playAutoplayVideo(video);
+                    } else {
+                        video.pause();
+                    }
+                });
+            });
+        }
+
+        function scheduleNearbyPreload() {
+            const preload = () => {
+                if (items.length < 2) return;
+                syncItemMedia((current + 1) % items.length);
+            };
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(preload, { timeout: 1500 });
+            } else {
+                window.setTimeout(preload, 800);
+            }
+        }
+
         function goTo(index) {
             items[current].classList.remove('active');
             dotsContainer.children[current].classList.remove('active');
             current = (index + items.length) % items.length;
             items[current].classList.add('active');
             dotsContainer.children[current].classList.add('active');
+            syncItemMedia(current);
             updateTrackHeight(current);
+            pauseInactiveCarouselMedia();
+            scheduleNearbyPreload();
         }
 
-        items.forEach((_, i) => syncItemMedia(i));
+        syncItemMedia(current);
         updateTrackHeight(current);
+        pauseInactiveCarouselMedia();
+        scheduleNearbyPreload();
+        carousel.addEventListener('carousel:show', () => {
+            syncItemMedia(current);
+            pauseInactiveCarouselMedia();
+            scheduleNearbyPreload();
+        });
         prevBtn.addEventListener('click', () => goTo(current - 1));
         nextBtn.addEventListener('click', () => goTo(current + 1));
         window.addEventListener('resize', () => updateTrackHeight(current), { passive: true });

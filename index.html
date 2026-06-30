@@ -152,25 +152,25 @@
                     <div class="carousel" data-carousel data-image-gallery>
                         <div class="carousel-track">
                             <div class="carousel-item active">
-                                <img src="assets/images/overview-1.png" alt="首页轮换截图 1">
+                                <img src="assets/images/overview-1.png" alt="首页轮换截图 1" loading="eager" decoding="async" fetchpriority="high">
                             </div>
                             <div class="carousel-item">
-                                <img src="assets/images/overview-2.png" alt="首页轮换截图 2">
+                                <img data-src="assets/images/overview-2.png" alt="首页轮换截图 2" loading="lazy" decoding="async">
                             </div>
                             <div class="carousel-item">
-                                <video src="assets/images/video-pathanimator-imp.mp4" aria-label="路径动画器演示" autoplay muted loop playsinline preload="metadata"></video>
+                                <video data-src="assets/images/video-pathanimator-imp.mp4" aria-label="路径动画器演示" autoplay muted loop playsinline preload="none"></video>
                             </div>
                             <div class="carousel-item">
-                                <video src="assets/images/video-httpdatasource.mp4" aria-label="HTTP 数据源演示" autoplay muted loop playsinline preload="metadata"></video>
+                                <video data-src="assets/images/video-httpdatasource.mp4" aria-label="HTTP 数据源演示" autoplay muted loop playsinline preload="none"></video>
                             </div>
                             <div class="carousel-item">
-                                <video src="assets/images/video-prompt.mp4" aria-label="提示弹窗演示" autoplay muted loop playsinline preload="metadata"></video>
+                                <video data-src="assets/images/video-prompt.mp4" aria-label="提示弹窗演示" autoplay muted loop playsinline preload="none"></video>
                             </div>
                             <div class="carousel-item">
-                                <video src="assets/images/video-toast.mp4" aria-label="顶部通知演示" autoplay muted loop playsinline preload="metadata"></video>
+                                <video data-src="assets/images/video-toast.mp4" aria-label="顶部通知演示" autoplay muted loop playsinline preload="none"></video>
                             </div>
                             <div class="carousel-item">
-                                <video src="assets/images/video-effect2ui.mp4" aria-label="Effect2UGUI 生成 uGUI 预制体演示" autoplay muted loop playsinline preload="metadata"></video>
+                                <video data-src="assets/images/video-effect2ui.mp4" aria-label="Effect2UGUI 生成 uGUI 预制体演示" autoplay muted loop playsinline preload="none"></video>
                             </div>
                         </div>
                         <button class="carousel-btn prev" aria-label="上一张">
@@ -256,7 +256,7 @@
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-simpleanimator.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                        <video data-src="assets/images/video-simpleanimator.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -296,12 +296,12 @@
 
                     <div class="simple-media-grid">
                         <div class="simple-media-card glass-card">
-                            <video src="assets/images/video-simpleanimator-ui.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:16px;"></video>
+                            <video data-src="assets/images/video-simpleanimator-ui.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:16px;"></video>
                             <h4>UI 面板位移演示</h4>
                             <p>更偏向界面交互场景，例如抽屉面板、设置框、提示条的滑入滑出。推荐搭配 <code>Use Local Space</code> 使用。</p>
                         </div>
                         <div class="simple-media-card glass-card">
-                            <video src="assets/images/video-simpleanimator-ui-fill.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:16px;"></video>
+                            <video data-src="assets/images/video-simpleanimator-ui-fill.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:16px;"></video>
                             <h4>ImageFill 填充演示</h4>
                             <p>适合血条、冷却环、加载进度。只关心起点和终点的 <code>fillAmount</code>，不需要单独写数值补间逻辑。</p>
                         </div>
@@ -374,7 +374,7 @@ anim.KillAll();</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-pathanimator.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                        <video data-src="assets/images/video-pathanimator.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -560,7 +560,7 @@ ctrl.Resume();</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-cameracontroller.mp4" aria-label="CameraController 相机控制器演示视频" autoplay muted loop playsinline preload="metadata" controls></video>
+                        <video data-src="assets/images/video-cameracontroller.mp4" aria-label="CameraController 相机控制器演示视频" autoplay muted loop playsinline preload="none" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -754,7 +754,7 @@ vpc.SetToOri();     // 回到居中</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-httpdatasource-demo.mp4" aria-label="HTTP 数据源演示视频" autoplay muted loop playsinline preload="metadata" controls></video>
+                        <video data-src="assets/images/video-httpdatasource-demo.mp4" aria-label="HTTP 数据源演示视频" autoplay muted loop playsinline preload="none" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -1264,7 +1264,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-prompt.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                        <video data-src="assets/images/video-prompt.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -1277,7 +1277,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-promptmanager-code.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                        <video data-src="assets/images/video-promptmanager-code.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card tip-card">
@@ -1300,7 +1300,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-toast-demo.mp4" aria-label="顶部通知演示视频" autoplay muted loop playsinline preload="metadata" controls></video>
+                        <video data-src="assets/images/video-toast-demo.mp4" aria-label="顶部通知演示视频" autoplay muted loop playsinline preload="none" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -1381,7 +1381,7 @@ ws.OnConnectedDelegate += () =&gt; Debug.Log("已连接");</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-buttongroup.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                        <video data-src="assets/images/video-buttongroup.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -1418,7 +1418,7 @@ group.OnIndexChanged.AddListener(index =&gt; {
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-switchbutton.mp4" aria-label="开关按钮点击切换效果演示" autoplay muted loop playsinline preload="metadata" controls></video>
+                        <video data-src="assets/images/video-switchbutton.mp4" aria-label="开关按钮点击切换效果演示" autoplay muted loop playsinline preload="none" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -1456,7 +1456,7 @@ sw.OnSwitchChanged.AddListener(state =&gt; {
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-uidragpanel.mp4" aria-label="可拖拽面板拖动与边界限制演示" autoplay muted loop playsinline preload="metadata" controls></video>
+                        <video data-src="assets/images/video-uidragpanel.mp4" aria-label="可拖拽面板拖动与边界限制演示" autoplay muted loop playsinline preload="none" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -1496,7 +1496,7 @@ sw.OnSwitchChanged.AddListener(state =&gt; {
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-uifollwer.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                        <video data-src="assets/images/video-uifollwer.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -1558,7 +1558,7 @@ Vector2 pos = follower.WorldToCanvasPosition(worldPos);</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-dropdown.mp4" aria-label="下拉框展开、悬停和选中效果演示" autoplay muted loop playsinline preload="metadata" controls></video>
+                        <video data-src="assets/images/video-dropdown.mp4" aria-label="下拉框展开、悬停和选中效果演示" autoplay muted loop playsinline preload="none" controls></video>
                     </div>
 
                     <div class="glass-card">
@@ -1896,7 +1896,7 @@ picker.OnClosed.AddListener(() =&gt; Debug.Log("面板已关闭"));</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-metaball.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
+                        <video data-src="assets/images/video-metaball.mp4" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;border-radius:var(--radius);"></video>
                     </div>
 
                     <div class="glass-card">
@@ -1981,7 +1981,7 @@ spinner.Hide();    // 隐藏</code></div>
                     </div>
 
                     <div class="media-placeholder">
-                        <video src="assets/images/video-effect2ui.mp4" aria-label="Effect2UGUI 任务配置、代理生成和 Prefab 输出流程演示" autoplay muted loop playsinline preload="metadata" controls></video>
+                        <video data-src="assets/images/video-effect2ui.mp4" aria-label="Effect2UGUI 任务配置、代理生成和 Prefab 输出流程演示" autoplay muted loop playsinline preload="none" controls></video>
                     </div>
 
                     <div class="glass-card">

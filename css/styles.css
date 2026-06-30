@@ -44,7 +44,7 @@ body {
     position: fixed;
     inset: 0;
     z-index: -2;
-    background: url('../assets/images/content-3.png') center / cover no-repeat;
+    background: url('../assets/images/content-3.jpg') center / cover no-repeat;
 }
 .bg-glass-overlay {
     position: fixed;
@@ -97,7 +97,7 @@ body {
     z-index: 100;
     display: flex;
     flex-direction: column;
-    padding: 24px 16px;
+    padding: 24px 12px 24px 16px;
     border-radius: 30px;
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(1px) saturate(1.02);
@@ -111,8 +111,7 @@ body {
         inset 0 0 2px rgba(34, 47, 75, 0.56),
         0 16px 34px rgba(64, 83, 121, 0.16);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     isolation: isolate;
     filter: brightness(0.98);
 }
@@ -137,23 +136,17 @@ body {
     z-index: 0;
     inset: 0;
     border-radius: inherit;
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.72) 0%,
-        transparent 22%,
-        transparent 78%,
-        rgba(255, 255, 255, 0.72) 100%
-    );
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.14), transparent 48%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 34%);
     filter: blur(3px);
-    opacity: 0.74;
+    opacity: 0.32;
     pointer-events: none;
 }
 .sidebar > * {
     position: relative;
     z-index: 1;
 }
-.sidebar::-webkit-scrollbar { width: 4px; }
-.sidebar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
 
 .sidebar-header {
     display: flex;
@@ -184,6 +177,24 @@ body {
 .logo-text { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
 
 /* Navigation */
+.nav {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(88, 105, 128, 0.24) transparent;
+}
+.nav::-webkit-scrollbar { width: 4px; }
+.nav::-webkit-scrollbar-track {
+    margin: 8px 0 12px;
+    background: transparent;
+}
+.nav::-webkit-scrollbar-thumb {
+    background: rgba(88, 105, 128, 0.24);
+    border-radius: 999px;
+}
 .nav-list { list-style: none; }
 .nav-item { margin-bottom: 2px; }
 
@@ -530,14 +541,10 @@ body {
     inset: 0;
     border-radius: var(--liquid-radius);
     filter: blur(3px);
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.88) 0%,
-        transparent var(--liquid-tr),
-        transparent calc(100% - var(--liquid-tr)),
-        rgba(255, 255, 255, 0.72) 100%
-    );
-    opacity: 0.72;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.16), transparent 48%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 34%);
+    opacity: 0.32;
 }
 .liquid-panel > span {
     z-index: 1;
@@ -753,15 +760,11 @@ body {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.72) 0%,
-        transparent 20%,
-        transparent 80%,
-        rgba(255, 255, 255, 0.72) 100%
-    );
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.16), transparent 50%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 36%);
     filter: blur(3px);
-    opacity: 0.72;
+    opacity: 0.28;
     pointer-events: none;
 }
 
@@ -937,14 +940,10 @@ body {
     z-index: 0;
     border-radius: var(--liquid-card-radius);
     filter: blur(3px);
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.84) 0%,
-        transparent 18%,
-        transparent 82%,
-        rgba(255, 255, 255, 0.84) 100%
-    );
-    opacity: 0.95;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18), transparent 50%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 34%);
+    opacity: 0.3;
 }
 
 .liquid-card-grid .liquid-card > * {
