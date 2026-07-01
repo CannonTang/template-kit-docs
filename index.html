@@ -623,28 +623,35 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>提前设置好场景中几个关键观察位置（机位），运行时一键即可让相机平滑飞过去。适用于：建筑楼层切换、展品多角度查看、场景导览跳转等。</p>
+                        <p>在 Scene View 中一键捕获相机位置（或轨道参数），运行时按名称平滑切换。支持通用模式（鸟瞰/第一人称）直接记录相机位置，以及旋转缩放模式记录轨道中心点+距离+偏航/俯仰角。</p>
                     </div>
 
-                    <video src="assets/images/video-camerazoomcontroller.mp4" aria-label="视角切换器演示" autoplay muted loop playsinline preload="metadata" style="width:100%;border-radius:12px;"></video>
+                    <video src="assets/images/video-camerazoomcontroller-zoomrotatemode.mp4" aria-label="视角切换器演示" autoplay muted loop playsinline preload="metadata" style="width:100%;border-radius:12px;"></video>
 
                     <div class="glass-card">
                         <h3>使用步骤</h3>
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; 相机 &gt; 视角切换器</code>，自动生成在场景根层级 (0,0,0)。</p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 Scene View 调整到满意的角度，点击<strong>左下角</strong>「记录视角」按钮，自动创建子物体并绑定机位数据（包括相机位置和朝向）。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>也可在 Inspector 的 <strong>Informs</strong> 列表中手动增删机位，修改各项参数。</p></div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>如果当前由 <strong>CameraController</strong> 管理的是<strong>旋转缩放式相机</strong>，重点配置 <strong>Zoom Distance</strong>、<strong>Rotation Angle X/Y</strong>。</p></div></div>
-                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>非旋转缩放模式实际使用 <strong>Camera Offset</strong> 和 <strong>Look Eulers</strong>；Scene View 面板会自动计算这两个值，保证切换后视角精确还原。</p></div></div>
-                            <div class="step"><div class="step-num">6</div><div class="step-content"><p>进入<strong>调试</strong>标签页可直接代码调用或手动触发切换，实时测试机位切换效果。</p></div></div>
+                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>Scene View <strong>左下角</strong>面板会自动出现。下拉框列出所有已有机位，选中后点击<strong>预览</strong>可跳转查看。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>调整好视角后点击<strong>新建</strong>，自动创建子物体并绑定数据。选中已有配置后点击<strong>更新</strong>可覆盖当前配置（支持 Ctrl+Z 撤回）。</p></div></div>
+                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>在<strong>旋转缩放式相机</strong>模式下，面板会显示<strong>距离 / 偏航 / 俯仰</strong>滑块，拖动实时移动 Scene View 相机预览。下拉框选中已有轨道目标时自动加载参数。</p></div></div>
+                            <div class="step"><div class="step-num">5</div><div class="step-content"><p>进入 Play 模式后，在 Inspector <strong>调试</strong>标签页点击<strong>切换</strong>测试机位，轨道模式下可用<strong>环绕</strong>让相机围绕中心点旋转。</p></div></div>
                         </div>
                     </div>
 
                     <div class="glass-card">
-                        <h3>Scene View 记录面板</h3>
-                        <p>场景中存在 CameraZoomController 时，Scene View <strong>左下角</strong>会自动出现记录面板。调整好视角后点击「记录视角」即可一键生成机位目标点。</p>
-                        <p>如需隐藏面板，在 Inspector <strong>配置</strong>标签页关闭「SceneView 显示记录界面」开关。</p>
-                        <p>新增点位会自动跳过已占用的名称，删除旧点位后名称编号会被复用。</p>
+                        <h3>Scene View 面板功能</h3>
+                        <table class="props-table">
+                            <thead><tr><th>操作</th><th>说明</th></tr></thead>
+                            <tbody>
+                                <tr><td>下拉框</td><td>选择已有配置，选中后自动预览该机位</td></tr>
+                                <tr><td>预览</td><td>Scene View 跳转到该配置的视角</td></tr>
+                                <tr><td>更新</td><td>用当前 Scene View 相机覆盖选中配置（选中后可见）</td></tr>
+                                <tr><td>新建</td><td>捕获当前视角并加入列表，自动带模式标签</td></tr>
+                                <tr><td>距离 / 偏航 / 俯仰</td><td>仅旋转缩放模式显示，拖动实时模拟 Scene View 相机</td></tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top:12px;">如需隐藏面板，在 Inspector <strong>配置</strong>标签页关闭「SceneView 显示记录界面」开关。删除场景中的子物体后，对应配置自动清理。</p>
                     </div>
 
                     <div class="glass-card">
@@ -653,12 +660,15 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
                             <thead><tr><th>字段</th><th>说明</th></tr></thead>
                             <tbody>
                                 <tr><td>Name</td><td>机位名称，供代码按名称切换</td></tr>
-                                <tr><td>Target</td><td>观察目标 Transform（Scene View 面板自动创建为子物体）</td></tr>
-                                <tr><td>Zoom Distance</td><td>旋转缩放式相机下的目标距离</td></tr>
-                                <tr><td>Rotation Angle Y / X</td><td>旋转缩放式相机下的目标偏航角 / 俯仰角</td></tr>
-                                <tr><td>Duration</td><td>切换动画时长</td></tr>
-                                <tr><td>Camera Offset</td><td>非旋转缩放模式下，相机相对目标的位移偏移（面板自动计算）</td></tr>
-                                <tr><td>Look Eulers</td><td>非旋转缩放模式下的固定朝向；留空向量时自动朝向目标</td></tr>
+                                <tr><td>Target</td><td>目标 Transform。通用模式放在相机位置，轨道模式放在中心点</td></tr>
+                                <tr><td>Zoom Distance</td><td>轨道模式下相机到中心点的距离</td></tr>
+                                <tr><td>Rotation Angle Y / X</td><td>轨道模式下的偏航角 / 俯仰角</td></tr>
+                                <tr><td>Duration</td><td>切换动画时长（秒）</td></tr>
+                                <tr><td>Camera Offset</td><td>通用模式下相机相对目标的偏移</td></tr>
+                                <tr><td>Look Eulers</td><td>通用模式下相机的固定朝向</td></tr>
+                                <tr><td>Switch Camera Mode</td><td>激活时自动切换到 Target Camera Mode</td></tr>
+                                <tr><td>Target Camera Mode</td><td>切换机位时先切换到的相机模式</td></tr>
+                                <tr><td>Rotate Speed</td><td>环绕速度（度/秒），默认 36（10 秒一圈），0 还原默认</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -667,7 +677,7 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
                         <h3 id="camera-zoom-code">代码调用</h3>
                         <div class="code-block"><code>var zoom = CameraZoomController.Instance;
 
-// 按名称切换到预设机位
+// 按名称切换到预设机位（自动切换到该点位的相机模式）
 zoom.SetCameraTarget("Lobby");
 
 // 直接传配置对象
@@ -677,13 +687,23 @@ zoom.SetCameraTarget(new CameraZoomController.CameraCenterTargetInform {
     zoomDistance = 8f,
     rotationAngleY = 35f,
     rotationAngleX = 20f,
-    duration = 1.2f
+    duration = 1.2f,
+    switchCameraMode = true,
+    targetCameraMode = CameraController.CameraTypeEnum.旋转缩放式相机,
+    rotateSpeed = 36f   // 度/秒，默认 36
 });
 
-// 仅旋转缩放式相机可用：绕目标旋转
-zoom.RotateAroundTarget("Lobby", cycleDuration: 5f);
+// 旋转缩放模式下：绕目标环绕
+zoom.RotateAroundTarget("Lobby");           // 使用配置的 rotateSpeed
+zoom.RotateAroundTarget("Lobby", cycleDuration: 5f);  // 手动指定周期
 
-// 停止当前镜头动画
+// 用代码新增配置
+zoom.AddTargetPoint("NewPoint", targetTransform,
+    zoomDist: 15f, rotY: 45f, rotX: 30f,
+    switchMode: true,
+    camMode: CameraController.CameraTypeEnum.旋转缩放式相机);
+
+// 停止当前动画
 zoom.StopCurrentAnimation();</code></div>
                     </div>
                 </section>
