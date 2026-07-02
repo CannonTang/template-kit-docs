@@ -1687,7 +1687,7 @@ dropdown.OnTextChanged.AddListener(text =&gt; {
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>提供一个弹出式日历面板，用户可按月浏览并点选日期。采用<strong>草稿—确认</strong>双态模型：点击日期进入草稿态，按「确定」后才真正选中，按「取消」则恢复原值。支持日期范围限制、每周起始日自定义。</p>
+                        <p>提供一个弹出式日历面板，用户可按月浏览并点选日期。采用<strong>草稿—确认</strong>双态模型：点击日期进入草稿态，按「确定」后才真正选中，按「取消」则恢复原值。支持日期范围限制、每周起始日自定义、完整的颜色面板。</p>
                     </div>
 
                     <div class="media-placeholder">
@@ -1699,7 +1699,7 @@ dropdown.OnTextChanged.AddListener(text =&gt; {
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 日期选择器</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>默认结构已包含月份标题、42 格日期网格、上一月/下一月按钮，以及底部「今天」「清空」「取消」「确定」操作栏。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在<strong>配置</strong>标签页调整行为参数（格式、起始日、范围限制等）。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在<strong>配置</strong>标签页调整行为参数（格式、起始日、范围限制等），在<strong>外观</strong>标签页定制 8 种颜色。</p></div></div>
                             <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="datepicker-code">代码调用速查</button>获取完整 API，或在<strong>调试</strong>标签页直接测试交互。</p></div></div>
                         </div>
                     </div>
@@ -1735,6 +1735,8 @@ dropdown.OnTextChanged.AddListener(text =&gt; {
                                 <tr><td>Week Start</td><td>每周起始日（默认周一）</td></tr>
                                 <tr><td>Limit Selectable Dates</td><td>开启后限制可选日期范围</td></tr>
                                 <tr><td>Min / Max Date Iso</td><td>范围边界的 ISO 日期（yyyy-MM-dd）</td></tr>
+                                <tr><td rowspan="8" style="vertical-align:top;font-weight:600;">Colors</td><td>Normal / Hover / Selected / Today Bg</td><td>日历格 4 种背景色</td></tr>
+                                <tr><td>Normal / OutOfMonth / Disabled / Selected Text</td><td>日历格 4 种文字色</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1797,7 +1799,7 @@ picker.OnClosed.AddListener(() =&gt; {
                         <div class="steps">
                             <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建：<code>GameObject &gt; 模板 &gt; UI控件 &gt; 日期范围选择器</code></p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>组件默认展示左右两个日历面板（当前月 + 下个月），顶部显示开始/结束日期的草稿值，底部有清空/取消/确认按钮。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在<strong>配置</strong>标签页调整行为参数。</p></div></div>
+                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>在<strong>配置</strong>标签页调整行为参数，在<strong>外观</strong>标签页定制面板色、区间背景色、起止日高亮等。</p></div></div>
                             <div class="step"><div class="step-num">4</div><div class="step-content"><p>跳转到下方<button class="scroll-to-code" data-scroll-to="daterange-code">代码调用速查</button>获取完整 API，或在<strong>调试</strong>标签页直接测试交互。</p></div></div>
                         </div>
                     </div>
@@ -1807,7 +1809,7 @@ picker.OnClosed.AddListener(() =&gt; {
                         <ul class="feature-list">
                             <li><strong>首点</strong> — 点击任意日期设为起始日，结束日清空等待第二次点击</li>
                             <li><strong>次点</strong> — 若点击日期晚于起始日，则设为结束日；若早于起始日，则交换起止（原起始变结束，点击日变新起始）</li>
-                            <li><strong>区间高亮</strong> — 起止日使用选中背景色；中间日期使用半透明蓝色过渡</li>
+                            <li><strong>区间高亮</strong> — 起止日使用 <code>selectedBackgroundColor</code>；中间日期使用 <code>rangeBackgroundColor</code>（半透明蓝色过渡）</li>
                             <li><strong>左侧月份</strong> — 始终 ≤ 右侧月份，独立切换互不越过</li>
                         </ul>
                     </div>
@@ -1828,6 +1830,12 @@ picker.OnClosed.AddListener(() =&gt; {
                                 <tr><td>Week Start</td><td>每周起始日（默认周日）</td></tr>
                                 <tr><td>Limit Selectable Dates</td><td>开启后限制可选日期范围</td></tr>
                                 <tr><td>Min / Max Date Iso</td><td>范围边界的 ISO 日期（yyyy-MM-dd）</td></tr>
+                                <tr><td rowspan="11" style="vertical-align:top;font-weight:600;">Colors</td><td>Panel Color / Border Color</td><td>面板背景色和描边色</td></tr>
+                                <tr><td>Normal / Hover / Selected Bg</td><td>日历格默认、悬停、起止日背景</td></tr>
+                                <tr><td>Range Background</td><td>起止日之间区间的过渡色</td></tr>
+                                <tr><td>Today Background</td><td>今天日期的视觉标识</td></tr>
+                                <tr><td>Normal / OutOfMonth Text</td><td>当月和非当月的文字色</td></tr>
+                                <tr><td>Disabled / Selected Text</td><td>禁用和选中状态的文字色</td></tr>
                             </tbody>
                         </table>
                     </div>
