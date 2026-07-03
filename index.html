@@ -2033,45 +2033,35 @@ spinner.Hide();    // 隐藏</code></div>
                 </section>
 
                 <section class="doc-section" id="section-figma-to-unity">
-                    <div class="section-hero"><h2>Figma 导入 Unity</h2><p class="subtitle">从 Figma Frame/Node 链接生成布局配置，再生成可编辑 uGUI 界面</p></div>
+                    <div class="section-hero"><h2>Figma 导入 Unity</h2><p class="subtitle">把 Figma 设计稿直接转成可编辑的 uGUI 界面</p></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>这是 Effect2UGUI 的 Figma 输入模式。它不启动 AI Agent，而是通过 Figma API 读取指定 Frame 或 Node 的结构化数据，生成 layout JSON，再复用现有 Builder 生成 prefab。</p>
-                        <p style="margin-top:10px;">文本会尽量转换成 TMP 文本节点；Frame、Group、Section 等容器会转换成 UI 层级；复杂图层、图片填充、渐变、阴影等不适合直接还原的节点，会自动从 Figma 导出 PNG 后放进 Unity 资源目录。</p>
+                        <p>读取 Figma Frame/Node 的结构，生成布局配置，再生成 uGUI prefab。</p>
+                        <p style="margin-top:10px;">文本尽量保留为 TMP 文本节点；容器保留为 UI 层级；图片填充、渐变、阴影等复杂图层自动导出为 PNG 放进资源目录。</p>
                     </div>
 
                     <div class="glass-card">
-                        <h3>适合的场景</h3>
-                        <ul class="feature-list">
-                            <li><strong>设计稿结构清晰</strong>：Figma 中已经按界面、卡片、按钮、文本做了合理分层。</li>
-                            <li><strong>希望减少人工切图</strong>：复杂节点可以由 Unity 自动请求 Figma 导出 PNG，不需要先在本地准备一套 Figma 切图。</li>
-                            <li><strong>需要可编辑结果</strong>：最终不是整屏拍平成一张图，而是尽量保留文本、容器和图片节点，方便后续在 Unity 中调整。</li>
-                        </ul>
-                    </div>
+                        <h3>操作流程</h3>
 
-                    <div class="glass-card">
-                        <h3>使用前准备</h3>
-                        <table class="props-table">
-                            <thead><tr><th>准备项</th><th>说明</th></tr></thead>
-                            <tbody>
-                                <tr><td>Figma 链接</td><td>在 Figma 中选中具体 Frame/Node 后复制链接，链接里需要带 <code>node-id</code>。</td></tr>
-                                <tr><td>Figma Token</td><td>用于访问 Figma API。Token 只保存到本机 <code>EditorPrefs</code>，不会写入场景或 Git；也可以通过 <code>FIGMA_ACCESS_TOKEN</code> 环境变量提供。</td></tr>
-                                <tr><td>输出目录</td><td>建议放在 Unity 项目的 <code>Assets</code> 下，否则生成的资源和 prefab 可能无法被 Unity 导入。</td></tr>
-                                <tr><td>Figma 文件权限</td><td>Token 对应账号必须能访问该 Figma 文件，否则会返回 401/403。</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <div class="media-placeholder">
+                            <img src="assets/images/figma-step0-url.png" alt="在 Figma 中选中 Frame，右键 Copy link to selection" style="max-width:100%;border-radius:12px;">
+                            <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 第 1 步：在 Figma 中选中目标 Frame 或 Node，右键选择 <strong>Copy link to selection</strong></p>
+                        </div>
 
-                    <div class="glass-card">
-                        <h3>使用步骤</h3>
-                        <div class="steps">
-                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建任务对象：<code>GameObject &gt; 模板 &gt; AI生成 &gt; Effect2UGUI 代理任务</code>。</p></div></div>
-                            <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 <strong>输入</strong> 标签页把 <strong>输入模式</strong> 切换为 <strong>Figma</strong>，填写界面名称和输出目录。</p></div></div>
-                            <div class="step"><div class="step-num">3</div><div class="step-content"><p>从 Figma 复制具体 Frame/Node 链接，填入 <strong>Figma 链接</strong>。如果链接没有正确解析节点，可以手动填写 <strong>Node ID 覆盖</strong>。</p></div></div>
-                            <div class="step"><div class="step-num">4</div><div class="step-content"><p>填写 <strong>Figma Token</strong>，点击 <strong>保存 Figma Token 到本机 EditorPrefs</strong>。Token 不会跟随场景提交。</p></div></div>
-                            <div class="step"><div class="step-num">5</div><div class="step-content"><p><strong>Figma 资源保存目录</strong> 可以留空。它是自动导出 PNG 的保存目录，不是要求你手工准备切图；留空时默认保存到输出目录下的 <code>FigmaAssets/界面名称</code>。</p></div></div>
-                            <div class="step"><div class="step-num">6</div><div class="step-content"><p>进入 <strong>生成</strong> 标签页，点击 <strong>导入 Figma 并生成配置</strong>。导入成功后再点击 <strong>生成界面</strong> 生成 prefab。</p></div></div>
+                        <div class="media-placeholder">
+                            <img src="assets/images/figma-step1-token.png" alt="在 Figma 设置中生成 Personal Access Token" style="max-width:100%;border-radius:12px;">
+                            <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 第 2 步：在 Figma <strong>Settings &gt; Personal Access Tokens</strong> 中生成一个 Token</p>
+                        </div>
+
+                        <div class="media-placeholder">
+                            <img src="assets/images/figma-step2-config.png" alt="在 Unity Inspector 中填写 Figma 链接和 Token" style="max-width:100%;border-radius:12px;">
+                            <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 第 3 步：创建 Effect2UGUI 任务，输入模式切为 <strong>Figma</strong>，填入链接和 Token</p>
+                        </div>
+
+                        <div class="media-placeholder">
+                            <img src="assets/images/figma-step3-import.png" alt="点击导入按钮，生成 prefab" style="max-width:100%;border-radius:12px;">
+                            <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 第 4 步：进入生成标签页，点 <strong>导入 Figma 并生成配置</strong>，再点 <strong>生成界面</strong></p>
                         </div>
                     </div>
 
@@ -2080,23 +2070,14 @@ spinner.Hide();    // 隐藏</code></div>
                         <table class="props-table">
                             <thead><tr><th>属性</th><th>说明</th></tr></thead>
                             <tbody>
-                                <tr><td>Figma 链接</td><td>目标 Figma 文件中的具体 Frame/Node 链接，工具会从中解析 file key 和 node-id。</td></tr>
-                                <tr><td>Node ID 覆盖</td><td>链接解析不准确时使用。支持把 Figma 链接里的 <code>78-14653</code> 写法转换为 API 需要的 <code>78:14653</code>。</td></tr>
-                                <tr><td>导出倍率</td><td>复杂节点导出 PNG 时使用的倍率，默认 <code>2</code>。倍率越高越清晰，资源体积也越大。</td></tr>
-                                <tr><td>仅导入可见节点</td><td>开启后会跳过 Figma 中隐藏的图层，通常建议保持开启。</td></tr>
-                                <tr><td>复杂节点导出图片</td><td>开启后，无法稳定还原为可编辑节点的内容会自动导出为 PNG，保证视觉结果可用。</td></tr>
-                                <tr><td>Figma 资源保存目录</td><td>自动导出的 PNG 保存位置。留空时使用 <code>输出目录/FigmaAssets/界面名称</code>。</td></tr>
+                                <tr><td>Figma 链接</td><td>目标 Frame/Node 的链接，需包含 <code>node-id</code>。</td></tr>
+                                <tr><td>Figma Token</td><td>Figma Personal Access Token，保存在本机 <code>EditorPrefs</code>，不提交 Git。</td></tr>
+                                <tr><td>导出倍率</td><td>复杂节点导出 PNG 的倍率，默认 <code>2</code>。</td></tr>
+                                <tr><td>仅导入可见节点</td><td>开启后跳过 Figma 中隐藏的图层，建议保持开启。</td></tr>
+                                <tr><td>复杂节点导出图片</td><td>无法还原为可编辑节点的内容自动导出 PNG。</td></tr>
+                                <tr><td>输出目录</td><td>生成的 prefab 和资源的保存位置，建议放在 <code>Assets</code> 下。</td></tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="glass-card">
-                        <h3>能力边界</h3>
-                        <ul class="feature-list">
-                            <li><strong>不直接读取 .fig 文件</strong>：推荐把 <code>.fig</code> 导入或打开到 Figma，再复制具体 Frame/Node 链接给 Unity。</li>
-                            <li><strong>不是像素级一键完成</strong>：它能显著减少布局和切图工作，但复杂组件、字体差异、交互动效仍需要在 Unity 中复审和微调。</li>
-                            <li><strong>依赖 Figma API 权限</strong>：如果 Token 无效、文件无权限或网络不可访问，导入会失败。</li>
-                        </ul>
                     </div>
 
                 </section>
