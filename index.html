@@ -112,8 +112,13 @@
                         </a>
                         <ul class="nav-sublist">
                             <li><a href="#effect2ugui" class="nav-link" data-section="effect2ugui">Effect2UGUI</a></li>
-                            <li><a href="#figma-to-unity" class="nav-link" data-section="figma-to-unity">Figma 导入 Unity</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#figma-to-unity" class="nav-link" data-section="figma-to-unity">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="6" r="3"/><circle cx="16" cy="6" r="3"/><circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/><circle cx="8" cy="18" r="3"/></svg>
+                            <span>Figma 导入 Unity</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -218,6 +223,11 @@
                             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 15l.9 2.6L22 18.5l-2.1.9L19 22l-.9-2.6-2.1-.9 2.1-.9L19 15z"/></svg></div>
                             <h3>AI 生成</h3>
                             <p>设计图 + 切图资源，自动生成可编辑 uGUI 预制体粗稿</p>
+                        </a>
+                        <a class="glass-card clickable liquid-card" data-goto="figma-to-unity">
+                            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="6" r="3"/><circle cx="16" cy="6" r="3"/><circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/><circle cx="8" cy="18" r="3"/></svg></div>
+                            <h3>Figma 导入 Unity</h3>
+                            <p>读取 Figma Frame/Node 结构，直接生成 layout 配置和 uGUI 界面</p>
                         </a>
                     </div>
 
@@ -1951,13 +1961,11 @@ spinner.Hide();    // 隐藏</code></div>
                         <h3>模块包含</h3>
                         <ul class="feature-list">
                             <li><strong>Effect2UGUI</strong>：根据设计图和 UI 元素目录生成 uGUI 预制体粗稿。</li>
-                            <li><strong>Figma 导入 Unity</strong>：读取 Figma Frame/Node 结构，生成布局配置和可编辑 uGUI 界面。</li>
                         </ul>
                     </div>
                     <div class="glass-card">
                         <h3>创建方式</h3>
-                        <div class="code-block"><code>右键 Hierarchy &gt; GameObject &gt; 模板 &gt; AI生成 &gt; Effect2UGUI 代理任务</code></div>
-                        <p style="margin-top:10px;">如果使用 Figma 导入，在任务 Inspector 的 <strong>输入模式</strong> 中切换到 <strong>Figma</strong>。</p>
+                        <div class="code-block"><code>右键 Hierarchy &gt; GameObject &gt; 模板 &gt; Effect2UGUI &gt; 代理任务</code></div>
                     </div>
                 </section>
 
@@ -2003,7 +2011,7 @@ spinner.Hide();    // 隐藏</code></div>
                     <div class="glass-card">
                         <h3>使用步骤</h3>
                         <div class="steps">
-                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建任务对象：<code>GameObject &gt; 模板 &gt; AI生成 &gt; Effect2UGUI 代理任务</code>。</p></div></div>
+                            <div class="step"><div class="step-num">1</div><div class="step-content"><p>创建任务对象：<code>GameObject &gt; 模板 &gt; Effect2UGUI &gt; 代理任务</code>。</p></div></div>
                             <div class="step"><div class="step-num">2</div><div class="step-content"><p>在 <strong>输入</strong> 标签页填界面名称、UI 元素目录、设计图、工作目录和输出目录。项目内资源直接拖进去；外部文件用路径。</p></div></div>
                             <div class="step"><div class="step-num">3</div><div class="step-content"><p>在 <strong>代理</strong> 标签页选择 Codex、Claude Code 或自定义命令。一般保持“启动前生成资源清单”开启。</p></div></div>
                             <div class="step"><div class="step-num">4</div><div class="step-content"><p>进入 <strong>命令</strong> 标签页，复制命令，或者直接启动代理终端。Agent 只生成布局 JSON 和报告，不直接写 prefab。</p></div></div>
@@ -2042,6 +2050,11 @@ spinner.Hide();    // 隐藏</code></div>
                     </div>
 
                     <div class="glass-card">
+                        <h3>创建方式</h3>
+                        <div class="code-block"><code>右键 Hierarchy &gt; GameObject &gt; 模板 &gt; Figma 导入 Unity &gt; 导入任务</code></div>
+                    </div>
+
+                    <div class="glass-card">
                         <h3>操作流程</h3>
 
                         <div class="media-placeholder">
@@ -2056,7 +2069,7 @@ spinner.Hide();    // 隐藏</code></div>
 
                         <div class="media-placeholder">
                             <img src="assets/images/figma-step2-config.png" alt="在 Unity Inspector 中填写 Figma 链接和 Token" style="max-width:100%;border-radius:12px;">
-                            <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 第 3 步：创建 Effect2UGUI 任务，输入模式切为 <strong>Figma</strong>，填入链接和 Token</p>
+                            <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 第 3 步：创建 <strong>Figma 导入 Unity</strong> 任务，填入链接和 Token</p>
                         </div>
 
                         <div class="media-placeholder">
