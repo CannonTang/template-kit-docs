@@ -264,6 +264,7 @@
                             <li><strong>ImageFill 模式</strong> — 控制 Image 的 fillAmount（进度条、冷却环等）</li>
                         </ul>
                         <p style="margin-top:10px;">更适合做<strong>轻量、直接、无需 Animator Controller</strong> 的交互动画：面板滑入、按钮弹出、图标旋转、进度填充、冷却圈推进这类两端状态明确的场景都很合适。</p>
+                        <p style="margin-top:10px;">V0.06 新增 <strong>PingPong 循环</strong>（到达目标后自动反向往复）和 <strong>FullRotation 旋转模式</strong>（欧拉角插值，支持 >360° 多圈旋转）。</p>
                     </div>
 
                     <div class="media-placeholder">
@@ -331,7 +332,9 @@
                                 <tr><td>Mode</td><td>Transform 或 ImageFill</td></tr>
                                 <tr><td>Duration</td><td>动画时长（秒）</td></tr>
                                 <tr><td>Use Local Space</td><td>是否使用本地坐标（建议 UI 元素开启）</td></tr>
-                                <tr><td>Rotation Mode</td><td>ShortestPath（最短路径）或 FullRotation（完整旋转）</td></tr>
+                                <tr><td>Rotation Mode</td><td>ShortestPath（Slerp 最短路径）或 FullRotation（欧拉角插值，支持多圈）</td></tr>
+                                <tr><td>Origin / Display Euler</td><td>FullRotation 模式下的欧拉角覆盖值，支持 &gt;360° 和负值</td></tr>
+                                <tr><td>Loop Mode</td><td>Once（播放一次）或 PingPong（到达后自动反向，持续往复）</td></tr>
                                 <tr><td>Init Behaviour</td><td>组件启用时自动定位到起点/终点/不处理</td></tr>
                             </tbody>
                         </table>
@@ -368,6 +371,9 @@ anim.SetOriginImmediate();
 
 // 重复播放（来回 N 次）
 anim.ToDisplay(3);             // 到终点再回来，重复 3 次
+
+// PingPong 循环（需在 Inspector 中设置 Loop Mode = PingPong）
+anim.ToDisplay();              // 持续往复，直到 KillAll()
 
 // 停止
 anim.KillAll();</code></div>
@@ -450,7 +456,7 @@ anim.KillAll();</code></div>
 
                     <div class="glass-card">
                         <h3>Edit 模式预览</h3>
-                        <p>在 <strong>调试</strong> 标签页中，无需进入 Play 模式即可预览完整路径动画，方便调参和验证路径效果。</p>
+                        <p>在 <strong>调试</strong> 标签页中，无需进入 Play 模式即可预览完整路径动画，方便调参和验证路径效果。若路径点不足 2 个，页面会显示提示，需先在「配置」页签添加路径点。</p>
                         <ul class="feature-list">
                             <li><strong>模拟预览</strong> — 物体沿路径移动仅是视觉模拟，预览结束后自动还原到原始位置，不会改变物体的实际 Transform 状态</li>
                             <li><strong>自动还原</strong> — 进入 Play 模式或点击选中其他物体时，物体会立即回到预览前的原始状态，无需手动撤销</li>
