@@ -469,6 +469,15 @@ anim.KillAll();</code></div>
                         <h3 id="path-animator-code">代码调用速查</h3>
                         <div class="code-block"><code>var path = GetComponent&lt;PathAnimator&gt;();
 
+// 运行时动态配置路径
+path.ConfigurePath(target, waypoints, duration: 5f,
+    interpolation: InterpolationMode.CatmullRom,
+    loopMode: LoopMode.Loop,
+    lookAtMode: LookAtMode.Forward,
+    speedMode: SpeedMode.Constant,
+    closePath: true,
+    useLocalSpace: false);
+
 path.PlayForward();
 
 path.PlayReverse();
@@ -617,7 +626,7 @@ ctrl.Resume();</code></div>
                                 <tr><td>Q</td><td>下降</td></tr>
                                 <tr><td>=</td><td>加速移动</td></tr>
                                 <tr><td>-</td><td>减速移动</td></tr>
-                                <tr><td>鼠标左键拖拽</td><td>环顾四周（俯仰 + 偏航）</td></tr>
+                                <tr><td>鼠标右键拖拽</td><td>环顾四周（俯仰 + 偏航），可在 Inspector 中切换为左键</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -640,7 +649,7 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>在 Scene View 左下角面板中一键捕获相机位置（或轨道参数），运行时按名称平滑切换。支持通用模式（鸟瞰/第一人称）直接记录相机位置，以及旋转缩放模式记录轨道中心点+距离+偏航/俯仰角。</p>
+                        <p>在 Scene View 左下角面板中一键捕获相机位置，运行时按名称平滑切换。每个视角点支持两种姿态模式：<strong>点位还原模式</strong>直接使用目标 Transform 的位置和旋转；<strong>偏移朝向模式</strong>通过相对偏移和朝向角控制相机。旋转缩放模式下还可记录轨道中心点+距离+偏航/俯仰角进行环绕。</p>
                     </div>
 
                     <!-- 场景一：通用模式 -->
@@ -688,7 +697,7 @@ cam.DoFocus(targetTransform, relativeEulers, relativePosition);</code></div>
 // 按名称切换到预设机位（自动切换到该点位的相机模式）
 zoom.SetCameraTarget("Lobby");
 
-// 直接传配置对象
+// 直接传配置对象（偏移朝向模式）
 zoom.SetCameraTarget(new CameraZoomController.CameraCenterTargetInform {
     name = "MachineA",
     target = targetTransform,
@@ -696,9 +705,18 @@ zoom.SetCameraTarget(new CameraZoomController.CameraCenterTargetInform {
     rotationAngleY = 35f,
     rotationAngleX = 20f,
     duration = 1.2f,
+    poseMode = CameraZoomController.CameraPoseMode.OffsetAndLookEulers,
     switchCameraMode = true,
     targetCameraMode = CameraController.CameraTypeEnum.旋转缩放式相机,
     rotateSpeed = 36f   // 环绕速度 度/秒，默认 36
+});
+
+// 点位还原模式：直接还原到目标的 Transform 位置和旋转
+zoom.SetCameraTarget(new CameraZoomController.CameraCenterTargetInform {
+    name = "Overview",
+    target = overviewTransform,
+    duration = 1.5f,
+    poseMode = CameraZoomController.CameraPoseMode.PointTransformRestore
 });
 
 // 旋转缩放模式下：绕目标环绕
@@ -2051,8 +2069,8 @@ spinner.Hide();    // 隐藏</code></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>读取 Figma Frame/Node 的结构，生成布局配置，再生成 uGUI prefab。</p>
-                        <p style="margin-top:10px;">文本尽量保留为 TMP 文本节点；容器保留为 UI 层级；图片填充、渐变、阴影等复杂图层自动导出为 PNG 放进资源目录。</p>
+                        <p>读取 Figma Frame/Node 的结构，生成布局配置，再生成 uGUI prefab。图片下载在后台执行，导入过程中可以继续使用 Unity 编辑器。</p>
+                        <p style="margin-top:10px;">文本尽量保留为 TMP 文本节点；容器保留为 UI 层级；图片填充、渐变、阴影等复杂图层自动导出为 PNG 放进资源目录。个别图片下载失败不会中断整体流程，已有的本地资源可继续复用。</p>
                     </div>
 
                     <div class="glass-card">
