@@ -2106,7 +2106,7 @@ spinner.Hide();    // 隐藏</code></div>
                         <div style="margin-top:20px;">
                             <h4>可选：为特殊节点使用 Figma 最终渲染图</h4>
                             <p>在任务的<strong>输入</strong>页签点击<strong>打开节点规划器</strong>，再执行<strong>分析 Figma</strong>。分析只读取节点结构和一张根节点预览，不会下载全部切图。</p>
-                            <p style="margin-top:10px;">左侧节点树支持使用 <kbd>Cmd/Ctrl</kbd> 或 <kbd>Shift</kbd> 显式多选，再把同一策略一次应用到全部选中节点。批次中只要存在叶子节点、父子范围重叠或锁定冲突，整批都会被拒绝，不会只写入其中一部分。</p>
+                            <p style="margin-top:10px;">左侧节点树支持使用 <kbd>Cmd/Ctrl</kbd> 或 <kbd>Shift</kbd> 显式多选，再把同一策略一次应用到全部选中节点；容器与带特殊效果的叶子节点都可以使用最终渲染图。批次中只要存在父子范围重叠或锁定冲突，整批都会被拒绝，不会只写入其中一部分。</p>
                             <p style="margin-top:10px;">中间预览支持选择和平移模式、滚轮缩放及适配视图。单选节点后可按需获取 Figma 最终渲染效果预览；确认后选择<strong>使用 Figma 最终渲染图</strong>，节点视觉会替换为一张 Figma 合成 PNG，后代仍以 Empty RectTransform 保留名称和绑定位置。也可选择移除后代。规划以 Node ID 保存；Figma 版本变化后，新增节点仍默认完整保留，失效指令会明确提示。</p>
                         </div>
 
