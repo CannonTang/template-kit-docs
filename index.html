@@ -2070,8 +2070,9 @@ spinner.Hide();    // 隐藏</code></div>
 
                     <div class="glass-card">
                         <h3>它能做什么</h3>
-                        <p>读取 Figma Frame/Node 的结构，生成布局配置，再生成 uGUI prefab。图片下载在后台执行，导入过程中可以继续使用 Unity 编辑器。</p>
+                        <p>读取 Figma Frame/Node 的结构，生成布局配置，再生成 uGUI prefab。图片使用受控并发在后台下载，支持断点缓存、失败重试和主动取消，导入过程中可以继续使用 Unity 编辑器。</p>
                         <p style="margin-top:10px;">文本尽量保留为 TMP 文本节点；容器保留为 UI 层级；图片填充、渐变、阴影等复杂图层自动导出为 PNG 放进资源目录。</p>
+                        <p style="margin-top:10px;">默认完整保留全部节点。遇到 Mask、模糊、混合模式等 Unity 无法直接还原的后期效果时，可在节点规划器中明确选择特殊节点，改用 Figma 最终渲染 PNG；未确认的节点不会自动合并。</p>
                     </div>
 
                     <div class="glass-card">
@@ -2102,6 +2103,13 @@ spinner.Hide();    // 隐藏</code></div>
                             <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 第 4 步：进入生成标签页，点 <strong>导入 Figma 并生成配置</strong>，再点 <strong>生成界面</strong></p>
                         </div>
 
+                        <div style="margin-top:20px;">
+                            <h4>可选：为特殊节点使用 Figma 最终渲染图</h4>
+                            <p>在任务的<strong>输入</strong>页签点击<strong>打开节点规划器</strong>，再执行<strong>分析 Figma</strong>。分析只读取节点结构和一张根节点预览，不会下载全部切图。</p>
+                            <p style="margin-top:10px;">左侧节点树支持使用 <kbd>Cmd/Ctrl</kbd> 或 <kbd>Shift</kbd> 显式多选，再把同一策略一次应用到全部选中节点。批次中只要存在叶子节点、父子范围重叠或锁定冲突，整批都会被拒绝，不会只写入其中一部分。</p>
+                            <p style="margin-top:10px;">中间预览支持选择和平移模式、滚轮缩放及适配视图。单选节点后可按需获取 Figma 最终渲染效果预览；确认后选择<strong>使用 Figma 最终渲染图</strong>，节点视觉会替换为一张 Figma 合成 PNG，后代仍以 Empty RectTransform 保留名称和绑定位置。也可选择移除后代。规划以 Node ID 保存；Figma 版本变化后，新增节点仍默认完整保留，失效指令会明确提示。</p>
+                        </div>
+
                         <div class="media-placeholder">
                             <video data-src="assets/images/video-exportfigmaprefab.mp4" aria-label="从 Figma 导入到最终生成 prefab 的完整流程演示" autoplay muted loop playsinline preload="none" controls></video>
                             <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 最终效果：从 Figma 链接到生成可编辑 uGUI prefab 的完整流程</p>
@@ -2118,6 +2126,10 @@ spinner.Hide();    // 隐藏</code></div>
                                 <tr><td>导出倍率</td><td>复杂节点导出 PNG 的倍率，默认 <code>2</code>。</td></tr>
                                 <tr><td>仅导入可见节点</td><td>开启后跳过 Figma 中隐藏的图层，建议保持开启。</td></tr>
                                 <tr><td>复杂节点导出图片</td><td>无法还原为可编辑节点的内容自动导出 PNG。</td></tr>
+                                <tr><td>并发下载数</td><td>并行下载 Figma 已生成的 CDN 图片，默认 <code>6</code>；不会并发调用受限的 Figma REST API。</td></tr>
+                                <tr><td>单图重试次数</td><td>单张图片下载失败后的自动重试次数，默认 <code>3</code>。</td></tr>
+                                <tr><td>启用断点缓存</td><td>把已完成图片缓存到本机 <code>Library/Effect2UGUI</code>，取消或失败后可在下次导入中复用。</td></tr>
+                                <tr><td>节点方案</td><td>节点规划器生成的方案资源；可让指定特殊节点使用 Figma 最终渲染 PNG。留空时完整保留节点。</td></tr>
                                 <tr><td>输出目录</td><td>生成的 prefab 和资源的保存位置，建议放在 <code>Assets</code> 下。</td></tr>
                             </tbody>
                         </table>
