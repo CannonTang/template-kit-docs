@@ -2108,6 +2108,11 @@ spinner.Hide();    // 隐藏</code></div>
                             <p>在任务的<strong>输入</strong>页签点击<strong>打开节点规划器</strong>，再执行<strong>分析 Figma</strong>。分析只读取节点结构和一张根节点预览，不会下载全部切图。</p>
                             <p style="margin-top:10px;">左侧节点树支持使用 <kbd>Cmd/Ctrl</kbd> 或 <kbd>Shift</kbd> 多选。选中容器或带特殊效果的叶子节点后，点击<strong>使用 Figma 最终渲染图</strong>即可批量启用；需要撤销时点击<strong>恢复普通导入</strong>。存在父子范围重叠时整批不会写入。</p>
                             <p style="margin-top:10px;">中间预览支持选择、拖拽平移、滚轮缩放及适配视图。单选节点后可先预览正式导入所使用的同一张 Figma 最终渲染 PNG；启用后，节点视觉替换为该 PNG，后代仍以 Empty RectTransform 保留名称和绑定位置。规划以 Node ID 保存；场景引用丢失时会从当前输出目录自动恢复匹配方案，Figma 中失效的 Node ID 会明确提示。</p>
+
+                            <div class="media-placeholder">
+                                <video data-src="assets/images/video-figma-render-type.mp4" aria-label="在节点规划器中预览并启用 Figma 最终渲染图" autoplay muted loop playsinline preload="none" controls></video>
+                                <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-top:8px;">▲ 选择特殊节点，预览 Figma 最终渲染后批量启用</p>
+                            </div>
                         </div>
 
                         <div class="media-placeholder">
